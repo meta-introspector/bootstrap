@@ -1,0 +1,12 @@
+[package]
+name = "bootstrap"
+version = "0.1.0"
+edition = "2021"
+description = "A minimal, self-contained bootstrap microkernel"
+license = "MIT"
+repository = "https://github.com/solfunmeme-dioxus"
+keywords = ["microkernel", "bootstrap", "content-addressable"]
+categories = ["system"]
+
+[dependencies]
+# Intentionally empty - zero dependencies for true bootstrap capability 
