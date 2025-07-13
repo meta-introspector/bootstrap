@@ -1,0 +1,12 @@
+[package]
+name = "bootstrap-stage1"
+version = "0.1.0"
+edition = "2021"
+description = "Bootstrap Stage 1 - Duality and Paired Systems"
+license = "MIT"
+repository = "https://github.com/solfunmeme-dioxus"
+keywords = ["microkernel", "bootstrap", "duality", "paired-systems"]
+categories = ["system"]
+
+[dependencies]
+bootstrap = { path = ".." } 
