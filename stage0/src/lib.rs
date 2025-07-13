@@ -1,9 +1,146 @@
-//! Bootstrap Stage0 - Flow-Based Microkernel
-//! 
-//! A system constructed as flows where each type is a potential flow
-//! in a Navier-Stokes equation. Each module is a vector field,
-//! each function is a flow operation, and the system is a higher-order
-//! potential flow.
+//!
+//! # Bootstrap Stage0 - Flow-Based Microkernel
+//!
+//! ## Philosophy
+//!
+//! Bootstrap Stage0 is a minimal, self-contained microkernel constructed as **flows** where each type is a **potential flow** in a Navier-Stokes equation. Each module is a **vector field**, each function is a **flow operation**, and the system is a **higher-order potential flow**.
+//!
+//! - **Each type = a potential flow** in mathematical space
+//! - **Each file = a vector field** with defined operations
+//! - **Each function = a flow operation** that transforms data
+//! - **Each module = a flow component** with specific responsibilities
+//! - **The system = a higher-order potential flow** that coordinates all sub-flows
+//!
+//! ## Mathematical Foundations
+//!
+//! The system is built on fluid dynamics principles:
+//! - **Gradient**: Rate of change in potential
+//! - **Divergence**: Flow source/sink strength
+//! - **Curl**: Vorticity of the flow field
+//! - **Potential**: Scalar field from which flow derives
+//!
+//! ### 42-Step Cycle
+//! The system operates on a 42-step cycle, representing:
+//! - **Flow periodicity**: System returns to initial state every 42 operations
+//! - **Potential cycling**: Each operation advances the cycle potential
+//! - **Field evolution**: Flow field evolves through 42 distinct states
+//!
+//! ## Architecture
+//!
+//! ### File Structure
+//! ```
+//! src/
+//! ├── hash.rs         // Hash potential flow
+//! ├── artifact.rs     // Artifact potential flow  
+//! ├── storage.rs      // Storage potential flow
+//! ├── kernel.rs       // Kernel potential flow
+//! ├── system.rs       // System potential flow
+//! └── lib.rs          // Unified flow field
+//! ```
+//!
+//! ## Flow Types
+//!
+//! ### 1. Hash Flow (`hash.rs`)
+//! **Purpose**: Content identification through hash space
+//!
+//! - **Flow Field**: Hash space where content converges
+//! - **Flow Operator**: `hash_flow(data) -> Hash`
+//! - **Mathematical**: Represents a potential in content identification field
+//! - **Properties**: Gradient, flow field, potential convergence
+//!
+//! ### 2. Artifact Flow (`artifact.rs`)
+//! **Purpose**: Content storage and materialization
+//!
+//! - **Flow Field**: Storage space where content materializes
+//! - **Flow Operator**: `artifact_flow(content) -> Artifact`
+//! - **Mathematical**: Represents a potential in content storage field
+//! - **Properties**: Divergence, content flow, materialization
+//!
+//! ### 3. Storage Flow (`storage.rs`)
+//! **Purpose**: Storage field operations
+//!
+//! - **Flow Field**: Field of storage potentials where artifacts converge
+//! - **Flow Operator**: `storage_flow() -> Storage`
+//! - **Mathematical**: Represents a field of storage potentials
+//! - **Properties**: Curl, field operations, potential mapping
+//!
+//! ### 4. Kernel Flow (`kernel.rs`)
+//! **Purpose**: System coordination and cycle management
+//!
+//! - **Flow Field**: Central coordination field where all flows converge
+//! - **Flow Operator**: `kernel_flow() -> Kernel`
+//! - **Mathematical**: Represents the central coordination potential
+//! - **Properties**: System divergence, cycle management, flow coordination
+//!
+//! ### 5. System Flow (`system.rs`)
+//! **Purpose**: Complete bootstrap system as unified flow field
+//!
+//! - **Flow Field**: Unified flow field where all potentials converge
+//! - **Flow Operator**: `system_flow() -> System`
+//! - **Mathematical**: Higher-order potential that coordinates all sub-flows
+//! - **Properties**: System curl, total divergence, unified coordination
+//!
+//! ## API Reference
+//!
+//! ### Main Interface
+//!
+//! ```rust
+//! pub struct Bootstrap {
+//!     system: System,
+//! }
+//!
+//! impl Bootstrap {
+//!     pub fn new() -> Self
+//!     pub fn store(&mut self, content: Vec<u8>) -> Hash
+//!     pub fn retrieve(&self, hash: &Hash) -> Option<Artifact>
+//!     pub fn cycle_step(&self) -> u64
+//!     pub fn total_divergence(&self) -> usize
+//!     pub fn curl(&self) -> u64
+//! }
+//! ```
+//!
+//! ### Usage Example
+//!
+//! ```rust
+//! use bootstrap::Bootstrap;
+//!
+//! let mut bootstrap = Bootstrap::new();
+//! let content = b"Hello, Flow World!".to_vec();
+//! let hash = bootstrap.store(content);
+//! let retrieved = bootstrap.retrieve(&hash);
+//! let divergence = bootstrap.total_divergence();
+//! let curl = bootstrap.curl();
+//! let cycle = bootstrap.cycle_step();
+//! ```
+//!
+//! ## Mathematical Properties
+//!
+//! - **Hash**: Potential in content identification field
+//! - **Artifact**: Potential in content storage field
+//! - **Storage**: Field of storage potentials
+//! - **Kernel**: Central coordination potential
+//! - **System**: Higher-order potential flow
+//!
+//! ### Flow Properties
+//! - **Gradient**: Rate of change in potential (Hash)
+//! - **Divergence**: Flow source/sink strength (Artifact, Kernel, System)
+//! - **Curl**: Vorticity of the flow field (Storage, System)
+//! - **Potential**: Scalar field from which flow derives (all types)
+//!
+//! ## Design Principles
+//!
+//! - **Minimalism**: Zero dependencies, only essential functionality
+//! - **Flow-Based Design**: Mathematical consistency, composable operations
+//! - **Content-Addressable Storage**: All data identified by content hash
+//! - **Extensibility**: Pluggable components, modular flow architecture
+//!
+//! ## Testing
+//!
+//! Run `cargo test` to verify flow behavior and mathematical consistency.
+//!
+//! ## License
+//!
+//! MIT License - see LICENSE file for details.
 
 pub mod hash;
 pub mod artifact;

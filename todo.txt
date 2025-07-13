@@ -1,0 +1,462 @@
+   Compiling bootstrap v0.1.0 (/mnt/c/Users/gentd/OneDrive/Documents/GitHub/solfunmeme-dioxus/bootstrap)
+error[E0583]: file not found for module `harmonic_lattice`
+  --> bootstrap/src/bin/stage0.rs:10:1
+   |
+10 | mod harmonic_lattice;
+   | ^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: to create the module `harmonic_lattice`, create file "bootstrap/src/bin/harmonic_lattice.rs" or "bootstrap/src/bin/harmonic_lattice/mod.rs"
+   = note: if there is a `mod harmonic_lattice` elsewhere in the crate already, import it with `use crate::...` instead
+
+error[E0583]: file not found for module `prime_stages`
+  --> bootstrap/src/bin/stage0.rs:11:1
+   |
+11 | mod prime_stages;
+   | ^^^^^^^^^^^^^^^^^
+   |
+   = help: to create the module `prime_stages`, create file "bootstrap/src/bin/prime_stages.rs" or "bootstrap/src/bin/prime_stages/mod.rs"
+   = note: if there is a `mod prime_stages` elsewhere in the crate already, import it with `use crate::...` instead
+
+error[E0583]: file not found for module `fibonacci_stages`
+  --> bootstrap/src/bin/stage0.rs:12:1
+   |
+12 | mod fibonacci_stages;
+   | ^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: to create the module `fibonacci_stages`, create file "bootstrap/src/bin/fibonacci_stages.rs" or "bootstrap/src/bin/fibonacci_stages/mod.rs"
+   = note: if there is a `mod fibonacci_stages` elsewhere in the crate already, import it with `use crate::...` instead
+
+error[E0583]: file not found for module `pharmonic_mapping`
+  --> bootstrap/src/bin/stage0.rs:13:1
+   |
+13 | mod pharmonic_mapping;
+   | ^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: to create the module `pharmonic_mapping`, create file "bootstrap/src/bin/pharmonic_mapping.rs" or "bootstrap/src/bin/pharmonic_mapping/mod.rs"
+   = note: if there is a `mod pharmonic_mapping` elsewhere in the crate already, import it with `use crate::...` instead
+
+error[E0583]: file not found for module `oeis_quasifibers`
+  --> bootstrap/src/bin/stage0.rs:14:1
+   |
+14 | mod oeis_quasifibers;
+   | ^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: to create the module `oeis_quasifibers`, create file "bootstrap/src/bin/oeis_quasifibers.rs" or "bootstrap/src/bin/oeis_quasifibers/mod.rs"
+   = note: if there is a `mod oeis_quasifibers` elsewhere in the crate already, import it with `use crate::...` instead
+
+error[E0583]: file not found for module `abbott_periodicity`
+  --> bootstrap/src/bin/stage0.rs:15:1
+   |
+15 | mod abbott_periodicity;
+   | ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: to create the module `abbott_periodicity`, create file "bootstrap/src/bin/abbott_periodicity.rs" or "bootstrap/src/bin/abbott_periodicity/mod.rs"
+   = note: if there is a `mod abbott_periodicity` elsewhere in the crate already, import it with `use crate::...` instead
+
+error[E0583]: file not found for module `inference_quasifibers`
+  --> bootstrap/src/bin/stage0.rs:16:1
+   |
+16 | mod inference_quasifibers;
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: to create the module `inference_quasifibers`, create file "bootstrap/src/bin/inference_quasifibers.rs" or "bootstrap/src/bin/inference_quasifibers/mod.rs"
+   = note: if there is a `mod inference_quasifibers` elsewhere in the crate already, import it with `use crate::...` instead
+
+error[E0583]: file not found for module `provability`
+  --> bootstrap/src/bin/stage0.rs:17:1
+   |
+17 | mod provability;
+   | ^^^^^^^^^^^^^^^^
+   |
+   = help: to create the module `provability`, create file "bootstrap/src/bin/provability.rs" or "bootstrap/src/bin/provability/mod.rs"
+   = note: if there is a `mod provability` elsewhere in the crate already, import it with `use crate::...` instead
+
+error[E0583]: file not found for module `generate_mains`
+  --> bootstrap/src/bin/stage0.rs:18:1
+   |
+18 | mod generate_mains;
+   | ^^^^^^^^^^^^^^^^^^^
+   |
+   = help: to create the module `generate_mains`, create file "bootstrap/src/bin/generate_mains.rs" or "bootstrap/src/bin/generate_mains/mod.rs"
+   = note: if there is a `mod generate_mains` elsewhere in the crate already, import it with `use crate::...` instead
+
+error[E0583]: file not found for module `main01`
+  --> bootstrap/src/bin/stage0.rs:21:1
+   |
+21 | mod main01; mod main02; mod main03; mod main04; mod main05; mod main06; mod main07; mod main08; mod main09; mod main10;
+   | ^^^^^^^^^^^
+   |
+   = help: to create the module `main01`, create file "bootstrap/src/bin/main01.rs" or "bootstrap/src/bin/main01/mod.rs"
+   = note: if there is a `mod main01` elsewhere in the crate already, import it with `use crate::...` instead
+
+error[E0583]: file not found for module `main02`
+  --> bootstrap/src/bin/stage0.rs:21:13
+   |
+21 | mod main01; mod main02; mod main03; mod main04; mod main05; mod main06; mod main07; mod main08; mod main09; mod main10;
+   |             ^^^^^^^^^^^
+   |
+   = help: to create the module `main02`, create file "bootstrap/src/bin/main02.rs" or "bootstrap/src/bin/main02/mod.rs"
+   = note: if there is a `mod main02` elsewhere in the crate already, import it with `use crate::...` instead
+
+error[E0583]: file not found for module `main03`
+  --> bootstrap/src/bin/stage0.rs:21:25
+   |
+21 | mod main01; mod main02; mod main03; mod main04; mod main05; mod main06; mod main07; mod main08; mod main09; mod main10;
+   |                         ^^^^^^^^^^^
+   |
+   = help: to create the module `main03`, create file "bootstrap/src/bin/main03.rs" or "bootstrap/src/bin/main03/mod.rs"
+   = note: if there is a `mod main03` elsewhere in the crate already, import it with `use crate::...` instead
+
+error[E0583]: file not found for module `main04`
+  --> bootstrap/src/bin/stage0.rs:21:37
+   |
+21 | mod main01; mod main02; mod main03; mod main04; mod main05; mod main06; mod main07; mod main08; mod main09; mod main10;
+   |                                     ^^^^^^^^^^^
+   |
+   = help: to create the module `main04`, create file "bootstrap/src/bin/main04.rs" or "bootstrap/src/bin/main04/mod.rs"
+   = note: if there is a `mod main04` elsewhere in the crate already, import it with `use crate::...` instead
+
+error[E0583]: file not found for module `main05`
+  --> bootstrap/src/bin/stage0.rs:21:49
+   |
+21 | mod main01; mod main02; mod main03; mod main04; mod main05; mod main06; mod main07; mod main08; mod main09; mod main10;
+   |                                                 ^^^^^^^^^^^
+   |
+   = help: to create the module `main05`, create file "bootstrap/src/bin/main05.rs" or "bootstrap/src/bin/main05/mod.rs"
+   = note: if there is a `mod main05` elsewhere in the crate already, import it with `use crate::...` instead
+
+error[E0583]: file not found for module `main06`
+  --> bootstrap/src/bin/stage0.rs:21:61
+   |
+21 | mod main01; mod main02; mod main03; mod main04; mod main05; mod main06; mod main07; mod main08; mod main09; mod main10;
+   |                                                             ^^^^^^^^^^^
+   |
+   = help: to create the module `main06`, create file "bootstrap/src/bin/main06.rs" or "bootstrap/src/bin/main06/mod.rs"
+   = note: if there is a `mod main06` elsewhere in the crate already, import it with `use crate::...` instead
+
+error[E0583]: file not found for module `main07`
+  --> bootstrap/src/bin/stage0.rs:21:73
+   |
+21 | mod main01; mod main02; mod main03; mod main04; mod main05; mod main06; mod main07; mod main08; mod main09; mod main10;
+   |                                                                         ^^^^^^^^^^^
+   |
+   = help: to create the module `main07`, create file "bootstrap/src/bin/main07.rs" or "bootstrap/src/bin/main07/mod.rs"
+   = note: if there is a `mod main07` elsewhere in the crate already, import it with `use crate::...` instead
+
+error[E0583]: file not found for module `main08`
+  --> bootstrap/src/bin/stage0.rs:21:85
+   |
+21 | mod main01; mod main02; mod main03; mod main04; mod main05; mod main06; mod main07; mod main08; mod main09; mod main10;
+   |                                                                                     ^^^^^^^^^^^
+   |
+   = help: to create the module `main08`, create file "bootstrap/src/bin/main08.rs" or "bootstrap/src/bin/main08/mod.rs"
+   = note: if there is a `mod main08` elsewhere in the crate already, import it with `use crate::...` instead
+
+error[E0583]: file not found for module `main09`
+  --> bootstrap/src/bin/stage0.rs:21:97
+   |
+21 | mod main01; mod main02; mod main03; mod main04; mod main05; mod main06; mod main07; mod main08; mod main09; mod main10;
+   |                                                                                                 ^^^^^^^^^^^
+   |
+   = help: to create the module `main09`, create file "bootstrap/src/bin/main09.rs" or "bootstrap/src/bin/main09/mod.rs"
+   = note: if there is a `mod main09` elsewhere in the crate already, import it with `use crate::...` instead
+
+error[E0583]: file not found for module `main10`
+  --> bootstrap/src/bin/stage0.rs:21:109
+   |
+21 | mod main01; mod main02; mod main03; mod main04; mod main05; mod main06; mod main07; mod main08; mod main09; mod main10;
+   |                                                                                                             ^^^^^^^^^^^
+   |
+   = help: to create the module `main10`, create file "bootstrap/src/bin/main10.rs" or "bootstrap/src/bin/main10/mod.rs"
+   = note: if there is a `mod main10` elsewhere in the crate already, import it with `use crate::...` instead
+
+error[E0583]: file not found for module `main11`
+  --> bootstrap/src/bin/stage0.rs:22:1
+   |
+22 | mod main11; mod main12; mod main13; mod main14; mod main15; mod main16; mod main17; mod main18; mod main19; mod main20;
+   | ^^^^^^^^^^^
+   |
+   = help: to create the module `main11`, create file "bootstrap/src/bin/main11.rs" or "bootstrap/src/bin/main11/mod.rs"
+   = note: if there is a `mod main11` elsewhere in the crate already, import it with `use crate::...` instead
+
+error[E0583]: file not found for module `main12`
+  --> bootstrap/src/bin/stage0.rs:22:13
+   |
+22 | mod main11; mod main12; mod main13; mod main14; mod main15; mod main16; mod main17; mod main18; mod main19; mod main20;
+   |             ^^^^^^^^^^^
+   |
+   = help: to create the module `main12`, create file "bootstrap/src/bin/main12.rs" or "bootstrap/src/bin/main12/mod.rs"
+   = note: if there is a `mod main12` elsewhere in the crate already, import it with `use crate::...` instead
+
+error[E0583]: file not found for module `main13`
+  --> bootstrap/src/bin/stage0.rs:22:25
+   |
+22 | mod main11; mod main12; mod main13; mod main14; mod main15; mod main16; mod main17; mod main18; mod main19; mod main20;
+   |                         ^^^^^^^^^^^
+   |
+   = help: to create the module `main13`, create file "bootstrap/src/bin/main13.rs" or "bootstrap/src/bin/main13/mod.rs"
+   = note: if there is a `mod main13` elsewhere in the crate already, import it with `use crate::...` instead
+
+error[E0583]: file not found for module `main14`
+  --> bootstrap/src/bin/stage0.rs:22:37
+   |
+22 | mod main11; mod main12; mod main13; mod main14; mod main15; mod main16; mod main17; mod main18; mod main19; mod main20;
+   |                                     ^^^^^^^^^^^
+   |
+   = help: to create the module `main14`, create file "bootstrap/src/bin/main14.rs" or "bootstrap/src/bin/main14/mod.rs"
+   = note: if there is a `mod main14` elsewhere in the crate already, import it with `use crate::...` instead
+
+error[E0583]: file not found for module `main15`
+  --> bootstrap/src/bin/stage0.rs:22:49
+   |
+22 | mod main11; mod main12; mod main13; mod main14; mod main15; mod main16; mod main17; mod main18; mod main19; mod main20;
+   |                                                 ^^^^^^^^^^^
+   |
+   = help: to create the module `main15`, create file "bootstrap/src/bin/main15.rs" or "bootstrap/src/bin/main15/mod.rs"
+   = note: if there is a `mod main15` elsewhere in the crate already, import it with `use crate::...` instead
+
+error[E0583]: file not found for module `main16`
+  --> bootstrap/src/bin/stage0.rs:22:61
+   |
+22 | mod main11; mod main12; mod main13; mod main14; mod main15; mod main16; mod main17; mod main18; mod main19; mod main20;
+   |                                                             ^^^^^^^^^^^
+   |
+   = help: to create the module `main16`, create file "bootstrap/src/bin/main16.rs" or "bootstrap/src/bin/main16/mod.rs"
+   = note: if there is a `mod main16` elsewhere in the crate already, import it with `use crate::...` instead
+
+error[E0583]: file not found for module `main17`
+  --> bootstrap/src/bin/stage0.rs:22:73
+   |
+22 | mod main11; mod main12; mod main13; mod main14; mod main15; mod main16; mod main17; mod main18; mod main19; mod main20;
+   |                                                                         ^^^^^^^^^^^
+   |
+   = help: to create the module `main17`, create file "bootstrap/src/bin/main17.rs" or "bootstrap/src/bin/main17/mod.rs"
+   = note: if there is a `mod main17` elsewhere in the crate already, import it with `use crate::...` instead
+
+error[E0583]: file not found for module `main18`
+  --> bootstrap/src/bin/stage0.rs:22:85
+   |
+22 | mod main11; mod main12; mod main13; mod main14; mod main15; mod main16; mod main17; mod main18; mod main19; mod main20;
+   |                                                                                     ^^^^^^^^^^^
+   |
+   = help: to create the module `main18`, create file "bootstrap/src/bin/main18.rs" or "bootstrap/src/bin/main18/mod.rs"
+   = note: if there is a `mod main18` elsewhere in the crate already, import it with `use crate::...` instead
+
+error[E0583]: file not found for module `main19`
+  --> bootstrap/src/bin/stage0.rs:22:97
+   |
+22 | mod main11; mod main12; mod main13; mod main14; mod main15; mod main16; mod main17; mod main18; mod main19; mod main20;
+   |                                                                                                 ^^^^^^^^^^^
+   |
+   = help: to create the module `main19`, create file "bootstrap/src/bin/main19.rs" or "bootstrap/src/bin/main19/mod.rs"
+   = note: if there is a `mod main19` elsewhere in the crate already, import it with `use crate::...` instead
+
+error[E0583]: file not found for module `main20`
+  --> bootstrap/src/bin/stage0.rs:22:109
+   |
+22 | mod main11; mod main12; mod main13; mod main14; mod main15; mod main16; mod main17; mod main18; mod main19; mod main20;
+   |                                                                                                             ^^^^^^^^^^^
+   |
+   = help: to create the module `main20`, create file "bootstrap/src/bin/main20.rs" or "bootstrap/src/bin/main20/mod.rs"
+   = note: if there is a `mod main20` elsewhere in the crate already, import it with `use crate::...` instead
+
+error[E0583]: file not found for module `main21`
+  --> bootstrap/src/bin/stage0.rs:23:1
+   |
+23 | mod main21; mod main22; mod main23; mod main24; mod main25; mod main26; mod main27; mod main28; mod main29; mod main30;
+   | ^^^^^^^^^^^
+   |
+   = help: to create the module `main21`, create file "bootstrap/src/bin/main21.rs" or "bootstrap/src/bin/main21/mod.rs"
+   = note: if there is a `mod main21` elsewhere in the crate already, import it with `use crate::...` instead
+
+error[E0583]: file not found for module `main22`
+  --> bootstrap/src/bin/stage0.rs:23:13
+   |
+23 | mod main21; mod main22; mod main23; mod main24; mod main25; mod main26; mod main27; mod main28; mod main29; mod main30;
+   |             ^^^^^^^^^^^
+   |
+   = help: to create the module `main22`, create file "bootstrap/src/bin/main22.rs" or "bootstrap/src/bin/main22/mod.rs"
+   = note: if there is a `mod main22` elsewhere in the crate already, import it with `use crate::...` instead
+
+error[E0583]: file not found for module `main23`
+  --> bootstrap/src/bin/stage0.rs:23:25
+   |
+23 | mod main21; mod main22; mod main23; mod main24; mod main25; mod main26; mod main27; mod main28; mod main29; mod main30;
+   |                         ^^^^^^^^^^^
+   |
+   = help: to create the module `main23`, create file "bootstrap/src/bin/main23.rs" or "bootstrap/src/bin/main23/mod.rs"
+   = note: if there is a `mod main23` elsewhere in the crate already, import it with `use crate::...` instead
+
+error[E0583]: file not found for module `main24`
+  --> bootstrap/src/bin/stage0.rs:23:37
+   |
+23 | mod main21; mod main22; mod main23; mod main24; mod main25; mod main26; mod main27; mod main28; mod main29; mod main30;
+   |                                     ^^^^^^^^^^^
+   |
+   = help: to create the module `main24`, create file "bootstrap/src/bin/main24.rs" or "bootstrap/src/bin/main24/mod.rs"
+   = note: if there is a `mod main24` elsewhere in the crate already, import it with `use crate::...` instead
+
+error[E0583]: file not found for module `main25`
+  --> bootstrap/src/bin/stage0.rs:23:49
+   |
+23 | mod main21; mod main22; mod main23; mod main24; mod main25; mod main26; mod main27; mod main28; mod main29; mod main30;
+   |                                                 ^^^^^^^^^^^
+   |
+   = help: to create the module `main25`, create file "bootstrap/src/bin/main25.rs" or "bootstrap/src/bin/main25/mod.rs"
+   = note: if there is a `mod main25` elsewhere in the crate already, import it with `use crate::...` instead
+
+error[E0583]: file not found for module `main26`
+  --> bootstrap/src/bin/stage0.rs:23:61
+   |
+23 | mod main21; mod main22; mod main23; mod main24; mod main25; mod main26; mod main27; mod main28; mod main29; mod main30;
+   |                                                             ^^^^^^^^^^^
+   |
+   = help: to create the module `main26`, create file "bootstrap/src/bin/main26.rs" or "bootstrap/src/bin/main26/mod.rs"
+   = note: if there is a `mod main26` elsewhere in the crate already, import it with `use crate::...` instead
+
+error[E0583]: file not found for module `main27`
+  --> bootstrap/src/bin/stage0.rs:23:73
+   |
+23 | mod main21; mod main22; mod main23; mod main24; mod main25; mod main26; mod main27; mod main28; mod main29; mod main30;
+   |                                                                         ^^^^^^^^^^^
+   |
+   = help: to create the module `main27`, create file "bootstrap/src/bin/main27.rs" or "bootstrap/src/bin/main27/mod.rs"
+   = note: if there is a `mod main27` elsewhere in the crate already, import it with `use crate::...` instead
+
+error[E0583]: file not found for module `main28`
+  --> bootstrap/src/bin/stage0.rs:23:85
+   |
+23 | mod main21; mod main22; mod main23; mod main24; mod main25; mod main26; mod main27; mod main28; mod main29; mod main30;
+   |                                                                                     ^^^^^^^^^^^
+   |
+   = help: to create the module `main28`, create file "bootstrap/src/bin/main28.rs" or "bootstrap/src/bin/main28/mod.rs"
+   = note: if there is a `mod main28` elsewhere in the crate already, import it with `use crate::...` instead
+
+error[E0583]: file not found for module `main29`
+  --> bootstrap/src/bin/stage0.rs:23:97
+   |
+23 | mod main21; mod main22; mod main23; mod main24; mod main25; mod main26; mod main27; mod main28; mod main29; mod main30;
+   |                                                                                                 ^^^^^^^^^^^
+   |
+   = help: to create the module `main29`, create file "bootstrap/src/bin/main29.rs" or "bootstrap/src/bin/main29/mod.rs"
+   = note: if there is a `mod main29` elsewhere in the crate already, import it with `use crate::...` instead
+
+error[E0583]: file not found for module `main30`
+  --> bootstrap/src/bin/stage0.rs:23:109
+   |
+23 | mod main21; mod main22; mod main23; mod main24; mod main25; mod main26; mod main27; mod main28; mod main29; mod main30;
+   |                                                                                                             ^^^^^^^^^^^
+   |
+   = help: to create the module `main30`, create file "bootstrap/src/bin/main30.rs" or "bootstrap/src/bin/main30/mod.rs"
+   = note: if there is a `mod main30` elsewhere in the crate already, import it with `use crate::...` instead
+
+error[E0583]: file not found for module `main31`
+  --> bootstrap/src/bin/stage0.rs:24:1
+   |
+24 | mod main31; mod main32; mod main33; mod main34; mod main35; mod main36; mod main37; mod main38; mod main39; mod main40;
+   | ^^^^^^^^^^^
+   |
+   = help: to create the module `main31`, create file "bootstrap/src/bin/main31.rs" or "bootstrap/src/bin/main31/mod.rs"
+   = note: if there is a `mod main31` elsewhere in the crate already, import it with `use crate::...` instead
+
+error[E0583]: file not found for module `main32`
+  --> bootstrap/src/bin/stage0.rs:24:13
+   |
+24 | mod main31; mod main32; mod main33; mod main34; mod main35; mod main36; mod main37; mod main38; mod main39; mod main40;
+   |             ^^^^^^^^^^^
+   |
+   = help: to create the module `main32`, create file "bootstrap/src/bin/main32.rs" or "bootstrap/src/bin/main32/mod.rs"
+   = note: if there is a `mod main32` elsewhere in the crate already, import it with `use crate::...` instead
+
+error[E0583]: file not found for module `main33`
+  --> bootstrap/src/bin/stage0.rs:24:25
+   |
+24 | mod main31; mod main32; mod main33; mod main34; mod main35; mod main36; mod main37; mod main38; mod main39; mod main40;
+   |                         ^^^^^^^^^^^
+   |
+   = help: to create the module `main33`, create file "bootstrap/src/bin/main33.rs" or "bootstrap/src/bin/main33/mod.rs"
+   = note: if there is a `mod main33` elsewhere in the crate already, import it with `use crate::...` instead
+
+error[E0583]: file not found for module `main34`
+  --> bootstrap/src/bin/stage0.rs:24:37
+   |
+24 | mod main31; mod main32; mod main33; mod main34; mod main35; mod main36; mod main37; mod main38; mod main39; mod main40;
+   |                                     ^^^^^^^^^^^
+   |
+   = help: to create the module `main34`, create file "bootstrap/src/bin/main34.rs" or "bootstrap/src/bin/main34/mod.rs"
+   = note: if there is a `mod main34` elsewhere in the crate already, import it with `use crate::...` instead
+
+error[E0583]: file not found for module `main35`
+  --> bootstrap/src/bin/stage0.rs:24:49
+   |
+24 | mod main31; mod main32; mod main33; mod main34; mod main35; mod main36; mod main37; mod main38; mod main39; mod main40;
+   |                                                 ^^^^^^^^^^^
+   |
+   = help: to create the module `main35`, create file "bootstrap/src/bin/main35.rs" or "bootstrap/src/bin/main35/mod.rs"
+   = note: if there is a `mod main35` elsewhere in the crate already, import it with `use crate::...` instead
+
+error[E0583]: file not found for module `main36`
+  --> bootstrap/src/bin/stage0.rs:24:61
+   |
+24 | mod main31; mod main32; mod main33; mod main34; mod main35; mod main36; mod main37; mod main38; mod main39; mod main40;
+   |                                                             ^^^^^^^^^^^
+   |
+   = help: to create the module `main36`, create file "bootstrap/src/bin/main36.rs" or "bootstrap/src/bin/main36/mod.rs"
+   = note: if there is a `mod main36` elsewhere in the crate already, import it with `use crate::...` instead
+
+error[E0583]: file not found for module `main37`
+  --> bootstrap/src/bin/stage0.rs:24:73
+   |
+24 | mod main31; mod main32; mod main33; mod main34; mod main35; mod main36; mod main37; mod main38; mod main39; mod main40;
+   |                                                                         ^^^^^^^^^^^
+   |
+   = help: to create the module `main37`, create file "bootstrap/src/bin/main37.rs" or "bootstrap/src/bin/main37/mod.rs"
+   = note: if there is a `mod main37` elsewhere in the crate already, import it with `use crate::...` instead
+
+error[E0583]: file not found for module `main38`
+  --> bootstrap/src/bin/stage0.rs:24:85
+   |
+24 | mod main31; mod main32; mod main33; mod main34; mod main35; mod main36; mod main37; mod main38; mod main39; mod main40;
+   |                                                                                     ^^^^^^^^^^^
+   |
+   = help: to create the module `main38`, create file "bootstrap/src/bin/main38.rs" or "bootstrap/src/bin/main38/mod.rs"
+   = note: if there is a `mod main38` elsewhere in the crate already, import it with `use crate::...` instead
+
+error[E0583]: file not found for module `main39`
+  --> bootstrap/src/bin/stage0.rs:24:97
+   |
+24 | mod main31; mod main32; mod main33; mod main34; mod main35; mod main36; mod main37; mod main38; mod main39; mod main40;
+   |                                                                                                 ^^^^^^^^^^^
+   |
+   = help: to create the module `main39`, create file "bootstrap/src/bin/main39.rs" or "bootstrap/src/bin/main39/mod.rs"
+   = note: if there is a `mod main39` elsewhere in the crate already, import it with `use crate::...` instead
+
+error[E0583]: file not found for module `main40`
+  --> bootstrap/src/bin/stage0.rs:24:109
+   |
+24 | mod main31; mod main32; mod main33; mod main34; mod main35; mod main36; mod main37; mod main38; mod main39; mod main40;
+   |                                                                                                             ^^^^^^^^^^^
+   |
+   = help: to create the module `main40`, create file "bootstrap/src/bin/main40.rs" or "bootstrap/src/bin/main40/mod.rs"
+   = note: if there is a `mod main40` elsewhere in the crate already, import it with `use crate::...` instead
+
+error[E0583]: file not found for module `main41`
+  --> bootstrap/src/bin/stage0.rs:25:1
+   |
+25 | mod main41; mod main42;
+   | ^^^^^^^^^^^
+   |
+   = help: to create the module `main41`, create file "bootstrap/src/bin/main41.rs" or "bootstrap/src/bin/main41/mod.rs"
+   = note: if there is a `mod main41` elsewhere in the crate already, import it with `use crate::...` instead
+
+error[E0583]: file not found for module `main42`
+  --> bootstrap/src/bin/stage0.rs:25:13
+   |
+25 | mod main41; mod main42;
+   |             ^^^^^^^^^^^
+   |
+   = help: to create the module `main42`, create file "bootstrap/src/bin/main42.rs" or "bootstrap/src/bin/main42/mod.rs"
+   = note: if there is a `mod main42` elsewhere in the crate already, import it with `use crate::...` instead
+
+For more information about this error, try `rustc --explain E0583`.
+error: could not compile `bootstrap` (bin "stage0") due to 51 previous errors

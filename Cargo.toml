@@ -10,3 +10,27 @@ categories = ["system"]
 
 [dependencies]
 # Intentionally empty - zero dependencies for true bootstrap capability 
+
+[[bin]]
+name = "stage0"
+path = "src/bin/stage0.rs"
+
+[[bin]]
+name = "bootstrap"
+path = "src/main.rs"
+
+[[bin]]
+name = "apply_example"
+path = "src/bin/apply_example.rs"
+
+[[bin]]
+name = "phase_demo"
+path = "src/bin/phase_demo.rs"
+
+[[bin]]
+name = "simple_phase_demo"
+path = "src/bin/simple_phase_demo.rs"
+
+[[bin]]
+name = "standalone_phase_demo"
+path = "src/bin/standalone_phase_demo.rs" 
