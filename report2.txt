@@ -1,0 +1,128 @@
+ Documenting bootstrap v0.1.0 (/mnt/c/Users/gentd/OneDrive/Documents/GitHub/solfunmeme-dioxus/bootstrap)
+warning: unused import: `crate::clifford::Clifford`
+ --> bootstrap/src/function_number_linkage.rs:2:5
+  |
+2 | use crate::clifford::Clifford;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` on by default
+
+warning: unused import: `Clifford`
+ --> bootstrap/src/number_embedding.rs:3:23
+  |
+3 | use crate::clifford::{Clifford, CliffordDyn};
+  |                       ^^^^^^^^
+
+warning: unused import: `Clifford`
+ --> bootstrap/src/vectos.rs:3:23
+  |
+3 | use crate::clifford::{Clifford, CliffordDyn};
+  |                       ^^^^^^^^
+
+warning: unused import: `Godel`
+ --> bootstrap/src/number_embedding.rs:1:20
+  |
+1 | use crate::godel::{Godel, GodelDyn};
+  |                    ^^^^^
+
+warning: unused variable: `other`
+  --> bootstrap/src/clifford/clifford_multivector_dyn_impl.rs:29:19
+   |
+29 |     fn add(&self, other: &Self) -> Self {
+   |                   ^^^^^ help: if this is intentional, prefix it with an underscore: `_other`
+   |
+   = note: `#[warn(unused_variables)]` on by default
+
+warning: unused variable: `other`
+  --> bootstrap/src/clifford/clifford_multivector_dyn_impl.rs:34:24
+   |
+34 |     fn multiply(&self, other: &Self) -> Self {
+   |                        ^^^^^ help: if this is intentional, prefix it with an underscore: `_other`
+
+warning: unused variable: `rules`
+   --> bootstrap/src/bach.rs:478:60
+    |
+478 |     fn generate_counterpoint(&self, cantus_firmus: &Voice, rules: &CounterpointRules) -> Voice {
+    |                                                            ^^^^^ help: if this is intentional, prefix it with an underscore: `_rules`
+
+warning: unused variable: `key`
+   --> bootstrap/src/bach.rs:554:54
+    |
+554 |     fn generate_fugue_answer(&self, subject: &Voice, key: Note) -> Voice {
+    |                                                      ^^^ help: if this is intentional, prefix it with an underscore: `_key`
+
+warning: unused variable: `beat_value`
+   --> bootstrap/src/bach.rs:623:21
+    |
+623 |         let (beats, beat_value) = meter;
+    |                     ^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_beat_value`
+
+warning: unused variable: `complexity`
+   --> bootstrap/src/bach.rs:622:56
+    |
+622 |     fn generate_rhythm_pattern(&self, meter: (u8, u8), complexity: f64) -> Vec<f64> {
+    |                                                        ^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_complexity`
+
+warning: unused variable: `pattern`
+  --> bootstrap/src/escher.rs:34:37
+   |
+34 |     fn generate_tessellation(&self, pattern: &str, width: usize, height: usize) -> Vec<Vec<u8>> {
+   |                                     ^^^^^^^ help: if this is intentional, prefix it with an underscore: `_pattern`
+
+warning: unused variable: `phi`
+  --> bootstrap/src/euler.rs:43:14
+   |
+43 |         let (phi, theta, psi) = angles;
+   |              ^^^ help: if this is intentional, prefix it with an underscore: `_phi`
+
+warning: unused variable: `theta`
+  --> bootstrap/src/euler.rs:43:19
+   |
+43 |         let (phi, theta, psi) = angles;
+   |                   ^^^^^ help: if this is intentional, prefix it with an underscore: `_theta`
+
+warning: unused variable: `psi`
+  --> bootstrap/src/euler.rs:43:26
+   |
+43 |         let (phi, theta, psi) = angles;
+   |                          ^^^ help: if this is intentional, prefix it with an underscore: `_psi`
+
+warning: unused variable: `masses`
+  --> bootstrap/src/mach.rs:54:39
+   |
+54 |     fn universe_inertia_tensor(&self, masses: &[(f64, (f64, f64, f64))]) -> [[f64; 3]; 3] {
+   |                                       ^^^^^^ help: if this is intentional, prefix it with an underscore: `_masses`
+
+warning: unused variable: `norm`
+   --> bootstrap/src/vectos.rs:282:13
+    |
+282 |         let norm = self.clifford.norm();
+    |             ^^^^ help: if this is intentional, prefix it with an underscore: `_norm`
+
+warning: unused variable: `reference_frame`
+   --> bootstrap/src/vectos.rs:307:60
+    |
+307 |     fn ns_mach_physics(&self, velocity_field: &[[f64; 2]], reference_frame: (f64, f64, f64)) -> Vec<f64> {
+    |                                                            ^^^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_reference_frame`
+
+warning: unused variable: `current_state`
+   --> bootstrap/src/phase2.rs:397:35
+    |
+397 |     fn llm_optimize_system(&self, current_state: &MathematicalUniverse) -> OptimizationPlan {
+    |                                   ^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_current_state`
+
+warning: unused variable: `godel_numbers`
+   --> bootstrap/src/phase2.rs:432:42
+    |
+432 |     fn reflect_on_godel_structure(&self, godel_numbers: &[u64]) -> GodelReflection {
+    |                                          ^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_godel_numbers`
+
+warning: unused variable: `godel`
+   --> bootstrap/src/number_embedding.rs:214:13
+    |
+214 |         let godel = self.embedded_godel();
+    |             ^^^^^ help: if this is intentional, prefix it with an underscore: `_godel`
+
+warning: `bootstrap` (lib) generated 20 warnings
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 3m 41s
+   Generated /mnt/c/Users/gentd/OneDrive/Documents/GitHub/solfunmeme-dioxus/target-wasm-solfunmeme/doc/apply_example/index.html and 38 other files
