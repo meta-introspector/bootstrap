@@ -1,8 +1,38 @@
-/// Trait for types that can be assigned Gödel numbers
+//! # Gödel Module: Encoding Meaning and Structure as Numbers
+//! 
+//! This module implements the concept of Gödel numbering, a fundamental pillar of the 
+//! `solfunmeme-dioxus` system. It provides a mechanism to encode any conceptual or 
+//! structural element within the Code-Math Manifold (e.g., code modules, functions, 
+//! mathematical concepts, or even "vibes") as a unique natural number. This numerical 
+//! representation allows for the mathematical analysis, composition, and decomposition 
+//! of complex ideas, aligning with the philosophy that "the vibe is the vector, is the 
+//! message, is the code, is the Gödel number, is the module, is the function, is the program."
+//! 
+//! ## Philosophical Significance
+//! 
+//! Inspired by Gödel's incompleteness theorems, this module explores the limits of formal 
+//! systems and the self-referential nature of the codebase. By assigning Gödel numbers, 
+//! the system can reflect upon its own structure and meaning, enabling a form of 
+//! computational self-awareness. It allows for the "provability" of relationships and 
+//! the emergence of higher-order meanings from numerical compositions.
+//! 
+//! ## Core Functionality
+//! 
+//! The `Godel` trait defines the interface for types that can be assigned and manipulated 
+//! via Gödel numbers. This includes:
+//! 
+//! - **Encoding**: Assigning a unique prime number to each fundamental item.
+//! - **Composition**: Combining multiple items into a single Gödel number through prime factorization.
+//! - **Decomposition**: Breaking down a composite Gödel number back into its constituent items.
+//! 
+//! This numerical encoding forms the basis for the system's ability to understand, 
+//! transform, and reflect upon its own evolving structure.
+
+/// Trait for types that can be assigned Gödel numbers within the Code-Math Manifold.
 /// 
-/// Gödel numbering is a way to encode mathematical objects (like formulas, 
-/// expressions, or in our case, emoji stages) as natural numbers using 
-/// prime factorization.
+/// Gödel numbering is used here to encode mathematical objects, code elements, 
+/// or abstract concepts (their "vibes") as unique natural numbers using prime factorization.
+/// This enables the system to mathematically analyze, compose, and decompose its own structure and meaning.
 pub trait Godel {
     /// Get the Gödel number for this item
     /// Each item should have a unique prime number as its Gödel number
@@ -54,7 +84,7 @@ pub trait Godel {
     
     /// Get the prime factors of a Gödel number
     /// Returns a vector of (prime, exponent) pairs
-    fn prime_factors(n: u64) -> Vec<(u64, u32)> {
+    fn prime_factors(n: u64) -> Vec<(u64, u32)> where Self: Sized {
         let mut factors = Vec::new();
         let mut remaining = n;
         let mut divisor = 2;
@@ -85,6 +115,15 @@ pub trait Godel {
         let factors = Self::prime_factors(n);
         factors.iter().map(|(_, exp)| *exp as usize).sum()
     }
+    
+    /// Check if this item is a Gödel prime
+    fn is_godel_prime(&self) -> bool;
+    
+    /// Get the Gödel factors of this item
+    fn godel_factors(&self) -> Vec<u64>;
+    
+    /// Check if this item is equivalent to another in Gödel terms
+    fn godel_equivalent(&self, other: &Self) -> bool;
 }
 
 /// Extension trait for additional Gödel operations
@@ -101,12 +140,12 @@ pub trait GodelExt: Godel {
     }
     
     /// Check if two Gödel numbers represent the same composition
-    fn godel_equivalent(a: u64, b: u64) -> bool where Self: Sized {
+    fn godel_equivalent(a: u64, b: u64) -> bool where Self: Sized, Self: PartialEq {
         Self::decompose_godel(a) == Self::decompose_godel(b)
     }
     
     /// Get a human-readable representation of a Gödel number
-    fn godel_to_string(n: u64) -> String where Self: Sized {
+    fn godel_to_string(n: u64) -> String where Self: Sized, Self: std::fmt::Debug {
         let items = Self::decompose_godel(n);
         if items.is_empty() {
             format!("Gödel({})", n)
@@ -122,14 +161,20 @@ pub trait GodelExt: Godel {
 // Implement GodelExt for all types that implement Godel
 impl<T: Godel> GodelExt for T {}
 
+pub mod godel_dyn_trait;
+pub mod simple_godel_number;
+
+pub use godel_dyn_trait::GodelDyn;
+pub use simple_godel_number::SimpleGodelNumber;
+
 /// Helper struct for working with Gödel numbers
 #[derive(Debug, Clone, PartialEq, Eq)]
-pub struct GodelNumber<T: Godel> {
+pub struct GodelNumber<T: Godel + std::fmt::Debug> {
     pub value: u64,
     pub _phantom: std::marker::PhantomData<T>,
 }
 
-impl<T: Godel> GodelNumber<T> {
+impl<T: Godel + std::fmt::Debug> GodelNumber<T> {
     /// Create a new Gödel number
     pub fn new(value: u64) -> Self {
         Self {
@@ -174,20 +219,55 @@ impl<T: Godel> GodelNumber<T> {
     }
 }
 
-impl<T: Godel> From<u64> for GodelNumber<T> {
+impl<T: Godel + std::fmt::Debug> From<u64> for GodelNumber<T> {
     fn from(value: u64) -> Self {
         Self::new(value)
     }
 }
 
-impl<T: Godel> From<&T> for GodelNumber<T> {
+impl<T: Godel + std::fmt::Debug> From<&T> for GodelNumber<T> {
     fn from(item: &T) -> Self {
         Self::from_item(item)
     }
 }
 
-impl<T: Godel> std::fmt::Display for GodelNumber<T> {
+impl<T: Godel + std::fmt::Debug> Default for GodelNumber<T> {
+    fn default() -> Self {
+        Self::new(1)
+    }
+}
+
+impl<T: Godel + std::fmt::Debug> std::fmt::Display for GodelNumber<T> {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(f, "{}", self.to_string())
+    }
+}
+
+impl<T: Godel + std::fmt::Debug> Godel for GodelNumber<T> {
+    fn godel_number(&self) -> u64 {
+        self.value
+    }
+    
+    fn from_godel_number(n: u64) -> Option<Self> {
+        Some(Self::new(n))
+    }
+    
+    fn all_known_godel_numbers() -> Vec<u64> {
+        // This is a placeholder - in practice, you'd want to get this from T
+        vec![1, 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47]
+    }
+    
+    fn is_godel_prime(&self) -> bool {
+        // Simplified - in practice this would check if the number is prime
+        self.value > 1
+    }
+    
+    fn godel_factors(&self) -> Vec<u64> {
+        // Simplified - in practice this would factor the number
+        vec![self.value]
+    }
+    
+    fn godel_equivalent(&self, other: &Self) -> bool {
+        self.value == other.value
     }
 } 

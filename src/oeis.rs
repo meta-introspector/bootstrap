@@ -37,6 +37,10 @@ pub trait OEIS {
     fn a000720(&self, n: usize) -> Vec<i64>; // Prime counting
     fn a000041(&self, n: usize) -> Vec<i64>; // Partition numbers
     fn a000079(&self, n: usize) -> Vec<i64>; // Powers of 2
+    
+    // Helper methods
+    fn is_prime(&self, n: i64) -> bool;
+    fn binomial_coefficient(&self, n: usize, k: usize) -> i64;
 }
 
 pub struct OEISDatabase;
@@ -313,7 +317,11 @@ impl OEIS for OEISDatabase {
             while j <= i {
                 let sign = if k % 2 == 0 { -1 } else { 1 };
                 sum += sign * partitions[i - j];
-                k = if k > 0 { -k } else { -k + 1 };
+                k = if k > 0 { 
+                    if k <= i32::MAX as usize { -(k as i32) as usize } else { 0 }
+                } else { 
+                    if k <= i32::MAX as usize { (-(k as i32) + 1) as usize } else { 1 }
+                };
                 j = k * (3 * k - 1) / 2;
             }
             partitions[i] = sum;

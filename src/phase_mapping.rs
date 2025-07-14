@@ -95,6 +95,7 @@ pub struct PhaseProperties {
 pub trait DimensionalityReducer {
     fn reduce_to_phase(&self, embedding: &[f64]) -> Phase;
     fn calculate_confidence(&self, embedding: &[f64], phase: Phase) -> f64;
+    fn calculate_harmonic_resonance(&self, embedding: &[f64], phase: Phase) -> f64;
 }
 
 /// Hash-based dimensionality reducer
@@ -114,6 +115,10 @@ impl DimensionalityReducer for HashReducer {
 
     fn calculate_confidence(&self, _embedding: &[f64], _phase: Phase) -> f64 {
         0.8 // Hash-based mapping has consistent confidence
+    }
+
+    fn calculate_harmonic_resonance(&self, _embedding: &[f64], _phase: Phase) -> f64 {
+        0.8 // Hash-based mapping has consistent resonance
     }
 }
 
@@ -307,9 +312,9 @@ impl PhaseMappingSystem {
         if entities.is_empty() { return None; }
         
         // Get embeddings for all entities in this phase
-        let embeddings: Vec<&Vec<f64>> = entities.iter()
+        let embeddings: Vec<&[f64]> = entities.iter()
             .filter_map(|name| self.entity_phases.get(name))
-            .map(|_| &[0.0]) // Placeholder - in real implementation, you'd store embeddings
+            .map(|_| &[0.0][..]) // Placeholder - in real implementation, you'd store embeddings
             .collect();
         
         if embeddings.is_empty() { return None; }

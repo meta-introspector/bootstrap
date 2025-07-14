@@ -121,28 +121,19 @@ pub struct HarmonicReducer;
 
 impl DimensionalityReducer for HarmonicReducer {
     fn reduce_to_phase(&self, embedding: &[f64]) -> Phase {
-        // Harmonic mapping based on mathematical resonance
-        let mut best_phase = Phase(1);
-        let mut best_resonance = 0.0;
+        // Harmonic-based mapping using phase properties
+        let embedding_sum = embedding.iter().sum::<f64>();
+        let embedding_norm = embedding.iter().map(|x| x * x).sum::<f64>().sqrt();
         
-        for phase_num in 1..=42 {
-            if let Some(phase) = Phase::new(phase_num) {
-                let resonance = self.calculate_harmonic_resonance(embedding, phase);
-                if resonance > best_resonance {
-                    best_resonance = resonance;
-                    best_phase = phase;
-                }
-            }
-        }
+        if embedding_norm == 0.0 { return Phase::new(1).unwrap(); }
         
-        best_phase
+        let normalized_sum = embedding_sum / embedding_norm;
+        let phase_num = ((normalized_sum * 42.0) as u8).max(1).min(42);
+        Phase::new(phase_num).unwrap_or(Phase::new(1).unwrap())
     }
 
     fn calculate_confidence(&self, embedding: &[f64], phase: Phase) -> f64 {
-        self.calculate_harmonic_resonance(embedding, phase)
-    }
-
-    fn calculate_harmonic_resonance(&self, embedding: &[f64], phase: Phase) -> f64 {
+        // Calculate confidence based on harmonic properties
         let phase_props = phase.properties();
         let embedding_sum = embedding.iter().sum::<f64>();
         let embedding_norm = embedding.iter().map(|x| x * x).sum::<f64>().sqrt();
@@ -318,32 +309,32 @@ fn main() {
     ];
 
     // Create sample entities
-    let entities = vec![
-        FunctionEntity {
+    let entities: Vec<Box<dyn PhaseEntity>> = vec![
+        Box::new(FunctionEntity {
             name: "analyze_project".to_string(),
             embedding: sample_embeddings[0].clone(),
             semantic_type: "analysis".to_string(),
-        },
-        ModuleEntity {
+        }),
+        Box::new(ModuleEntity {
             name: "phase_mapping".to_string(),
             embedding: sample_embeddings[1].clone(),
             functions: vec!["map_entity".to_string(), "get_phase".to_string()],
-        },
-        FunctionEntity {
+        }),
+        Box::new(FunctionEntity {
             name: "calculate_resonance".to_string(),
             embedding: sample_embeddings[2].clone(),
             semantic_type: "mathematical".to_string(),
-        },
-        FunctionEntity {
+        }),
+        Box::new(FunctionEntity {
             name: "balanced_function".to_string(),
             embedding: sample_embeddings[3].clone(),
             semantic_type: "utility".to_string(),
-        },
-        FunctionEntity {
+        }),
+        Box::new(FunctionEntity {
             name: "skewed_function".to_string(),
             embedding: sample_embeddings[4].clone(),
             semantic_type: "specialized".to_string(),
-        },
+        }),
     ];
 
     // Test Hash-based mapping
@@ -351,8 +342,8 @@ fn main() {
     let mut hash_system = PhaseMappingSystem::new(hash_reducer);
     
     for entity in &entities {
-        let phase = hash_system.map_entity(entity);
-        let confidence = hash_system.get_mapping_confidence(entity, phase);
+        let phase = hash_system.map_entity(entity.as_ref());
+        let confidence = hash_system.get_mapping_confidence(entity.as_ref(), phase);
         let properties = phase.properties();
         
         println!("Entity: {} -> Phase {} (confidence: {:.3})", 
@@ -369,8 +360,8 @@ fn main() {
     let mut harmonic_system = PhaseMappingSystem::new(harmonic_reducer);
     
     for entity in &entities {
-        let phase = harmonic_system.map_entity(entity);
-        let confidence = harmonic_system.get_mapping_confidence(entity, phase);
+        let phase = harmonic_system.map_entity(entity.as_ref());
+        let confidence = harmonic_system.get_mapping_confidence(entity.as_ref(), phase);
         let properties = phase.properties();
         
         println!("Entity: {} -> Phase {} (confidence: {:.3})", 

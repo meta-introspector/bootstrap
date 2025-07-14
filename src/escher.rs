@@ -1,4 +1,3 @@
-use std::collections::HashMap;
 
 /// Escher trait for visual mathematical art and geometry
 pub trait Escher {

@@ -4,14 +4,15 @@
 //! In the full system, each stage would have unique functionality.
 
 fn main() {
-    println!("[2] I am stage 2 - a placeholder implementation", stage_number, stage_number);
-    println!("[2] This stage represents a unique 'vibe' in the mathematical lattice", stage_number);
+    let stage_number = 02;
+    println!("[02] I am stage 02 - a placeholder implementation");
+    println!("[02] This stage represents a unique 'vibe' in the mathematical lattice");
     
     // Placeholder: call next stage in sequence
     if stage_number > 1 {
-        println!("[2] Calling next stage in sequence...", stage_number);
+        println!("[02] Calling next stage in sequence...");
         // In the real system, this would call the next stage
     } else {
-        println!("[2] Reached unity - sequence complete!", stage_number);
+        println!("[02] Reached unity - sequence complete!");
     }
 }

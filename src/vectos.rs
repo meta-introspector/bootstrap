@@ -1,7 +1,7 @@
-use crate::godel::Godel;
+use crate::godel::GodelDyn;
 use crate::bott::Bott;
-use crate::clifford::Clifford;
-use crate::bach::{Bach, Note, Scale, ChordType, Voice, Chord};
+use crate::clifford::{Clifford, CliffordDyn};
+use crate::bach::{Bach, Note, Voice, Chord};
 use crate::escher::Escher;
 use crate::ns::Ns;
 use crate::euler::Euler;
@@ -127,9 +127,9 @@ impl<T> Complex<T> {
 
 /// Vectos execution engine
 pub struct VectosEngine {
-    pub godel: Box<dyn Godel>,
-    pub bott: Box<dyn Bott>,
-    pub clifford: Box<dyn Clifford>,
+    pub godel: Box<dyn GodelDyn>,
+    pub bott: Box<dyn Bott<Base = f64, Fiber = f64>>,
+    pub clifford: Box<dyn CliffordDyn<Scalar = f64>>,
     pub bach: Box<dyn Bach>,
     pub escher: Box<dyn Escher>,
     pub ns: Box<dyn Ns>,
@@ -143,7 +143,7 @@ pub struct VectosEngine {
 impl Default for VectosEngine {
     fn default() -> Self {
         Self {
-            godel: Box::new(crate::godel::GodelNumber::default()),
+            godel: Box::new(crate::godel::SimpleGodelNumber::default()),
             bott: Box::new(crate::bott::Bott8D::default()),
             clifford: Box::new(crate::clifford::CliffordMultivector::default()),
             bach: Box::new(crate::bach::BachComposer::default()),
@@ -163,7 +163,7 @@ impl Vectos for VectosEngine {
         match operation {
             "godel_compose" => {
                 if params.len() >= 2 {
-                    let composition = self.godel.compose_godel(params[0] as u64, params[1] as u64);
+                    let composition = self.godel.compose_numbers(&[params[0] as u64, params[1] as u64]);
                     vec![composition as f64]
                 } else {
                     vec![0.0]
@@ -179,7 +179,7 @@ impl Vectos for VectosEngine {
             },
             "clifford_norm" => {
                 if !params.is_empty() {
-                    let norm = self.clifford.norm(params);
+                    let norm = self.clifford.norm();
                     vec![norm]
                 } else {
                     vec![0.0]
@@ -273,13 +273,13 @@ impl Vectos for VectosEngine {
     }
     
     fn godel_bott_composition(&self, input: u64) -> Vec<f64> {
-        let godel_composition = self.godel.compose_godel(input, input * 2);
+        let godel_composition = self.godel.compose_numbers(&[input, input * 2]);
         let bott_curvature = self.bott.calculate_curvature(godel_composition as f64, 1.0);
         vec![godel_composition as f64, bott_curvature]
     }
     
     fn clifford_bach_harmony(&self, multivector: &[f64], chord: &Chord) -> Voice {
-        let norm = self.clifford.norm(multivector);
+        let norm = self.clifford.norm();
         let chord_notes = self.bach.build_chord(chord.root, chord.chord_type);
         
         let mut voice = Voice {
@@ -337,7 +337,7 @@ impl Vectos for VectosEngine {
     }
     
     fn synthesize_mathematical_universe(&self, dimensions: usize) -> MathematicalUniverse {
-        let godel_numbers = (0..dimensions).map(|i| self.godel.compose_godel(i as u64, (i * 2) as u64)).collect();
+        let godel_numbers = (0..dimensions).map(|i| self.godel.compose_numbers(&[i as u64, (i * 2) as u64])).collect();
         let bott_coordinates = (0..dimensions).map(|_| [Some(1.0); 8]).collect();
         let clifford_multivectors = (0..dimensions).map(|_| vec![1.0; 8]).collect();
         let musical_voices = vec![Voice { notes: vec![(Note::C, 1.0)], octave: 4, velocity: 80 }];
@@ -412,7 +412,7 @@ impl Vectos for VectosEngine {
         let geometric_notes = voice.notes.iter().enumerate().map(|(i, (note, duration))| {
             let x = i as f64;
             let y = *duration;
-            let z = tessellation.get(i).and_then(|row| row.get(i)).unwrap_or(&0) as f64;
+            let z = *tessellation.get(i).and_then(|row| row.get(i)).unwrap_or(&0) as f64;
             (*note, (x, y, z))
         }).collect();
         

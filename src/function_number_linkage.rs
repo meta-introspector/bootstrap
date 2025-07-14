@@ -1,18 +1,5 @@
 use std::collections::HashMap;
-use crate::godel::Godel;
-use crate::bott::Bott;
 use crate::clifford::Clifford;
-use crate::bach::Bach;
-use crate::escher::Escher;
-use crate::ns::Ns;
-use crate::euler::Euler;
-use crate::gauss::Gauss;
-use crate::mach::Mach;
-use crate::penrose::Penrose;
-use crate::oeis::OEIS;
-use crate::vectos::Vectos;
-use crate::phase2::Phase2;
-use crate::number_embedding::SelfAwareNumber;
 
 /// Result of function execution
 #[derive(Debug, Clone)]
@@ -311,6 +298,16 @@ impl FunctionNumberLanguage {
             fibonacci_functions: fibonacci_count,
             average_resonance: calculate_average_resonance(&numbers),
         }
+    }
+
+    /// Get access to the registry for advanced operations
+    pub fn get_registry(&self) -> &FunctionRegistry {
+        &self.registry
+    }
+
+    /// Get mutable access to the registry for advanced operations
+    pub fn get_registry_mut(&mut self) -> &mut FunctionRegistry {
+        &mut self.registry
     }
 }
 

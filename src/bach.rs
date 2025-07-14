@@ -1,5 +1,5 @@
 use std::collections::HashMap;
-use std::f64::consts::PI;
+use rand::seq::SliceRandom;
 
 /// Musical note representation
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
@@ -705,7 +705,7 @@ impl Bach for BachComposer {
         match (second_last.chord_type, last_chord.chord_type) {
             (ChordType::DominantSeventh, ChordType::Major) => 1.0,
             (ChordType::DominantSeventh, ChordType::Minor) => 0.8,
-            (ChordType::PerfectFifth, ChordType::Major) => 0.9,
+            (ChordType::Major, ChordType::Major) => 0.9,
             _ => 0.3,
         }
     }
@@ -781,7 +781,7 @@ impl Bach for BachComposer {
         
         for (note, duration) in &mut transformed.notes {
             // Simple transformation: transpose based on matrix
-            let transposition = (matrix[0][0] * duration) as i32 % 12;
+            let transposition = (matrix[0][0] * *duration) as i32 % 12;
             *note = self.transpose_note(*note, match transposition {
                 0 => Interval::Unison,
                 1 => Interval::MinorSecond,
@@ -810,15 +810,14 @@ impl Bach for BachComposer {
         
         let mut row = Vec::new();
         let mut used = vec![false; 12];
-        
+        let mut rng = rand::thread_rng();
         for _ in 0..length {
             let available: Vec<usize> = (0..12).filter(|&i| !used[i]).collect();
-            if let Some(&index) = available.choose(&mut rand::thread_rng()) {
+            if let Some(&index) = available.choose(&mut rng) {
                 row.push(all_notes[index]);
                 used[index] = true;
             }
         }
-        
         row
     }
     
@@ -885,9 +884,9 @@ impl Bach for BachComposer {
     fn add_dynamics(&self, voice: &Voice, dynamic_profile: &[(f64, u8)]) -> Voice {
         let mut dynamic_voice = voice.clone();
         
-        for (i, (_, velocity)) in dynamic_voice.notes.iter_mut().enumerate() {
+        for (i, _) in dynamic_voice.notes.iter().enumerate() {
             if let Some(&(_, vel)) = dynamic_profile.get(i % dynamic_profile.len()) {
-                *velocity = vel;
+                dynamic_voice.velocity = vel;
             }
         }
         
@@ -941,43 +940,5 @@ impl Gcd for usize {
             a = temp;
         }
         a
-    }
-}
-
-// Random number generation helper
-mod rand {
-    use std::collections::hash_map::DefaultHasher;
-    use std::hash::{Hash, Hasher};
-    use std::time::SystemTime;
-    
-    pub struct ThreadRng;
-    
-    impl ThreadRng {
-        pub fn new() -> Self {
-            Self
-        }
-    }
-    
-    pub trait RngCore {
-        fn choose<T>(&mut self, slice: &[T]) -> Option<&T>;
-    }
-    
-    impl RngCore for ThreadRng {
-        fn choose<T>(&mut self, slice: &[T]) -> Option<&T> {
-            if slice.is_empty() {
-                return None;
-            }
-            
-            let mut hasher = DefaultHasher::new();
-            SystemTime::now().hash(&mut hasher);
-            let hash = hasher.finish();
-            let index = (hash % slice.len() as u64) as usize;
-            
-            slice.get(index)
-        }
-    }
-    
-    pub fn thread_rng() -> ThreadRng {
-        ThreadRng::new()
     }
 } 

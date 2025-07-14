@@ -208,8 +208,8 @@ pub trait Bott {
     /// Check if this Bott structure is log canonical
     fn is_log_canonical(&self) -> bool;
     
-    /// Get the log canonical threshold
-    fn log_canonical_threshold(&self) -> f64;
+    /// Calculate the curvature at a given point
+    fn calculate_curvature(&self, x: f64, y: f64) -> f64;
 }
 
 /// Extension trait for Bott structures that also implement Godel
@@ -240,7 +240,7 @@ pub struct Bott8D<B, F> {
     pub _phantom: std::marker::PhantomData<F>,
 }
 
-impl<B, F> Bott8D<B, F> {
+impl<B, F: Copy> Bott8D<B, F> {
     /// Create a new 8D Bott structure
     pub fn new(base: B) -> Self {
         Self {
@@ -294,7 +294,7 @@ impl<B, F> Bott8D<B, F> {
     }
 }
 
-impl<B, F> Bott for Bott8D<B, F> {
+impl<B: Clone + 'static, F: Clone + 'static + Copy> Bott for Bott8D<B, F> {
     type Base = B;
     type Fiber = F;
     
@@ -316,7 +316,7 @@ impl<B, F> Bott for Bott8D<B, F> {
     }
     
     fn get_all_coordinates(&self) -> Vec<Option<Self::Fiber>> {
-        self.coordinates.iter().cloned().collect()
+        self.coordinates.iter().map(|x| x.clone()).collect()
     }
     
     // Default implementations for the complex mathematical methods
@@ -622,8 +622,14 @@ impl<B, F> Bott for Bott8D<B, F> {
         true
     }
     
-    fn log_canonical_threshold(&self) -> f64 {
-        // Simplified - in practice this would compute actual lc threshold
-        1.0
+    fn calculate_curvature(&self, x: f64, y: f64) -> f64 {
+        // Simplified - in practice this would compute actual curvature
+        x * y * 0.1
+    }
+}
+
+impl<B: Default, F: Default + Copy> Default for Bott8D<B, F> {
+    fn default() -> Self {
+        Self::new(B::default())
     }
 } 

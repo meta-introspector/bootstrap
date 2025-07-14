@@ -5,6 +5,7 @@ pub trait Euler {
     fn partition_number(&self, n: usize) -> usize;
     fn eulerian_number(&self, n: usize, k: usize) -> usize;
     fn euler_characteristic(&self, vertices: usize, edges: usize, faces: usize) -> isize;
+    fn gcd(&self, a: u64, b: u64) -> u64;
 
     // Mechanics
     fn rigid_body_rotation(&self, inertia: f64, angular_velocity: f64) -> f64;
@@ -22,7 +23,7 @@ impl Default for Eulerian {
 
 impl Euler for Eulerian {
     fn totient(&self, n: u64) -> u64 {
-        (1..=n).filter(|k| num_integer::gcd(*k, n) == 1).count() as u64
+        (1..=n).filter(|k| self.gcd(*k, n) == 1).count() as u64
     }
     fn partition_number(&self, n: usize) -> usize {
         if n == 0 { 1 } else { (1..=n).map(|k| self.partition_number(n - k)).sum() }
@@ -43,6 +44,15 @@ impl Euler for Eulerian {
         // Placeholder: identity matrix
         [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]]
     }
+    fn gcd(&self, mut a: u64, mut b: u64) -> u64 {
+        while b != 0 {
+            let temp = b;
+            b = a % b;
+            a = temp;
+        }
+        a
+    }
+    
     fn euler_class(&self, genus: usize) -> isize {
         2 - 2 * genus as isize
     }

@@ -17,40 +17,40 @@ fn main() {
     ];
 
     // Create sample entities
-    let entities = vec![
-        FunctionEntity {
+    let entities: Vec<Box<dyn PhaseEntity>> = vec![
+        Box::new(FunctionEntity {
             name: "analyze_project".to_string(),
             embedding: sample_embeddings[0].clone(),
             semantic_type: "function".to_string(),
-        },
-        FunctionEntity {
+        }),
+        Box::new(FunctionEntity {
             name: "calculate_distance".to_string(),
             embedding: sample_embeddings[1].clone(),
             semantic_type: "function".to_string(),
-        },
-        ModuleEntity {
+        }),
+        Box::new(FunctionEntity {
             name: "phase_mapping".to_string(),
             embedding: sample_embeddings[2].clone(),
-            functions: vec!["map_entity".to_string(), "get_phase_statistics".to_string()],
-        },
-        FunctionEntity {
+            semantic_type: "module".to_string(),
+        }),
+        Box::new(FunctionEntity {
             name: "harmonic_reducer".to_string(),
             embedding: sample_embeddings[3].clone(),
             semantic_type: "reducer".to_string(),
-        },
-        FunctionEntity {
+        }),
+        Box::new(FunctionEntity {
             name: "hash_reducer".to_string(),
             embedding: sample_embeddings[4].clone(),
             semantic_type: "reducer".to_string(),
-        },
+        }),
     ];
 
     println!("1. Testing Hash-based Phase Mapping:");
     let mut hash_system = PhaseMappingSystem::new(hash_reducer);
     
     for entity in &entities {
-        let phase = hash_system.map_entity(entity);
-        let confidence = hash_system.get_mapping_confidence(entity, phase);
+        let phase = hash_system.map_entity(entity.as_ref());
+        let confidence = hash_system.get_mapping_confidence(entity.as_ref(), phase);
         println!("   {} -> Phase {} (confidence: {:.3})", 
                 entity.get_name(), phase.value(), confidence);
     }
@@ -60,8 +60,8 @@ fn main() {
     let mut harmonic_system = PhaseMappingSystem::new(harmonic_reducer);
     
     for entity in &entities {
-        let phase = harmonic_system.map_entity(entity);
-        let confidence = harmonic_system.get_mapping_confidence(entity, phase);
+        let phase = harmonic_system.map_entity(entity.as_ref());
+        let confidence = harmonic_system.get_mapping_confidence(entity.as_ref(), phase);
         println!("   {} -> Phase {} (confidence: {:.3})", 
                 entity.get_name(), phase.value(), confidence);
     }
@@ -138,8 +138,8 @@ fn main() {
     let hash_phase = hash_system.get_entity_phase(&test_entity.get_name()).unwrap();
     let harmonic_phase = harmonic_system.get_entity_phase(&test_entity.get_name()).unwrap();
     
-    let hash_conf = hash_system.get_mapping_confidence(test_entity, hash_phase);
-    let harmonic_conf = harmonic_system.get_mapping_confidence(test_entity, harmonic_phase);
+    let hash_conf = hash_system.get_mapping_confidence(test_entity.as_ref(), hash_phase);
+    let harmonic_conf = harmonic_system.get_mapping_confidence(test_entity.as_ref(), harmonic_phase);
     
     println!("   Entity: {}", test_entity.get_name());
     println!("   Hash reducer: Phase {} (confidence: {:.3})", hash_phase.value(), hash_conf);

@@ -48,6 +48,8 @@
 
 // Re-export all concept modules for documentation
 pub mod godel;
+pub mod system_commitment;
+pub mod kernel;
 pub mod emojistage;
 pub mod bott;
 pub mod clifford;

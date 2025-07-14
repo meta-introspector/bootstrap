@@ -1,830 +1,143 @@
-   Compiling bootstrap v0.1.0 (/mnt/c/Users/gentd/OneDrive/Documents/GitHub/solfunmeme-dioxus/bootstrap)
-error[E0432]: unresolved import `crate::harmonic_lattice`
-  --> bootstrap/src/bin/stage0.rs:10:5
-   |
-10 | use crate::harmonic_lattice;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^ no `harmonic_lattice` in the root
-   |
-help: consider importing this module instead
-   |
-10 - use crate::harmonic_lattice;
-10 + use bootstrap::harmonic_lattice;
-   |
+   Compiling zerocopy v0.8.26
+ Documenting zerocopy v0.8.26
+    Checking ppv-lite86 v0.2.21
+    Checking rand_chacha v0.3.1
+    Checking rand v0.8.5
+    Checking bootstrap v0.1.0 (/mnt/c/Users/gentd/OneDrive/Documents/GitHub/solfunmeme-dioxus/bootstrap)
+ Documenting ppv-lite86 v0.2.21
+warning: unused import: `crate::clifford::Clifford`
+ --> bootstrap/src/function_number_linkage.rs:2:5
+  |
+2 | use crate::clifford::Clifford;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` on by default
 
-error[E0432]: unresolved import `crate::prime_stages`
-  --> bootstrap/src/bin/stage0.rs:11:5
-   |
-11 | use crate::prime_stages;
-   |     ^^^^^^^^^^^^^^^^^^^ no `prime_stages` in the root
-   |
-help: a similar name exists in the module
-   |
-11 - use crate::prime_stages;
-11 + use crate::run_stages;
-   |
-help: consider importing this module instead
-   |
-11 - use crate::prime_stages;
-11 + use bootstrap::prime_stages;
-   |
+warning: unused import: `Clifford`
+ --> bootstrap/src/number_embedding.rs:3:23
+  |
+3 | use crate::clifford::{Clifford, CliffordDyn};
+  |                       ^^^^^^^^
 
-error[E0432]: unresolved import `crate::fibonacci_stages`
-  --> bootstrap/src/bin/stage0.rs:12:5
-   |
-12 | use crate::fibonacci_stages;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^ no `fibonacci_stages` in the root
-   |
-help: consider importing this module instead
-   |
-12 - use crate::fibonacci_stages;
-12 + use bootstrap::fibonacci_stages;
-   |
+warning: unused import: `Clifford`
+ --> bootstrap/src/vectos.rs:3:23
+  |
+3 | use crate::clifford::{Clifford, CliffordDyn};
+  |                       ^^^^^^^^
 
-error[E0432]: unresolved import `crate::pharmonic_mapping`
-  --> bootstrap/src/bin/stage0.rs:13:5
-   |
-13 | use crate::pharmonic_mapping;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^ no `pharmonic_mapping` in the root
-   |
-help: consider importing this module instead
-   |
-13 - use crate::pharmonic_mapping;
-13 + use bootstrap::pharmonic_mapping;
-   |
+warning: unused import: `Godel`
+ --> bootstrap/src/number_embedding.rs:1:20
+  |
+1 | use crate::godel::{Godel, GodelDyn};
+  |                    ^^^^^
 
-error[E0432]: unresolved import `crate::oeis_quasifibers`
-  --> bootstrap/src/bin/stage0.rs:14:5
+warning: unused variable: `other`
+  --> bootstrap/src/clifford/clifford_multivector_dyn_impl.rs:29:19
    |
-14 | use crate::oeis_quasifibers;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^ no `oeis_quasifibers` in the root
+29 |     fn add(&self, other: &Self) -> Self {
+   |                   ^^^^^ help: if this is intentional, prefix it with an underscore: `_other`
    |
-help: consider importing this module instead
-   |
-14 - use crate::oeis_quasifibers;
-14 + use bootstrap::oeis_quasifibers;
-   |
+   = note: `#[warn(unused_variables)]` on by default
 
-error[E0432]: unresolved import `crate::abbott_periodicity`
-  --> bootstrap/src/bin/stage0.rs:15:5
+warning: unused variable: `other`
+  --> bootstrap/src/clifford/clifford_multivector_dyn_impl.rs:34:24
    |
-15 | use crate::abbott_periodicity;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^ no `abbott_periodicity` in the root
-   |
-help: consider importing this module instead
-   |
-15 - use crate::abbott_periodicity;
-15 + use bootstrap::abbott_periodicity;
-   |
+34 |     fn multiply(&self, other: &Self) -> Self {
+   |                        ^^^^^ help: if this is intentional, prefix it with an underscore: `_other`
 
-error[E0432]: unresolved import `crate::inference_quasifibers`
-  --> bootstrap/src/bin/stage0.rs:16:5
-   |
-16 | use crate::inference_quasifibers;
-   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ no `inference_quasifibers` in the root
-   |
-help: consider importing this module instead
-   |
-16 - use crate::inference_quasifibers;
-16 + use bootstrap::inference_quasifibers;
-   |
+warning: unused variable: `rules`
+   --> bootstrap/src/bach.rs:478:60
+    |
+478 |     fn generate_counterpoint(&self, cantus_firmus: &Voice, rules: &CounterpointRules) -> Voice {
+    |                                                            ^^^^^ help: if this is intentional, prefix it with an underscore: `_rules`
 
-error[E0432]: unresolved import `crate::provability`
-  --> bootstrap/src/bin/stage0.rs:17:5
-   |
-17 | use crate::provability;
-   |     ^^^^^^^^^^^^^^^^^^ no `provability` in the root
-   |
-help: consider importing this module instead
-   |
-17 - use crate::provability;
-17 + use bootstrap::provability;
-   |
+warning: unused variable: `key`
+   --> bootstrap/src/bach.rs:554:54
+    |
+554 |     fn generate_fugue_answer(&self, subject: &Voice, key: Note) -> Voice {
+    |                                                      ^^^ help: if this is intentional, prefix it with an underscore: `_key`
 
-error[E0432]: unresolved import `crate::main01`
-  --> bootstrap/src/bin/stage0.rs:20:5
-   |
-20 | use crate::main01;
-   |     ^^^^^^^^^^^^^ no `main01` in the root
-   |
-help: a similar name exists in the module
-   |
-20 - use crate::main01;
-20 + use crate::main;
-   |
-help: consider importing this module instead
-   |
-20 - use crate::main01;
-20 + use bootstrap::main01;
-   |
+warning: unused variable: `beat_value`
+   --> bootstrap/src/bach.rs:623:21
+    |
+623 |         let (beats, beat_value) = meter;
+    |                     ^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_beat_value`
 
-error[E0432]: unresolved import `crate::main02`
-  --> bootstrap/src/bin/stage0.rs:21:5
-   |
-21 | use crate::main02;
-   |     ^^^^^^^^^^^^^ no `main02` in the root
-   |
-help: a similar name exists in the module
-   |
-21 - use crate::main02;
-21 + use crate::main;
-   |
-help: consider importing this module instead
-   |
-21 - use crate::main02;
-21 + use bootstrap::main02;
-   |
+warning: unused variable: `complexity`
+   --> bootstrap/src/bach.rs:622:56
+    |
+622 |     fn generate_rhythm_pattern(&self, meter: (u8, u8), complexity: f64) -> Vec<f64> {
+    |                                                        ^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_complexity`
 
-error[E0432]: unresolved import `crate::main03`
-  --> bootstrap/src/bin/stage0.rs:22:5
+warning: unused variable: `pattern`
+  --> bootstrap/src/escher.rs:34:37
    |
-22 | use crate::main03;
-   |     ^^^^^^^^^^^^^ no `main03` in the root
-   |
-help: a similar name exists in the module
-   |
-22 - use crate::main03;
-22 + use crate::main;
-   |
-help: consider importing this module instead
-   |
-22 - use crate::main03;
-22 + use bootstrap::main03;
-   |
+34 |     fn generate_tessellation(&self, pattern: &str, width: usize, height: usize) -> Vec<Vec<u8>> {
+   |                                     ^^^^^^^ help: if this is intentional, prefix it with an underscore: `_pattern`
 
-error[E0432]: unresolved import `crate::main04`
-  --> bootstrap/src/bin/stage0.rs:23:5
+warning: unused variable: `phi`
+  --> bootstrap/src/euler.rs:43:14
    |
-23 | use crate::main04;
-   |     ^^^^^^^^^^^^^ no `main04` in the root
-   |
-help: a similar name exists in the module
-   |
-23 - use crate::main04;
-23 + use crate::main;
-   |
-help: consider importing this module instead
-   |
-23 - use crate::main04;
-23 + use bootstrap::main04;
-   |
+43 |         let (phi, theta, psi) = angles;
+   |              ^^^ help: if this is intentional, prefix it with an underscore: `_phi`
 
-error[E0432]: unresolved import `crate::main05`
-  --> bootstrap/src/bin/stage0.rs:24:5
+warning: unused variable: `theta`
+  --> bootstrap/src/euler.rs:43:19
    |
-24 | use crate::main05;
-   |     ^^^^^^^^^^^^^ no `main05` in the root
-   |
-help: a similar name exists in the module
-   |
-24 - use crate::main05;
-24 + use crate::main;
-   |
-help: consider importing this module instead
-   |
-24 - use crate::main05;
-24 + use bootstrap::main05;
-   |
+43 |         let (phi, theta, psi) = angles;
+   |                   ^^^^^ help: if this is intentional, prefix it with an underscore: `_theta`
 
-error[E0432]: unresolved import `crate::main06`
-  --> bootstrap/src/bin/stage0.rs:25:5
+warning: unused variable: `psi`
+  --> bootstrap/src/euler.rs:43:26
    |
-25 | use crate::main06;
-   |     ^^^^^^^^^^^^^ no `main06` in the root
-   |
-help: a similar name exists in the module
-   |
-25 - use crate::main06;
-25 + use crate::main;
-   |
-help: consider importing this module instead
-   |
-25 - use crate::main06;
-25 + use bootstrap::main06;
-   |
+43 |         let (phi, theta, psi) = angles;
+   |                          ^^^ help: if this is intentional, prefix it with an underscore: `_psi`
 
-error[E0432]: unresolved import `crate::main07`
-  --> bootstrap/src/bin/stage0.rs:26:5
+warning: unused variable: `masses`
+  --> bootstrap/src/mach.rs:54:39
    |
-26 | use crate::main07;
-   |     ^^^^^^^^^^^^^ no `main07` in the root
-   |
-help: a similar name exists in the module
-   |
-26 - use crate::main07;
-26 + use crate::main;
-   |
-help: consider importing this module instead
-   |
-26 - use crate::main07;
-26 + use bootstrap::main07;
-   |
+54 |     fn universe_inertia_tensor(&self, masses: &[(f64, (f64, f64, f64))]) -> [[f64; 3]; 3] {
+   |                                       ^^^^^^ help: if this is intentional, prefix it with an underscore: `_masses`
 
-error[E0432]: unresolved import `crate::main08`
-  --> bootstrap/src/bin/stage0.rs:27:5
-   |
-27 | use crate::main08;
-   |     ^^^^^^^^^^^^^ no `main08` in the root
-   |
-help: a similar name exists in the module
-   |
-27 - use crate::main08;
-27 + use crate::main;
-   |
-help: consider importing this module instead
-   |
-27 - use crate::main08;
-27 + use bootstrap::main08;
-   |
+warning: unused variable: `norm`
+   --> bootstrap/src/vectos.rs:282:13
+    |
+282 |         let norm = self.clifford.norm();
+    |             ^^^^ help: if this is intentional, prefix it with an underscore: `_norm`
 
-error[E0432]: unresolved import `crate::main09`
-  --> bootstrap/src/bin/stage0.rs:28:5
-   |
-28 | use crate::main09;
-   |     ^^^^^^^^^^^^^ no `main09` in the root
-   |
-help: a similar name exists in the module
-   |
-28 - use crate::main09;
-28 + use crate::main;
-   |
-help: consider importing this module instead
-   |
-28 - use crate::main09;
-28 + use bootstrap::main09;
-   |
+warning: unused variable: `reference_frame`
+   --> bootstrap/src/vectos.rs:307:60
+    |
+307 |     fn ns_mach_physics(&self, velocity_field: &[[f64; 2]], reference_frame: (f64, f64, f64)) -> Vec<f64> {
+    |                                                            ^^^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_reference_frame`
 
-error[E0432]: unresolved import `crate::main10`
-  --> bootstrap/src/bin/stage0.rs:29:5
-   |
-29 | use crate::main10;
-   |     ^^^^^^^^^^^^^ no `main10` in the root
-   |
-help: a similar name exists in the module
-   |
-29 - use crate::main10;
-29 + use crate::main;
-   |
-help: consider importing this module instead
-   |
-29 - use crate::main10;
-29 + use bootstrap::main10;
-   |
+warning: unused variable: `current_state`
+   --> bootstrap/src/phase2.rs:397:35
+    |
+397 |     fn llm_optimize_system(&self, current_state: &MathematicalUniverse) -> OptimizationPlan {
+    |                                   ^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_current_state`
 
-error[E0432]: unresolved import `crate::main11`
-  --> bootstrap/src/bin/stage0.rs:30:5
-   |
-30 | use crate::main11;
-   |     ^^^^^^^^^^^^^ no `main11` in the root
-   |
-help: a similar name exists in the module
-   |
-30 - use crate::main11;
-30 + use crate::main;
-   |
-help: consider importing this module instead
-   |
-30 - use crate::main11;
-30 + use bootstrap::main11;
-   |
+warning: unused variable: `godel_numbers`
+   --> bootstrap/src/phase2.rs:432:42
+    |
+432 |     fn reflect_on_godel_structure(&self, godel_numbers: &[u64]) -> GodelReflection {
+    |                                          ^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_godel_numbers`
 
-error[E0432]: unresolved import `crate::main12`
-  --> bootstrap/src/bin/stage0.rs:31:5
-   |
-31 | use crate::main12;
-   |     ^^^^^^^^^^^^^ no `main12` in the root
-   |
-help: a similar name exists in the module
-   |
-31 - use crate::main12;
-31 + use crate::main;
-   |
-help: consider importing this module instead
-   |
-31 - use crate::main12;
-31 + use bootstrap::main12;
-   |
+warning: unused variable: `godel`
+   --> bootstrap/src/number_embedding.rs:214:13
+    |
+214 |         let godel = self.embedded_godel();
+    |             ^^^^^ help: if this is intentional, prefix it with an underscore: `_godel`
 
-error[E0432]: unresolved import `crate::main13`
-  --> bootstrap/src/bin/stage0.rs:32:5
-   |
-32 | use crate::main13;
-   |     ^^^^^^^^^^^^^ no `main13` in the root
-   |
-help: a similar name exists in the module
-   |
-32 - use crate::main13;
-32 + use crate::main;
-   |
-help: consider importing this module instead
-   |
-32 - use crate::main13;
-32 + use bootstrap::main13;
-   |
-
-error[E0432]: unresolved import `crate::main14`
-  --> bootstrap/src/bin/stage0.rs:33:5
-   |
-33 | use crate::main14;
-   |     ^^^^^^^^^^^^^ no `main14` in the root
-   |
-help: a similar name exists in the module
-   |
-33 - use crate::main14;
-33 + use crate::main;
-   |
-help: consider importing this module instead
-   |
-33 - use crate::main14;
-33 + use bootstrap::main14;
-   |
-
-error[E0432]: unresolved import `crate::main15`
-  --> bootstrap/src/bin/stage0.rs:34:5
-   |
-34 | use crate::main15;
-   |     ^^^^^^^^^^^^^ no `main15` in the root
-   |
-help: a similar name exists in the module
-   |
-34 - use crate::main15;
-34 + use crate::main;
-   |
-help: consider importing this module instead
-   |
-34 - use crate::main15;
-34 + use bootstrap::main15;
-   |
-
-error[E0432]: unresolved import `crate::main16`
-  --> bootstrap/src/bin/stage0.rs:35:5
-   |
-35 | use crate::main16;
-   |     ^^^^^^^^^^^^^ no `main16` in the root
-   |
-help: a similar name exists in the module
-   |
-35 - use crate::main16;
-35 + use crate::main;
-   |
-help: consider importing this module instead
-   |
-35 - use crate::main16;
-35 + use bootstrap::main16;
-   |
-
-error[E0432]: unresolved import `crate::main17`
-  --> bootstrap/src/bin/stage0.rs:36:5
-   |
-36 | use crate::main17;
-   |     ^^^^^^^^^^^^^ no `main17` in the root
-   |
-help: a similar name exists in the module
-   |
-36 - use crate::main17;
-36 + use crate::main;
-   |
-help: consider importing this module instead
-   |
-36 - use crate::main17;
-36 + use bootstrap::main17;
-   |
-
-error[E0432]: unresolved import `crate::main18`
-  --> bootstrap/src/bin/stage0.rs:37:5
-   |
-37 | use crate::main18;
-   |     ^^^^^^^^^^^^^ no `main18` in the root
-   |
-help: a similar name exists in the module
-   |
-37 - use crate::main18;
-37 + use crate::main;
-   |
-help: consider importing this module instead
-   |
-37 - use crate::main18;
-37 + use bootstrap::main18;
-   |
-
-error[E0432]: unresolved import `crate::main19`
-  --> bootstrap/src/bin/stage0.rs:38:5
-   |
-38 | use crate::main19;
-   |     ^^^^^^^^^^^^^ no `main19` in the root
-   |
-help: a similar name exists in the module
-   |
-38 - use crate::main19;
-38 + use crate::main;
-   |
-help: consider importing this module instead
-   |
-38 - use crate::main19;
-38 + use bootstrap::main19;
-   |
-
-error[E0432]: unresolved import `crate::main20`
-  --> bootstrap/src/bin/stage0.rs:39:5
-   |
-39 | use crate::main20;
-   |     ^^^^^^^^^^^^^ no `main20` in the root
-   |
-help: a similar name exists in the module
-   |
-39 - use crate::main20;
-39 + use crate::main;
-   |
-help: consider importing this module instead
-   |
-39 - use crate::main20;
-39 + use bootstrap::main20;
-   |
-
-error[E0432]: unresolved import `crate::main21`
-  --> bootstrap/src/bin/stage0.rs:40:5
-   |
-40 | use crate::main21;
-   |     ^^^^^^^^^^^^^ no `main21` in the root
-   |
-help: a similar name exists in the module
-   |
-40 - use crate::main21;
-40 + use crate::main;
-   |
-help: consider importing this module instead
-   |
-40 - use crate::main21;
-40 + use bootstrap::main21;
-   |
-
-error[E0432]: unresolved import `crate::main22`
-  --> bootstrap/src/bin/stage0.rs:41:5
-   |
-41 | use crate::main22;
-   |     ^^^^^^^^^^^^^ no `main22` in the root
-   |
-help: a similar name exists in the module
-   |
-41 - use crate::main22;
-41 + use crate::main;
-   |
-help: consider importing this module instead
-   |
-41 - use crate::main22;
-41 + use bootstrap::main22;
-   |
-
-error[E0432]: unresolved import `crate::main23`
-  --> bootstrap/src/bin/stage0.rs:42:5
-   |
-42 | use crate::main23;
-   |     ^^^^^^^^^^^^^ no `main23` in the root
-   |
-help: a similar name exists in the module
-   |
-42 - use crate::main23;
-42 + use crate::main;
-   |
-help: consider importing this module instead
-   |
-42 - use crate::main23;
-42 + use bootstrap::main23;
-   |
-
-error[E0432]: unresolved import `crate::main24`
-  --> bootstrap/src/bin/stage0.rs:43:5
-   |
-43 | use crate::main24;
-   |     ^^^^^^^^^^^^^ no `main24` in the root
-   |
-help: a similar name exists in the module
-   |
-43 - use crate::main24;
-43 + use crate::main;
-   |
-help: consider importing this module instead
-   |
-43 - use crate::main24;
-43 + use bootstrap::main24;
-   |
-
-error[E0432]: unresolved import `crate::main25`
-  --> bootstrap/src/bin/stage0.rs:44:5
-   |
-44 | use crate::main25;
-   |     ^^^^^^^^^^^^^ no `main25` in the root
-   |
-help: a similar name exists in the module
-   |
-44 - use crate::main25;
-44 + use crate::main;
-   |
-help: consider importing this module instead
-   |
-44 - use crate::main25;
-44 + use bootstrap::main25;
-   |
-
-error[E0432]: unresolved import `crate::main26`
-  --> bootstrap/src/bin/stage0.rs:45:5
-   |
-45 | use crate::main26;
-   |     ^^^^^^^^^^^^^ no `main26` in the root
-   |
-help: a similar name exists in the module
-   |
-45 - use crate::main26;
-45 + use crate::main;
-   |
-help: consider importing this module instead
-   |
-45 - use crate::main26;
-45 + use bootstrap::main26;
-   |
-
-error[E0432]: unresolved import `crate::main27`
-  --> bootstrap/src/bin/stage0.rs:46:5
-   |
-46 | use crate::main27;
-   |     ^^^^^^^^^^^^^ no `main27` in the root
-   |
-help: a similar name exists in the module
-   |
-46 - use crate::main27;
-46 + use crate::main;
-   |
-help: consider importing this module instead
-   |
-46 - use crate::main27;
-46 + use bootstrap::main27;
-   |
-
-error[E0432]: unresolved import `crate::main28`
-  --> bootstrap/src/bin/stage0.rs:47:5
-   |
-47 | use crate::main28;
-   |     ^^^^^^^^^^^^^ no `main28` in the root
-   |
-help: a similar name exists in the module
-   |
-47 - use crate::main28;
-47 + use crate::main;
-   |
-help: consider importing this module instead
-   |
-47 - use crate::main28;
-47 + use bootstrap::main28;
-   |
-
-error[E0432]: unresolved import `crate::main29`
-  --> bootstrap/src/bin/stage0.rs:48:5
-   |
-48 | use crate::main29;
-   |     ^^^^^^^^^^^^^ no `main29` in the root
-   |
-help: a similar name exists in the module
-   |
-48 - use crate::main29;
-48 + use crate::main;
-   |
-help: consider importing this module instead
-   |
-48 - use crate::main29;
-48 + use bootstrap::main29;
-   |
-
-error[E0432]: unresolved import `crate::main30`
-  --> bootstrap/src/bin/stage0.rs:49:5
-   |
-49 | use crate::main30;
-   |     ^^^^^^^^^^^^^ no `main30` in the root
-   |
-help: a similar name exists in the module
-   |
-49 - use crate::main30;
-49 + use crate::main;
-   |
-help: consider importing this module instead
-   |
-49 - use crate::main30;
-49 + use bootstrap::main30;
-   |
-
-error[E0432]: unresolved import `crate::main31`
-  --> bootstrap/src/bin/stage0.rs:50:5
-   |
-50 | use crate::main31;
-   |     ^^^^^^^^^^^^^ no `main31` in the root
-   |
-help: a similar name exists in the module
-   |
-50 - use crate::main31;
-50 + use crate::main;
-   |
-help: consider importing this module instead
-   |
-50 - use crate::main31;
-50 + use bootstrap::main31;
-   |
-
-error[E0432]: unresolved import `crate::main32`
-  --> bootstrap/src/bin/stage0.rs:51:5
-   |
-51 | use crate::main32;
-   |     ^^^^^^^^^^^^^ no `main32` in the root
-   |
-help: a similar name exists in the module
-   |
-51 - use crate::main32;
-51 + use crate::main;
-   |
-help: consider importing this module instead
-   |
-51 - use crate::main32;
-51 + use bootstrap::main32;
-   |
-
-error[E0432]: unresolved import `crate::main33`
-  --> bootstrap/src/bin/stage0.rs:52:5
-   |
-52 | use crate::main33;
-   |     ^^^^^^^^^^^^^ no `main33` in the root
-   |
-help: a similar name exists in the module
-   |
-52 - use crate::main33;
-52 + use crate::main;
-   |
-help: consider importing this module instead
-   |
-52 - use crate::main33;
-52 + use bootstrap::main33;
-   |
-
-error[E0432]: unresolved import `crate::main34`
-  --> bootstrap/src/bin/stage0.rs:53:5
-   |
-53 | use crate::main34;
-   |     ^^^^^^^^^^^^^ no `main34` in the root
-   |
-help: a similar name exists in the module
-   |
-53 - use crate::main34;
-53 + use crate::main;
-   |
-help: consider importing this module instead
-   |
-53 - use crate::main34;
-53 + use bootstrap::main34;
-   |
-
-error[E0432]: unresolved import `crate::main35`
-  --> bootstrap/src/bin/stage0.rs:54:5
-   |
-54 | use crate::main35;
-   |     ^^^^^^^^^^^^^ no `main35` in the root
-   |
-help: a similar name exists in the module
-   |
-54 - use crate::main35;
-54 + use crate::main;
-   |
-help: consider importing this module instead
-   |
-54 - use crate::main35;
-54 + use bootstrap::main35;
-   |
-
-error[E0432]: unresolved import `crate::main36`
-  --> bootstrap/src/bin/stage0.rs:55:5
-   |
-55 | use crate::main36;
-   |     ^^^^^^^^^^^^^ no `main36` in the root
-   |
-help: a similar name exists in the module
-   |
-55 - use crate::main36;
-55 + use crate::main;
-   |
-help: consider importing this module instead
-   |
-55 - use crate::main36;
-55 + use bootstrap::main36;
-   |
-
-error[E0432]: unresolved import `crate::main37`
-  --> bootstrap/src/bin/stage0.rs:56:5
-   |
-56 | use crate::main37;
-   |     ^^^^^^^^^^^^^ no `main37` in the root
-   |
-help: a similar name exists in the module
-   |
-56 - use crate::main37;
-56 + use crate::main;
-   |
-help: consider importing this module instead
-   |
-56 - use crate::main37;
-56 + use bootstrap::main37;
-   |
-
-error[E0432]: unresolved import `crate::main38`
-  --> bootstrap/src/bin/stage0.rs:57:5
-   |
-57 | use crate::main38;
-   |     ^^^^^^^^^^^^^ no `main38` in the root
-   |
-help: a similar name exists in the module
-   |
-57 - use crate::main38;
-57 + use crate::main;
-   |
-help: consider importing this module instead
-   |
-57 - use crate::main38;
-57 + use bootstrap::main38;
-   |
-
-error[E0432]: unresolved import `crate::main39`
-  --> bootstrap/src/bin/stage0.rs:58:5
-   |
-58 | use crate::main39;
-   |     ^^^^^^^^^^^^^ no `main39` in the root
-   |
-help: a similar name exists in the module
-   |
-58 - use crate::main39;
-58 + use crate::main;
-   |
-help: consider importing this module instead
-   |
-58 - use crate::main39;
-58 + use bootstrap::main39;
-   |
-
-error[E0432]: unresolved import `crate::main40`
-  --> bootstrap/src/bin/stage0.rs:59:5
-   |
-59 | use crate::main40;
-   |     ^^^^^^^^^^^^^ no `main40` in the root
-   |
-help: a similar name exists in the module
-   |
-59 - use crate::main40;
-59 + use crate::main;
-   |
-help: consider importing this module instead
-   |
-59 - use crate::main40;
-59 + use bootstrap::main40;
-   |
-
-error[E0432]: unresolved import `crate::main41`
-  --> bootstrap/src/bin/stage0.rs:60:5
-   |
-60 | use crate::main41;
-   |     ^^^^^^^^^^^^^ no `main41` in the root
-   |
-help: a similar name exists in the module
-   |
-60 - use crate::main41;
-60 + use crate::main;
-   |
-help: consider importing this module instead
-   |
-60 - use crate::main41;
-60 + use bootstrap::main41;
-   |
-
-error[E0432]: unresolved import `crate::main42`
-  --> bootstrap/src/bin/stage0.rs:61:5
-   |
-61 | use crate::main42;
-   |     ^^^^^^^^^^^^^ no `main42` in the root
-   |
-help: a similar name exists in the module
-   |
-61 - use crate::main42;
-61 + use crate::main;
-   |
-help: consider importing this module instead
-   |
-61 - use crate::main42;
-61 + use bootstrap::main42;
-   |
-
-error[E0432]: unresolved import `crate::generate_mains`
-  --> bootstrap/src/bin/stage0.rs:64:5
-   |
-64 | use crate::generate_mains;
-   |     ^^^^^^^^^^^^^^^^^^^^^ no `generate_mains` in the root
-   |
-help: consider importing this module instead
-   |
-64 - use crate::generate_mains;
-64 + use bootstrap::generate_mains;
-   |
+warning: `bootstrap` (lib) generated 20 warnings
+ Documenting rand_chacha v0.3.1
+ Documenting rand v0.8.5
+ Documenting bootstrap v0.1.0 (/mnt/c/Users/gentd/OneDrive/Documents/GitHub/solfunmeme-dioxus/bootstrap)
+error[E0432]: unresolved import `crate::kernel`
+  --> bootstrap/src/system_commitment.rs:26:12
+   |
+26 | use crate::kernel::Kernel;
+   |            ^^^^^^ could not find `kernel` in the crate root
 
 For more information about this error, try `rustc --explain E0432`.
-error: could not compile `bootstrap` (bin "stage0") due to 51 previous errors
+error: could not document `bootstrap`

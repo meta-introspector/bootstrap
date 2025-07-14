@@ -1,15 +1,4 @@
-use crate::vectos::{Vectos, MathematicalUniverse, StageVibes, LatticeState};
-use crate::godel::Godel;
-use crate::bott::Bott;
-use crate::clifford::Clifford;
-use crate::bach::Bach;
-use crate::escher::Escher;
-use crate::ns::Ns;
-use crate::euler::Euler;
-use crate::gauss::Gauss;
-use crate::mach::Mach;
-use crate::penrose::Penrose;
-use crate::oeis::OEIS;
+use crate::vectos::{MathematicalUniverse, StageVibes, LatticeState};
 use std::collections::HashMap;
 
 /// Phase2 trait for LLM reflection and self-modification
@@ -50,6 +39,20 @@ pub trait Phase2 {
     // Emergent behavior analysis
     fn analyze_emergent_properties(&self, universe: &MathematicalUniverse) -> EmergentProperties;
     fn predict_system_evolution(&self, current_state: &MathematicalUniverse) -> EvolutionPrediction;
+    
+    // Helper methods for calculations
+    fn calculate_coherence(&self, universe: &MathematicalUniverse) -> f64;
+    fn calculate_mathematical_beauty(&self, universe: &MathematicalUniverse) -> f64;
+    fn calculate_complexity(&self, universe: &MathematicalUniverse) -> f64;
+    fn calculate_harmony_balance(&self, universe: &MathematicalUniverse) -> f64;
+    fn calculate_pattern_complexity(&self, patterns: &[Vec<f64>]) -> f64;
+    fn calculate_pattern_regularity(&self, patterns: &[Vec<f64>]) -> f64;
+    fn calculate_pattern_beauty(&self, patterns: &[Vec<f64>]) -> f64;
+    fn calculate_mathematical_significance(&self, patterns: &[Vec<f64>]) -> f64;
+    fn analyze_code_complexity(&self, code: &str) -> f64;
+    fn analyze_maintainability(&self, code: &str) -> f64;
+    fn analyze_efficiency(&self, code: &str) -> f64;
+    fn analyze_code_beauty(&self, code: &str) -> f64;
 }
 
 /// System reflection representation
@@ -526,7 +529,7 @@ impl Phase2 for Phase2Engine {
             // Evolve each component
             current.dimensions += 1;
             current.godel_numbers.push(i as u64);
-            current.mathematical_beauty *= 1.01; // Gradual improvement
+            // current.mathematical_beauty *= 1.01; // Gradual improvement - field doesn't exist
             
             evolution.push(current.clone());
         }

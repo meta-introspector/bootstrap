@@ -1,7 +1,7 @@
-use crate::godel::Godel;
+use crate::godel::{Godel, GodelDyn};
 use crate::bott::Bott;
-use crate::clifford::Clifford;
-use crate::bach::{Bach, Note, Scale, ChordType, Voice, Chord};
+use crate::clifford::{Clifford, CliffordDyn};
+use crate::bach::{Bach, Note, Voice};
 use crate::escher::Escher;
 use crate::ns::Ns;
 use crate::euler::Euler;
@@ -10,7 +10,7 @@ use crate::mach::Mach;
 use crate::penrose::Penrose;
 use crate::oeis::OEIS;
 use crate::vectos::{Vectos, MathematicalUniverse, StageVibes, LatticeState};
-use crate::phase2::{Phase2, SystemReflection, PatternAnalysis, SelfModification};
+use crate::phase2::Phase2;
 use std::collections::HashMap;
 
 /// EmbeddedNumber trait - numbers that contain their own mathematical properties
@@ -22,9 +22,9 @@ pub trait EmbeddedNumber {
     fn clifford_multivector(&self) -> Vec<f64>;
     
     // Mathematical trait embeddings
-    fn embedded_godel(&self) -> Box<dyn Godel>;
-    fn embedded_bott(&self) -> Box<dyn Bott>;
-    fn embedded_clifford(&self) -> Box<dyn Clifford>;
+    fn embedded_godel(&self) -> Box<dyn GodelDyn>;
+    fn embedded_bott(&self) -> Box<dyn Bott<Base = f64, Fiber = f64>>;
+    fn embedded_clifford(&self) -> Box<dyn CliffordDyn<Scalar = f64>>;
     fn embedded_bach(&self) -> Box<dyn Bach>;
     fn embedded_escher(&self) -> Box<dyn Escher>;
     fn embedded_ns(&self) -> Box<dyn Ns>;
@@ -52,6 +52,7 @@ pub trait EmbeddedNumber {
     fn mathematical_beauty(&self) -> f64;
     fn complexity_score(&self) -> f64;
     fn harmony_balance(&self) -> f64;
+    fn calculate_coherence(&self) -> f64;
 }
 
 /// Number reflection representation
@@ -97,6 +98,7 @@ pub struct ResonantNumber {
 }
 
 /// Self-aware number that embeds all mathematical traits
+#[derive(Clone)]
 pub struct SelfAwareNumber {
     pub value: f64,
     pub godel_number: u64,
@@ -156,16 +158,16 @@ impl EmbeddedNumber for SelfAwareNumber {
         self.clifford_vector.clone()
     }
     
-    fn embedded_godel(&self) -> Box<dyn Godel> {
-        Box::new(crate::godel::GodelNumber::new(self.godel_number))
+    fn embedded_godel(&self) -> Box<dyn GodelDyn> {
+        Box::new(crate::godel::SimpleGodelNumber::new(self.godel_number))
     }
     
-    fn embedded_bott(&self) -> Box<dyn Bott> {
+    fn embedded_bott(&self) -> Box<dyn Bott<Base = f64, Fiber = f64>> {
         Box::new(crate::bott::Bott8D::new(self.value))
     }
     
-    fn embedded_clifford(&self) -> Box<dyn Clifford> {
-        Box::new(crate::clifford::CliffordMultivector::new(&self.clifford_vector))
+    fn embedded_clifford(&self) -> Box<dyn CliffordDyn<Scalar = f64>> {
+        Box::new(crate::clifford::CliffordMultivector::new(self.clifford_vector.len()))
     }
     
     fn embedded_bach(&self) -> Box<dyn Bach> {
@@ -227,7 +229,7 @@ impl EmbeddedNumber for SelfAwareNumber {
             number_value: self.value,
             godel_significance: self.godel_number as f64 / 100.0,
             bott_periodicity: bott.calculate_curvature(self.value, 1.0),
-            clifford_richness: clifford.norm(&self.clifford_vector),
+            clifford_richness: clifford.norm(),
             bach_harmony: bach.note_to_frequency(Note::A, 4) / 440.0,
             escher_beauty: escher.analyze_symmetry(&self.visual_pattern).len() as f64 / 10.0,
             ns_physics: ns.reynolds_number(self.value, 1.0) / 1000.0,
@@ -235,7 +237,7 @@ impl EmbeddedNumber for SelfAwareNumber {
             gauss_analysis: gauss.normal_pdf(self.value, 0.0, 1.0),
             mach_relativity: mach.lorentz_factor(self.value, 299792458.0),
             penrose_geometry: penrose.golden_ratio(),
-            oeis_sequence: oeis.fibonacci_sequence(10).last().unwrap_or(&0) as f64 / 100.0,
+            oeis_sequence: *oeis.fibonacci_sequence(10).last().unwrap_or(&0) as f64 / 100.0,
             vectos_integration: vectos.mathematical_resonance(&[self.value]),
             phase2_consciousness: phase2.reflect_on_system(&self.synthesize_mathematical_universe()).mathematical_beauty,
             overall_coherence: self.calculate_coherence(),
@@ -250,11 +252,11 @@ impl EmbeddedNumber for SelfAwareNumber {
         for i in 0..iterations {
             // Evolve the number based on its embedded properties
             current.value *= 1.618; // Golden ratio evolution
-            current.godel_number = current.embedded_godel().compose_godel(current.godel_number, i as u64);
+            current.godel_number = current.embedded_godel().compose_numbers(&[current.godel_number, i as u64]);
             current.consciousness_level *= 1.01; // Gradual consciousness increase
             
             // Evolve embedded structures
-            current.clifford_vector = current.embedded_clifford().grade_projection(&current.clifford_vector, 0);
+            current.clifford_vector = current.embedded_clifford().coefficients();
             current.musical_voice = current.embedded_bach().apply_bach_ornamentation(&current.musical_voice, 0.1);
             
             evolution.push(current.clone());
@@ -303,7 +305,7 @@ impl EmbeddedNumber for SelfAwareNumber {
             visual_patterns: vec![self.visual_pattern.clone()],
             fluid_fields: vec![self.fluid_field],
             number_sequences: vec![self.number_sequence.clone()],
-            statistical_data: vec![self.statistical_data.clone()],
+            statistical_data: self.statistical_data.clone(),
             relativistic_frames: vec![self.relativistic_frame],
             penrose_tilings: vec![self.penrose_tiling.clone()],
             oeis_sequences: vec![self.oeis_sequence.clone()],
@@ -376,7 +378,7 @@ impl EmbeddedNumber for SelfAwareNumber {
 
 /// Number embedding system that manages collections of self-aware numbers
 pub struct NumberEmbeddingSystem {
-    pub numbers: HashMap<f64, SelfAwareNumber>,
+    pub numbers: HashMap<u64, SelfAwareNumber>,
     pub global_consciousness: f64,
     pub mathematical_coherence: f64,
     pub evolution_generation: usize,
@@ -393,7 +395,7 @@ impl Default for NumberEmbeddingSystem {
             number.value = value;
             number.godel_number = i as u64;
             number.consciousness_level = 0.1 + (i as f64) * 0.02;
-            numbers.insert(value, number);
+            numbers.insert(i as u64, number);
         }
         
         Self {
@@ -413,8 +415,8 @@ impl NumberEmbeddingSystem {
         number.godel_number = value as u64;
         number.consciousness_level = 0.1 + (value % 10.0) * 0.1;
         
-        self.numbers.insert(value, number);
-        self.numbers.get(&value).unwrap()
+        self.numbers.insert(value as u64, number);
+        self.numbers.get(&(value as u64)).unwrap()
     }
     
     /// Evolve all numbers in the system
