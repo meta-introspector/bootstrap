@@ -75,58 +75,11 @@ pub mod main40;
 pub mod main41;
 pub mod main42;
 
-/// Run the complete stage0 process
-/// 
-/// This function generates rustdoc, runs all stages, and combines the output
-/// into a comprehensive HTML file that documents the entire system.
-pub fn run_stage0() -> Result<(), Box<dyn std::error::Error>> {
-    // This would be implemented to run the full stage0 process
-    println!("Stage0: Rust Documentation + Program Execution");
-    Ok(())
-}
+use solfunmeme_clifford::SolMultivector;
 
-/// Get information about all 42 stages
-/// 
-/// Returns a vector of stage information including their mathematical properties,
-/// OEIS sequences, and relationships to other stages.
-pub fn get_all_stages() -> Vec<StageInfo> {
-    // This would return information about all 42 stages
-    vec![]
-}
+pub mod bootstrap_system;
+pub mod stage_management;
 
-/// Information about a single stage
-#[derive(Debug, Clone)]
-pub struct StageInfo {
-    pub number: u32,
-    pub name: String,
-    pub description: String,
-    pub oeis_sequences: Vec<String>,
-    pub is_prime: bool,
-    pub is_fibonacci: bool,
-    pub is_factor_of_42: bool,
-    pub prime_factors: Vec<u32>,
-}
-
-/// The main system configuration
-#[derive(Debug)]
-pub struct BootstrapSystem {
-    pub stages: Vec<StageInfo>,
-    pub mathematical_foundation: String,
-    pub architecture: String,
-}
-
-impl BootstrapSystem {
-    /// Create a new bootstrap system
-    pub fn new() -> Self {
-        Self {
-            stages: get_all_stages(),
-            mathematical_foundation: "OEIS Sequences, Harmonic Lattice, Pharmonic Mapping".to_string(),
-            architecture: "OSI Layer System with Nash Equilibrium".to_string(),
-        }
-    }
-    
-    /// Run the complete system
-    pub fn run(&self) -> Result<(), Box<dyn std::error::Error>> {
-        run_stage0()
-    }
-} 
+pub use bootstrap_system::BootstrapSystem;
+pub use stage_management::{run_stage0, get_all_stages, StageInfo};
+ 

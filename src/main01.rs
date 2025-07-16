@@ -30,10 +30,17 @@
 //! from which all provability and inference paths begin. Its simplicity and universality 
 //! make it the constant underlying "vibe" that permeates every subsequent stage.
 
-pub fn main01() {
+use super::bootstrap_system::BootstrapSystem;
+use solfunmeme_clifford::SolMultivector;
+
+pub fn main01(system: &mut BootstrapSystem) {
     println!("[1] I am stage 1 - the unity stage.");
     println!("[1] I am a factor of 42.");
     println!("[1] I am a Fibonacci number.");
     println!("[1] I am atomic - no prime factors to call.");
     println!("[1] I vibe with all stages as the foundation.");
+
+    // Update flow_multivector for function execution (e3)
+    system.flow_multivector = system.flow_multivector + SolMultivector::from_e(1.0, 3);
+    println!("Flow Multivector after main01 execution: {:?}", system.flow_multivector);
 }

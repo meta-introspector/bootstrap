@@ -7,23 +7,7 @@
 //!
 //! ## Core Components
 //!
-//! - **`Clifford` Trait**: Defines the fundamental operations for any Clifford algebra object.
-//! - **`CliffordMultivector`**: A struct representing a multivector, the central element
-//!   in Clifford algebra.
-//! - **`CliffordGodel` Trait**: Integrates Clifford algebra concepts with the project's
-//!   Gödel numbering system, allowing algebraic structures to be encoded as unique numbers.
-//! - **Dynamic Trait (`CliffordDyn`)**: A `dyn`-safe version for use with trait objects.
+//! - **`SolMultivector`**: A struct representing a multivector from `solfunmeme_clifford`.
+//! - **`BertCliffordEncoder`**: Encoder to map BERT embeddings to Clifford algebra representation.
 
-pub mod clifford_trait;
-pub mod clifford_godel_trait;
-pub mod clifford_multivector_struct;
-pub mod clifford_multivector_constructors;
-pub mod clifford_multivector_impl;
-pub mod clifford_multivector_default;
-pub mod clifford_dyn_trait;
-pub mod clifford_multivector_dyn_impl;
-
-pub use clifford_trait::Clifford;
-pub use clifford_godel_trait::CliffordGodel;
-pub use clifford_multivector_struct::CliffordMultivector;
-pub use clifford_dyn_trait::CliffordDyn;
+pub use solfunmeme_clifford::{SolMultivector, BertCliffordEncoder, SolCl, BertConfig as CliffordBertConfig};

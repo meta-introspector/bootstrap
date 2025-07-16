@@ -13,6 +13,7 @@ categories = ["system"]
 # Intentionally empty - zero dependencies for true bootstrap capability 
 rand = "0.8"
 chrono = { version = "0.4", features = ["serde"] }
+solfunmeme_clifford = { path = "../crates/solfunmeme_clifford" }
 
 [[bin]]
 name = "stage0"
