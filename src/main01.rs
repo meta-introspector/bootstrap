@@ -41,6 +41,6 @@ pub fn main01(system: &mut BootstrapSystem) {
     println!("[1] I vibe with all stages as the foundation.");
 
     // Update flow_multivector for function execution (e3)
-    system.flow_multivector = system.flow_multivector + SolMultivector::from_e(1.0, 3);
+    system.flow_multivector = system.flow_multivector.clone() + SolMultivector::from_indexed_iter([(1 << (3 - 1), 1.0)].into_iter()).unwrap();
     println!("Flow Multivector after main01 execution: {:?}", system.flow_multivector);
 }

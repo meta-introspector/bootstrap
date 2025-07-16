@@ -15,7 +15,7 @@ pub fn run_stage0(system: &mut BootstrapSystem) -> Result<(), Box<dyn std::error
     godel::update_flow_for_godel_operation(system);
 
     // Update flow_multivector for function execution (e3)
-    system.flow_multivector = system.flow_multivector + SolMultivector::from_e(1.0, 3);
+    system.flow_multivector = system.flow_multivector.clone() + SolMultivector::from_indexed_iter([(1 << (3 - 1), 1.0)].into_iter()).unwrap();
     println!("Flow Multivector after run_stage0 execution: {:?}", system.flow_multivector);
 
     Ok(())

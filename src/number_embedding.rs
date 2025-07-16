@@ -23,7 +23,7 @@
 
 use crate::godel::{Godel, GodelDyn};
 use crate::bott::Bott;
-use crate::clifford::{Clifford, CliffordDyn};
+
 use crate::bach::{Bach, Note, Voice};
 use crate::escher::Escher;
 use crate::ns::Ns;
@@ -35,6 +35,7 @@ use crate::oeis::OEIS;
 use crate::vectos::{Vectos, MathematicalUniverse, StageVibes, LatticeState};
 use crate::phase2::Phase2;
 use std::collections::HashMap;
+
 
 /// A trait for numbers that contain their own mathematical properties and trait implementations.
 pub trait EmbeddedNumber {
@@ -54,7 +55,7 @@ pub trait EmbeddedNumber {
     /// Returns a boxed trait object for Bott periodicity operations.
     fn embedded_bott(&self) -> Box<dyn Bott<Base = f64, Fiber = f64>>;
     /// Returns a boxed trait object for Clifford algebra operations.
-    fn embedded_clifford(&self) -> Box<dyn CliffordDyn<Scalar = f64>>;
+    fn embedded_clifford(&self) -> solfunmeme_clifford::SolMultivector;
     /// Returns a boxed trait object for musical composition.
     fn embedded_bach(&self) -> Box<dyn Bach>;
     /// Returns a boxed trait object for visual mathematical art.
@@ -259,8 +260,8 @@ impl EmbeddedNumber for SelfAwareNumber {
         Box::new(crate::bott::Bott8D::new(self.value))
     }
     
-    fn embedded_clifford(&self) -> Box<dyn CliffordDyn<Scalar = f64>> {
-        Box::new(crate::clifford::CliffordMultivector::new(self.clifford_vector.len()))
+    fn embedded_clifford(&self) -> solfunmeme_clifford::SolMultivector {
+        solfunmeme_clifford::SolMultivector::default()
     }
     
     fn embedded_bach(&self) -> Box<dyn Bach> {
@@ -322,7 +323,7 @@ impl EmbeddedNumber for SelfAwareNumber {
             number_value: self.value,
             godel_significance: self.godel_number as f64 / 100.0,
             bott_periodicity: bott.calculate_curvature(self.value, 1.0),
-            clifford_richness: clifford.norm(),
+            clifford_richness: solfunmeme_clifford::get_multivector_norm(&clifford),
             bach_harmony: bach.note_to_frequency(Note::A, 4) / 440.0,
             escher_beauty: escher.analyze_symmetry(&self.visual_pattern).len() as f64 / 10.0,
             ns_physics: ns.reynolds_number(self.value, 1.0) / 1000.0,
@@ -349,7 +350,7 @@ impl EmbeddedNumber for SelfAwareNumber {
             current.consciousness_level *= 1.01; // Gradual consciousness increase
             
             // Evolve embedded structures
-            current.clifford_vector = current.embedded_clifford().coefficients();
+            current.clifford_vector = solfunmeme_clifford::get_multivector_coefficients(&current.embedded_clifford());
             current.musical_voice = current.embedded_bach().apply_bach_ornamentation(&current.musical_voice, 0.1);
             
             evolution.push(current.clone());

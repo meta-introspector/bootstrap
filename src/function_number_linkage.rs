@@ -17,7 +17,7 @@
 //!   function's execution.
 
 use std::collections::HashMap;
-use crate::clifford::Clifford;
+
 
 /// Represents the result of an `IntrinsicFunction` execution.
 #[derive(Debug, Clone)]

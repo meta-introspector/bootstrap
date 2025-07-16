@@ -75,7 +75,7 @@ pub mod main40;
 pub mod main41;
 pub mod main42;
 
-use solfunmeme_clifford::SolMultivector;
+
 
 pub mod bootstrap_system;
 pub mod stage_management;

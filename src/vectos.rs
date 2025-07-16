@@ -19,7 +19,7 @@
 
 use crate::godel::GodelDyn;
 use crate::bott::Bott;
-use crate::clifford::{Clifford, CliffordDyn};
+
 use crate::bach::{Bach, Note, Voice, Chord};
 use crate::escher::Escher;
 use crate::ns::Ns;
@@ -28,6 +28,7 @@ use crate::gauss::Gauss;
 use crate::mach::Mach;
 use crate::penrose::Penrose;
 use crate::oeis::OEIS;
+
 
 /// A trait for a unified mathematical execution engine that combines all other
 /// mathematical traits into a single, cohesive framework.
@@ -210,7 +211,7 @@ pub struct VectosEngine {
     /// An instance of the Bott periodicity trait object.
     pub bott: Box<dyn Bott<Base = f64, Fiber = f64>>,
     /// An instance of the Clifford algebra trait object.
-    pub clifford: Box<dyn CliffordDyn<Scalar = f64>>,
+    pub clifford: solfunmeme_clifford::SolMultivector,
     /// An instance of the Bach music engine trait object.
     pub bach: Box<dyn Bach>,
     /// An instance of the Escher visual art trait object.
@@ -234,7 +235,7 @@ impl Default for VectosEngine {
         Self {
             godel: Box::new(crate::godel::SimpleGodelNumber::default()),
             bott: Box::new(crate::bott::Bott8D::default()),
-            clifford: Box::new(crate::clifford::CliffordMultivector::default()),
+            clifford: solfunmeme_clifford::SolMultivector::default(),
             bach: Box::new(crate::bach::BachComposer::default()),
             escher: Box::new(crate::escher::EscherArtist::default()),
             ns: Box::new(crate::ns::NavierStokesSolver::default()),
@@ -268,7 +269,7 @@ impl Vectos for VectosEngine {
             },
             "clifford_norm" => {
                 if !params.is_empty() {
-                    let norm = self.clifford.norm();
+                    let norm = solfunmeme_clifford::get_multivector_norm(&self.clifford);
                     vec![norm]
                 } else {
                     vec![0.0]
@@ -368,7 +369,7 @@ impl Vectos for VectosEngine {
     }
     
     fn clifford_bach_harmony(&self, multivector: &[f64], chord: &Chord) -> Voice {
-        let norm = self.clifford.norm();
+        let norm = solfunmeme_clifford::get_multivector_norm(&self.clifford);
         let chord_notes = self.bach.build_chord(chord.root, chord.chord_type);
         
         let mut voice = Voice {

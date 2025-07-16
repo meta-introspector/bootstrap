@@ -30,7 +30,7 @@ impl BootstrapSystem {
     /// Run the complete system
     pub fn run(&mut self) -> Result<(), Box<dyn std::error::Error>> {
         // Update flow_multivector for system initialization (e1)
-        self.flow_multivector = self.flow_multivector + solfunmeme_clifford::SolMultivector::from_e(1.0, 1);
+        self.flow_multivector = self.flow_multivector.clone() + solfunmeme_clifford::SolMultivector::from_indexed_iter([(1 << (1 - 1), 1.0)].into_iter()).unwrap();
         println!("Flow Multivector after initialization: {:?}", self.flow_multivector);
 
         run_stage0(self)
