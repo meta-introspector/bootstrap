@@ -1,3 +1,22 @@
+//! # Bott Periodicity and Quasi-Fiber Module
+//!
+//! This module introduces a sophisticated and abstract framework for modeling
+//! high-dimensional, topological relationships within the system, inspired by
+//! the mathematical concept of Bott periodicity. It defines an 8-dimensional
+//! "quasi-fiber" structure that can represent complex, layered concepts where
+//! each dimension holds unique properties.
+//!
+//! ## Core Concepts
+//!
+//! - **`Bott` Trait**: An extensive trait that outlines the capabilities of a
+//!   Bott structure. It includes methods for topological inquiries, such as
+//!   calculating curvature, Chern classes, and various invariants, linking the
+//!   system's structure to deep concepts in algebraic topology and physics.
+//! - **`Bott8D` Struct**: A concrete implementation of the `Bott` trait,
+//!   representing a point in an 8-dimensional space.
+//! - **`BottGodel` Trait**: Integrates the Bott structure with Gödel numbering,
+//!   allowing these complex topological forms to be encoded as unique numbers.
+
 use crate::godel::Godel;
 
 /// Bott trait representing an 8-dimensional quasi-fiber structure
@@ -235,8 +254,11 @@ pub trait BottGodel: Bott + Godel {
 /// Helper struct for working with 8D Bott structures
 #[derive(Debug, Clone)]
 pub struct Bott8D<B, F> {
+    /// The 8 coordinates of the structure, each representing a dimension.
     pub coordinates: [Option<F>; 8],
+    /// The base space of the fiber structure.
     pub base: B,
+    /// Phantom data to hold the fiber type `F`.
     pub _phantom: std::marker::PhantomData<F>,
 }
 
@@ -632,4 +654,4 @@ impl<B: Default, F: Default + Copy> Default for Bott8D<B, F> {
     fn default() -> Self {
         Self::new(B::default())
     }
-} 
+}

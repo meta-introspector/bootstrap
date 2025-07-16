@@ -1,172 +1,321 @@
+//! # Bach: A Musical and Mathematical Composition Engine
+//!
+//! This module provides a comprehensive framework for musical representation, analysis,
+//! and algorithmic composition, inspired by the structural and mathematical genius of
+//! Johann Sebastian Bach. It defines a rich set of tools for working with musical
+//! concepts such as notes, scales, chords, harmony, and counterpoint.
+//!
+//! ## Core Philosophy
+//!
+//! The `bach` module treats music not just as an art form, but as a mathematical
+//! language. It provides the building blocks to explore the intricate relationships
+_between music theory, harmony, and mathematical principles. The central `Bach`
+//! trait encapsulates a wide array of functionalities, from basic note manipulation
+//! to the generation of complex forms like fugues and chorales.
+//!
+//! ## Key Components
+//!
+//! - **Musical Primitives**: Enums like `Note`, `Interval`, `Scale`, and `ChordType`
+//!   provide the fundamental vocabulary for musical expression.
+//! - **Structural Elements**: Structs like `Voice`, `Chord`, and `Progression`
+//!   represent the building blocks of musical composition.
+//! - **The `Bach` Trait**: A powerful interface that defines methods for:
+//!   - **Musical Operations**: Transposition, scale generation, chord building.
+//!   - **Harmony and Counterpoint**: Generating progressions and checking rules.
+//!   - **Algorithmic Composition**: Creating fugues, canons, and preludes.
+//!   - **Musical Analysis**: Calculating tension, finding motifs, and measuring entropy.
+//! - **`BachComposer`**: A concrete implementation of the `Bach` trait that provides
+//!   a ready-to-use engine for musical tasks.
+
 use std::collections::HashMap;
 use rand::seq::SliceRandom;
 
-/// Musical note representation
+/// Represents the twelve standard musical notes in Western music theory.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub enum Note {
-    C, CSharp, D, DSharp, E, F, FSharp, G, GSharp, A, ASharp, B,
+    /// C
+    C,
+    /// C-sharp or D-flat
+    CSharp,
+    /// D
+    D,
+    /// D-sharp or E-flat
+    DSharp,
+    /// E
+    E,
+    /// F
+    F,
+    /// F-sharp or G-flat
+    FSharp,
+    /// G
+    G,
+    /// G-sharp or A-flat
+    GSharp,
+    /// A
+    A,
+    /// A-sharp or B-flat
+    ASharp,
+    /// B
+    B,
 }
 
-/// Musical intervals
+/// Represents the distance in semitones between two notes.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum Interval {
+    /// 0 semitones
     Unison = 0,
+    /// 1 semitone
     MinorSecond = 1,
+    /// 2 semitones
     MajorSecond = 2,
+    /// 3 semitones
     MinorThird = 3,
+    /// 4 semitones
     MajorThird = 4,
+    /// 5 semitones
     PerfectFourth = 5,
+    /// 6 semitones
     Tritone = 6,
+    /// 7 semitones
     PerfectFifth = 7,
+    /// 8 semitones
     MinorSixth = 8,
+    /// 9 semitones
     MajorSixth = 9,
+    /// 10 semitones
     MinorSeventh = 10,
+    /// 11 semitones
     MajorSeventh = 11,
+    /// 12 semitones
     Octave = 12,
 }
 
-/// Musical scales
+/// Represents a collection of notes defined by a specific pattern of intervals.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum Scale {
+    /// The major scale (W-W-H-W-W-W-H).
     Major,
+    /// The natural minor scale (W-H-W-W-H-W-W).
     NaturalMinor,
+    /// A minor scale with a raised seventh degree.
     HarmonicMinor,
+    /// A minor scale with a raised sixth and seventh degree when ascending.
     MelodicMinor,
+    /// A mode of the major scale with a characteristic major sixth.
     Dorian,
+    /// A mode of the major scale with a characteristic minor second.
     Phrygian,
+    /// A mode of the major scale with a characteristic augmented fourth.
     Lydian,
+    /// A mode of the major scale with a characteristic minor seventh.
     Mixolydian,
+    /// A mode of the major scale with a characteristic diminished fifth.
     Locrian,
+    /// A scale containing all twelve pitches.
     Chromatic,
+    /// A scale consisting of six notes separated by whole-tone steps.
     WholeTone,
+    /// A five-note scale.
     Pentatonic,
 }
 
-/// Chord types
+/// Represents the quality and structure of a chord.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum ChordType {
+    /// A three-note chord with a major third and a perfect fifth.
     Major,
+    /// A three-note chord with a minor third and a perfect fifth.
     Minor,
+    /// A three-note chord with a minor third and a diminished fifth.
     Diminished,
+    /// A three-note chord with a major third and an augmented fifth.
     Augmented,
+    /// A four-note chord with a major triad and a major seventh.
     MajorSeventh,
+    /// A four-note chord with a minor triad and a minor seventh.
     MinorSeventh,
+    /// A four-note chord with a major triad and a minor seventh.
     DominantSeventh,
+    /// A four-note chord with a diminished triad and a diminished seventh.
     DiminishedSeventh,
+    /// A four-note chord with a diminished triad and a minor seventh.
     HalfDiminished,
+    /// A chord where the third is replaced by a major second.
     SuspendedSecond,
+    /// A chord where the third is replaced by a perfect fourth.
     SuspendedFourth,
 }
 
-/// Musical voice
+/// Represents a single melodic line in a musical composition.
 #[derive(Debug, Clone)]
 pub struct Voice {
-    pub notes: Vec<(Note, f64)>, // (note, duration)
+    /// The sequence of notes and their durations (in beats).
+    pub notes: Vec<(Note, f64)>,
+    /// The octave of the voice (e.g., 4 for the middle octave).
     pub octave: i32,
+    /// The MIDI velocity of the notes (0-127).
     pub velocity: u8,
 }
 
-/// Musical chord
+/// Represents a set of notes played simultaneously.
 #[derive(Debug, Clone)]
 pub struct Chord {
+    /// The root note of the chord.
     pub root: Note,
+    /// The type or quality of the chord (e.g., Major, Minor).
     pub chord_type: ChordType,
+    /// The octave of the chord's root note.
     pub octave: i32,
+    /// The duration of the chord in beats.
     pub duration: f64,
 }
 
-/// Musical progression
+/// Represents a sequence of chords.
 #[derive(Debug, Clone)]
 pub struct Progression {
+    /// The sequence of chords in the progression.
     pub chords: Vec<Chord>,
+    /// The key of the progression.
     pub key: Note,
+    /// The scale used for the progression.
     pub scale: Scale,
 }
 
-/// Counterpoint rules
+/// Defines the rules for generating and checking counterpoint.
 #[derive(Debug, Clone)]
 pub struct CounterpointRules {
+    /// Whether parallel fifths are allowed.
     pub parallel_fifths_allowed: bool,
+    /// Whether parallel octaves are allowed.
     pub parallel_octaves_allowed: bool,
+    /// Whether dissonances must resolve correctly.
     pub dissonance_resolution: bool,
+    /// Whether to enforce smooth voice leading.
     pub voice_leading: bool,
 }
 
-/// Bach trait representing musical structures and operations
+/// A comprehensive trait for musical composition, analysis, and generation.
 pub trait Bach {
     // Basic musical operations
+    /// Converts a `Note` and octave to its corresponding frequency in Hertz.
     fn note_to_frequency(&self, note: Note, octave: i32) -> f64;
+    /// Converts a frequency in Hertz to the nearest `Note` and its octave.
     fn frequency_to_note(&self, frequency: f64) -> (Note, i32);
+    /// Calculates the musical interval between two notes.
     fn interval_between(&self, note1: Note, note2: Note) -> Interval;
+    /// Transposes a note by a given interval.
     fn transpose_note(&self, note: Note, interval: Interval) -> Note;
     
     // Scale operations
+    /// Generates the notes of a scale for a given root note.
     fn generate_scale(&self, root: Note, scale: Scale) -> Vec<Note>;
+    /// Determines the degree of a note within a given scale (e.g., 1 for tonic).
     fn scale_degree(&self, note: Note, root: Note, scale: Scale) -> Option<u8>;
+    /// Checks if a note belongs to a given scale.
     fn is_in_scale(&self, note: Note, root: Note, scale: Scale) -> bool;
     
     // Chord operations
+    /// Builds the notes of a chord from a root note and chord type.
     fn build_chord(&self, root: Note, chord_type: ChordType) -> Vec<Note>;
+    /// Returns the standard symbol for a chord (e.g., "Cmaj7").
     fn chord_symbol(&self, chord: &Chord) -> String;
+    /// Analyzes a set of notes to determine the most likely chord.
     fn analyze_chord(&self, notes: &[Note]) -> Option<Chord>;
+    /// Generates all possible inversions of a chord.
     fn chord_inversions(&self, chord: &Chord) -> Vec<Vec<Note>>;
     
     // Harmony operations
+    /// Generates a chord progression of a given length in a specific key and scale.
     fn generate_progression(&self, key: Note, scale: Scale, length: usize) -> Progression;
+    /// Analyzes a chord progression and returns the Roman numeral analysis.
     fn analyze_progression(&self, progression: &Progression) -> Vec<String>;
+    /// Generates smooth voice leading between two chords.
     fn voice_leading(&self, chord1: &Chord, chord2: &Chord) -> Vec<Voice>;
     
     // Counterpoint operations
+    /// Generates a counterpoint melody for a given cantus firmus.
     fn generate_counterpoint(&self, cantus_firmus: &Voice, rules: &CounterpointRules) -> Voice;
+    /// Checks two voices for violations of counterpoint rules.
     fn check_counterpoint_rules(&self, voice1: &Voice, voice2: &Voice, rules: &CounterpointRules) -> Vec<String>;
+    /// Inverts a melody around a central note by a given interval.
     fn invert_melody(&self, voice: &Voice, interval: Interval) -> Voice;
+    /// Reverses a melody, creating its retrograde.
     fn retrograde_melody(&self, voice: &Voice) -> Voice;
     
     // Algorithmic composition
+    /// Generates a fugue subject in a given key and scale.
     fn generate_fugue_subject(&self, key: Note, scale: Scale) -> Voice;
+    /// Generates the answer to a fugue subject (typically transposed).
     fn generate_fugue_answer(&self, subject: &Voice, key: Note) -> Voice;
+    /// Generates a complete fugue exposition with a specified number of voices.
     fn generate_fugue_exposition(&self, subject: &Voice, key: Note, voices: usize) -> Vec<Voice>;
+    /// Generates a canon from a subject with a given interval and delay.
     fn generate_canon(&self, subject: &Voice, interval: Interval, delay: f64) -> Vec<Voice>;
     
     // Mathematical music theory
+    /// Calculates the harmonic series for a given fundamental frequency.
     fn calculate_harmonic_series(&self, fundamental: f64, partials: usize) -> Vec<f64>;
+    /// Calculates the frequency of a note using just intonation ratios.
     fn calculate_just_intonation(&self, note: Note, octave: i32) -> f64;
+    /// Calculates the frequency of a note using 12-tone equal temperament.
     fn calculate_equal_temperament(&self, note: Note, octave: i32) -> f64;
+    /// Calculates the beat frequency between two sound waves.
     fn calculate_beat_frequency(&self, freq1: f64, freq2: f64) -> f64;
     
     // Rhythm and meter
+    /// Generates a rhythmic pattern based on a meter and complexity level.
     fn generate_rhythm_pattern(&self, meter: (u8, u8), complexity: f64) -> Vec<f64>;
+    /// Applies syncopation to a rhythmic pattern.
     fn syncopate_rhythm(&self, rhythm: &[f64], syncopation_level: f64) -> Vec<f64>;
+    /// Combines two rhythms to create a polyrhythm.
     fn polyrhythm(&self, rhythm1: &[f64], rhythm2: &[f64]) -> Vec<(f64, f64)>;
     
     // Musical analysis
+    /// Performs a statistical analysis of a melody.
     fn analyze_melody(&self, voice: &Voice) -> HashMap<String, f64>;
+    /// Finds recurring melodic patterns (motifs) in a voice.
     fn find_motifs(&self, voice: &Voice, min_length: usize) -> Vec<Vec<(Note, f64)>>;
+    /// Calculates the harmonic tension at each point in a progression.
     fn calculate_tension(&self, progression: &Progression) -> Vec<f64>;
+    /// Calculates the strength of the final cadence in a progression.
     fn calculate_cadence_strength(&self, progression: &Progression) -> f64;
     
     // Bach-specific algorithms
+    /// Generates a four-part chorale in the style of J.S. Bach from a hymn tune.
     fn generate_bach_style_chorale(&self, hymn_tune: &Voice) -> Vec<Voice>;
+    /// Generates a prelude in the style of J.S. Bach.
     fn generate_bach_style_prelude(&self, key: Note, scale: Scale) -> Voice;
+    /// Generates a complete fugue in the style of J.S. Bach.
     fn generate_bach_style_fugue(&self, subject: &Voice, key: Note) -> Vec<Voice>;
+    /// Applies baroque-style ornamentation to a voice.
     fn apply_bach_ornamentation(&self, voice: &Voice, ornamentation_level: f64) -> Voice;
     
     // Mathematical transformations
+    /// Applies a transformation matrix to the notes of a voice.
     fn apply_transformation_matrix(&self, voice: &Voice, matrix: &[[f64; 4]; 4]) -> Voice;
+    /// Generates a twelve-tone serial row.
     fn generate_serial_row(&self, length: usize) -> Vec<Note>;
+    /// Applies serialist techniques (inversion, retrograde) to a row.
     fn apply_serial_techniques(&self, row: &[Note], technique: &str) -> Vec<Note>;
+    /// Calculates the Shannon entropy of a melody.
     fn calculate_musical_entropy(&self, voice: &Voice) -> f64;
     
     // Performance and expression
+    /// Adds articulation markings (e.g., staccato, legato) to a voice.
     fn add_articulation(&self, voice: &Voice, articulation: &str) -> Voice;
+    /// Adds dynamic variations (e.g., crescendo, diminuendo) to a voice.
     fn add_dynamics(&self, voice: &Voice, dynamic_profile: &[(f64, u8)]) -> Voice;
+    /// Adds tempo variations (rubato) to a voice.
     fn add_tempo_variations(&self, voice: &Voice, tempo_profile: &[(f64, f64)]) -> Voice;
+    /// Generates musical ornamentation in a specific style.
     fn generate_ornamentation(&self, voice: &Voice, style: &str) -> Voice;
 }
 
-/// Concrete implementation of Bach trait
+/// A concrete implementation of the `Bach` trait.
 pub struct BachComposer {
+    /// The musical temperament system to use (e.g., "equal").
     pub temperament: String,
+    /// The tuning system to use (e.g., "12-tone").
     pub tuning_system: String,
 }
 
@@ -941,4 +1090,4 @@ impl Gcd for usize {
         }
         a
     }
-} 
+}

@@ -1,23 +1,46 @@
-/// Penrose trait for Penrose mathematics: tiling, quasicrystals, spin networks, and twistor theory
+//! # Penrose Mathematics Module
+//!
+//! This module is dedicated to the mathematical concepts pioneered by Roger Penrose,
+//! focusing on non-periodic tilings, quasicrystals, and their connections to
+//! fundamental physics through spin networks and twistor theory.
+//!
+//! ## Core Components
+//!
+//! - **`Penrose` Trait**: Defines an interface for generating Penrose tilings,
+//!   analyzing quasicrystals, and working with related structures like spin
+//!   networks and twistors.
+//! - **`PenroseMathematician` Struct**: A concrete implementation of the `Penrose` trait.
+
+/// A trait for mathematical concepts related to the work of Roger Penrose.
 pub trait Penrose {
     // Penrose tiling
+    /// Generates a Penrose tiling using a set of rules or iterations.
     fn generate_penrose_tiling(&self, iterations: usize) -> Vec<((f64, f64), (f64, f64))>;
+    /// Returns the golden ratio, a key constant in Penrose tilings.
     fn golden_ratio(&self) -> f64;
+    /// Generates a 1D tiling based on the Fibonacci sequence.
     fn fibonacci_tiling(&self, n: usize) -> Vec<f64>;
 
     // Quasicrystals
+    /// Generates a 3D quasicrystal pattern.
     fn quasicrystal_pattern(&self, dimensions: usize, golden_ratio: f64) -> Vec<(f64, f64, f64)>;
+    /// Calculates the diffraction pattern of a quasicrystal.
     fn diffraction_pattern(&self, crystal: &[(f64, f64, f64)]) -> Vec<(f64, f64)>;
 
     // Spin networks
+    /// Generates a spin network, a graph used in loop quantum gravity.
     fn spin_network(&self, nodes: usize, edges: usize) -> Vec<((usize, usize), f64)>;
+    /// Generates a spin foam, the 2-complex representing the time evolution of a spin network.
     fn spin_foam(&self, vertices: usize, faces: usize) -> Vec<Vec<usize>>;
 
     // Twistor theory
+    /// Generates points in twistor space, an alternative to spacetime.
     fn twistor_space(&self, dimension: usize) -> Vec<(f64, f64, f64, f64)>;
+    /// Applies a twistor transformation to a point.
     fn twistor_transform(&self, point: (f64, f64, f64, f64)) -> (f64, f64, f64, f64);
 }
 
+/// A concrete implementation of the `Penrose` trait.
 pub struct PenroseMathematician;
 
 impl Default for PenroseMathematician {
@@ -97,4 +120,4 @@ impl Penrose for PenroseMathematician {
         let (x, y, z, w) = point;
         (y, z, w, x) // Cyclic permutation
     }
-} 
+}

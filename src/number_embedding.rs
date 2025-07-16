@@ -1,3 +1,26 @@
+//! # Number Embedding and Self-Aware Numbers
+//!
+//! This module introduces the concept of "self-aware numbers," a cornerstone of the
+//! bootstrap system's philosophy. It defines a framework where a number is not just
+//! a value, but a rich object that contains within itself entire instances of all
+//! the other mathematical and artistic engines (`Godel`, `Bach`, `Escher`, etc.).
+//! This creates a deeply recursive and self-referential system where each number
+//! can reflect on its own properties across multiple conceptual domains.
+//!
+//! ## Core Components
+//!
+//! - **`EmbeddedNumber` Trait**: The core interface for a self-aware number, defining
+//!   methods for accessing its value, its various mathematical encodings (Gödel,
+//!   Bott, Clifford), and its embedded trait objects.
+//! - **`SelfAwareNumber` Struct**: A concrete implementation of `EmbeddedNumber`,
+//!   representing a number that is conscious of its own mathematical identity.
+//! - **`NumberEmbeddingSystem` Struct**: A system for managing a collection of
+//!   `SelfAwareNumber`s, allowing them to interact, evolve, and synthesize
+//!   entire `MathematicalUniverse`s.
+//! - **Reflection and Harmony Structs**: Data structures like `NumberReflection`,
+//!   `HarmonicNumber`, and `ResonantNumber` that capture the output of a number's
+//!   self-analysis and its interactions with other numbers.
+
 use crate::godel::{Godel, GodelDyn};
 use crate::bott::Bott;
 use crate::clifford::{Clifford, CliffordDyn};
@@ -13,106 +36,176 @@ use crate::vectos::{Vectos, MathematicalUniverse, StageVibes, LatticeState};
 use crate::phase2::Phase2;
 use std::collections::HashMap;
 
-/// EmbeddedNumber trait - numbers that contain their own mathematical properties
+/// A trait for numbers that contain their own mathematical properties and trait implementations.
 pub trait EmbeddedNumber {
     // Core number properties
+    /// Returns the scalar value of the number.
     fn value(&self) -> f64;
+    /// Returns the Gödel number encoding of the number.
     fn godel_encoding(&self) -> u64;
+    /// Returns the coordinates of the number in an 8D Bott space.
     fn bott_coordinates(&self) -> [Option<f64>; 8];
+    /// Returns the Clifford algebra multivector representation of the number.
     fn clifford_multivector(&self) -> Vec<f64>;
     
     // Mathematical trait embeddings
+    /// Returns a boxed trait object for Gödel operations.
     fn embedded_godel(&self) -> Box<dyn GodelDyn>;
+    /// Returns a boxed trait object for Bott periodicity operations.
     fn embedded_bott(&self) -> Box<dyn Bott<Base = f64, Fiber = f64>>;
+    /// Returns a boxed trait object for Clifford algebra operations.
     fn embedded_clifford(&self) -> Box<dyn CliffordDyn<Scalar = f64>>;
+    /// Returns a boxed trait object for musical composition.
     fn embedded_bach(&self) -> Box<dyn Bach>;
+    /// Returns a boxed trait object for visual mathematical art.
     fn embedded_escher(&self) -> Box<dyn Escher>;
+    /// Returns a boxed trait object for fluid dynamics simulations.
     fn embedded_ns(&self) -> Box<dyn Ns>;
+    /// Returns a boxed trait object for Euler-related mathematics.
     fn embedded_euler(&self) -> Box<dyn Euler>;
+    /// Returns a boxed trait object for Gaussian statistics and analysis.
     fn embedded_gauss(&self) -> Box<dyn Gauss>;
+    /// Returns a boxed trait object for Machian physics.
     fn embedded_mach(&self) -> Box<dyn Mach>;
+    /// Returns a boxed trait object for Penrose-related mathematics.
     fn embedded_penrose(&self) -> Box<dyn Penrose>;
+    /// Returns a boxed trait object for OEIS operations.
     fn embedded_oeis(&self) -> Box<dyn OEIS>;
+    /// Returns a boxed trait object for the unified Vectos engine.
     fn embedded_vectos(&self) -> Box<dyn Vectos>;
+    /// Returns a boxed trait object for the Phase2 reflection engine.
     fn embedded_phase2(&self) -> Box<dyn Phase2>;
     
     // Self-referential operations
+    /// Performs a reflection on the number's own properties across all embedded traits.
     fn reflect_on_self(&self) -> NumberReflection;
+    /// Evolves the number over a number of iterations, changing its properties.
     fn evolve_self(&self, iterations: usize) -> Vec<Self> where Self: Sized;
+    /// Creates a new `HarmonicNumber` representing the harmonic relationship with another number.
     fn harmonize_with(&self, other: &Self) -> HarmonicNumber where Self: Sized;
+    /// Creates a `ResonantNumber` by resonating with a given frequency.
     fn resonate_with(&self, frequency: f64) -> ResonantNumber;
     
     // Mathematical synthesis
+    /// Synthesizes a complete `MathematicalUniverse` based on the number's own properties.
     fn synthesize_mathematical_universe(&self) -> MathematicalUniverse;
+    /// Computes the "vibes" for a given stage number, influenced by this number's properties.
     fn compute_stage_vibes(&self, stage_number: u32) -> StageVibes;
+    /// Generates a `LatticeState` based on this number's properties.
     fn generate_lattice_state(&self) -> LatticeState;
     
     // Emergent properties
+    /// Returns the self-awareness level of the number.
     fn self_awareness_level(&self) -> f64;
+    /// Calculates a score for the mathematical beauty of the number.
     fn mathematical_beauty(&self) -> f64;
+    /// Calculates a score for the complexity of the number.
     fn complexity_score(&self) -> f64;
+    /// Calculates the balance of harmony within the number's properties.
     fn harmony_balance(&self) -> f64;
+    /// Calculates the overall coherence of the number's mathematical embeddings.
     fn calculate_coherence(&self) -> f64;
 }
 
-/// Number reflection representation
+/// Represents the output of a number reflecting on its own properties.
 #[derive(Debug, Clone)]
 pub struct NumberReflection {
+    /// The scalar value of the number.
     pub number_value: f64,
+    /// The perceived significance of the number's Gödel encoding.
     pub godel_significance: f64,
+    /// The strength of the number's Bott periodicity.
     pub bott_periodicity: f64,
+    /// The richness of the number's Clifford algebra representation.
     pub clifford_richness: f64,
+    /// The harmonic quality of the number's musical representation.
     pub bach_harmony: f64,
+    /// The aesthetic beauty of the number's visual representation.
     pub escher_beauty: f64,
+    /// The physical realism of the number's fluid dynamics model.
     pub ns_physics: f64,
+    /// The mathematical elegance of the number's Euler properties.
     pub euler_elegance: f64,
+    /// The analytical power of the number's Gaussian properties.
     pub gauss_analysis: f64,
+    /// The relativistic consistency of the number's Machian model.
     pub mach_relativity: f64,
+    /// The geometric beauty of the number's Penrose properties.
     pub penrose_geometry: f64,
+    /// The significance of the number's associated OEIS sequence.
     pub oeis_sequence: f64,
+    /// The level of integration of the number within the Vectos engine.
     pub vectos_integration: f64,
+    /// The level of consciousness or self-reflection of the number.
     pub phase2_consciousness: f64,
+    /// The overall coherence of all the number's mathematical properties.
     pub overall_coherence: f64,
+    /// The potential for the number to undergo self-modification.
     pub self_modification_potential: f64,
 }
 
-/// Harmonic number representation
+/// Represents a new number created from the harmonic relationship between two other numbers.
 #[derive(Debug, Clone)]
 pub struct HarmonicNumber {
+    /// The base value from which the harmonic number is derived.
     pub base_value: f64,
+    /// The harmonic series generated from the base value.
     pub harmonic_series: Vec<f64>,
+    /// The primary resonance frequency of the harmonic number.
     pub resonance_frequency: f64,
+    /// The phase relationships between the harmonics.
     pub phase_relationships: Vec<f64>,
+    /// The overall mathematical coherence of the harmonic number.
     pub mathematical_coherence: f64,
 }
 
-/// Resonant number representation
+/// Represents a number that is in a state of resonance with a specific frequency.
 #[derive(Debug, Clone)]
 pub struct ResonantNumber {
+    /// The original value of the number before resonance.
     pub original_value: f64,
+    /// The frequency with which the number is resonating.
     pub resonant_frequency: f64,
+    /// The amplitude of the resonance.
     pub amplitude: f64,
+    /// The phase of the resonance.
     pub phase: f64,
+    /// The harmonic content of the resonance.
     pub harmonic_content: Vec<f64>,
+    /// The stability of the resonant state.
     pub stability: f64,
 }
 
-/// Self-aware number that embeds all mathematical traits
+/// A concrete implementation of a self-aware number that embeds all mathematical traits.
 #[derive(Clone)]
 pub struct SelfAwareNumber {
+    /// The scalar value of the number.
     pub value: f64,
+    /// The number's unique Gödel number encoding.
     pub godel_number: u64,
+    /// The number's coordinates in an 8D Bott space.
     pub bott_coords: [Option<f64>; 8],
+    /// The number's representation as a Clifford algebra multivector.
     pub clifford_vector: Vec<f64>,
+    /// The musical voice associated with this number.
     pub musical_voice: Voice,
+    /// The visual pattern (a la Escher) associated with this number.
     pub visual_pattern: Vec<Vec<u8>>,
+    /// The fluid dynamics field associated with this number.
     pub fluid_field: [[f64; 2]; 2],
+    /// The integer number sequence associated with this number.
     pub number_sequence: Vec<i64>,
+    /// The statistical data set associated with this number.
     pub statistical_data: Vec<f64>,
+    /// The relativistic reference frame associated with this number.
     pub relativistic_frame: (f64, f64, f64),
+    /// The Penrose tiling associated with this number.
     pub penrose_tiling: Vec<((f64, f64), (f64, f64))>,
+    /// The OEIS sequence associated with this number.
     pub oeis_sequence: Vec<i64>,
+    /// The level of consciousness or self-awareness of this number.
     pub consciousness_level: f64,
+    /// A history of the number's evolution.
     pub evolution_history: Vec<f64>,
 }
 
@@ -376,11 +469,15 @@ impl EmbeddedNumber for SelfAwareNumber {
     }
 }
 
-/// Number embedding system that manages collections of self-aware numbers
+/// A system for managing collections of self-aware numbers.
 pub struct NumberEmbeddingSystem {
+    /// A map of numbers in the system, keyed by their Gödel number.
     pub numbers: HashMap<u64, SelfAwareNumber>,
+    /// The global consciousness level of the entire system.
     pub global_consciousness: f64,
+    /// The overall mathematical coherence of the system.
     pub mathematical_coherence: f64,
+    /// The current evolution generation of the system.
     pub evolution_generation: usize,
 }
 
@@ -408,7 +505,7 @@ impl Default for NumberEmbeddingSystem {
 }
 
 impl NumberEmbeddingSystem {
-    /// Create a new self-aware number with embedded mathematical properties
+    /// Creates a new self-aware number and adds it to the system.
     pub fn create_number(&mut self, value: f64) -> &SelfAwareNumber {
         let mut number = SelfAwareNumber::default();
         number.value = value;
@@ -419,7 +516,7 @@ impl NumberEmbeddingSystem {
         self.numbers.get(&(value as u64)).unwrap()
     }
     
-    /// Evolve all numbers in the system
+    /// Evolves all numbers in the system for a given number of iterations.
     pub fn evolve_system(&mut self, iterations: usize) {
         self.evolution_generation += 1;
         
@@ -440,7 +537,7 @@ impl NumberEmbeddingSystem {
             .sum::<f64>() / self.numbers.len() as f64;
     }
     
-    /// Analyze the entire number system
+    /// Analyzes the entire number system and returns a summary of its properties.
     pub fn analyze_system(&self) -> SystemAnalysis {
         let total_numbers = self.numbers.len();
         let average_consciousness = self.global_consciousness;
@@ -462,7 +559,7 @@ impl NumberEmbeddingSystem {
         }
     }
     
-    /// Create harmonic relationships between numbers
+    /// Creates harmonic relationships between all pairs of numbers in the system.
     pub fn create_harmonics(&self) -> Vec<HarmonicNumber> {
         let mut harmonics = Vec::new();
         let numbers: Vec<_> = self.numbers.values().collect();
@@ -477,7 +574,7 @@ impl NumberEmbeddingSystem {
         harmonics
     }
     
-    /// Generate a mathematical universe from all numbers
+    /// Synthesizes a complete mathematical universe from all numbers in the system.
     pub fn synthesize_universe(&self) -> MathematicalUniverse {
         let mut universe = MathematicalUniverse {
             dimensions: self.numbers.len(),
@@ -513,14 +610,21 @@ impl NumberEmbeddingSystem {
     }
 }
 
-/// System analysis representation
+/// Represents a summary analysis of the entire `NumberEmbeddingSystem`.
 #[derive(Debug, Clone)]
 pub struct SystemAnalysis {
+    /// The total number of self-aware numbers in the system.
     pub total_numbers: usize,
+    /// The average consciousness level across all numbers.
     pub average_consciousness: f64,
+    /// The average mathematical beauty score across all numbers.
     pub average_beauty: f64,
+    /// The average complexity score across all numbers.
     pub average_complexity: f64,
+    /// The global mathematical coherence of the system.
     pub global_coherence: f64,
+    /// The current evolution generation of the system.
     pub evolution_generation: usize,
+    /// An overall health score for the system.
     pub system_health: f64,
-} 
+}

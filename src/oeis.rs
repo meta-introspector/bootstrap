@@ -1,48 +1,93 @@
-/// OEIS trait for Online Encyclopedia of Integer Sequences operations
+//! # On-Line Encyclopedia of Integer Sequences (OEIS) Module
+//!
+//! This module provides an interface for working with integer sequences, inspired by
+//! the On-Line Encyclopedia of Integer Sequences (OEIS). It allows for the
+//! generation, analysis, and transformation of various well-known mathematical
+//! sequences.
+//!
+//! ## Core Components
+//!
+//! - **`OEIS` Trait**: Defines a comprehensive set of methods for generating
+//!   famous sequences (like Fibonacci, primes, Catalan numbers), analyzing their
+//!   properties (growth rate, patterns), and applying transformations.
+//! - **`OEISDatabase` Struct**: A concrete implementation of the `OEIS` trait.
+
+/// A trait for interacting with the On-Line Encyclopedia of Integer Sequences (OEIS).
 pub trait OEIS {
     // Core sequence operations
+    /// Generates a sequence of a given length by its OEIS identifier (e.g., "A000045").
     fn generate_sequence(&self, sequence_id: &str, length: usize) -> Vec<i64>;
+    /// Retrieves the common name of a sequence by its OEIS identifier.
     fn sequence_name(&self, sequence_id: &str) -> String;
+    /// Retrieves a brief description of a sequence by its OEIS identifier.
     fn sequence_description(&self, sequence_id: &str) -> String;
     
     // Mathematical sequence generators
+    /// Generates the first `n` Fibonacci numbers.
     fn fibonacci_sequence(&self, n: usize) -> Vec<i64>;
+    /// Generates the first `n` prime numbers.
     fn prime_sequence(&self, n: usize) -> Vec<i64>;
+    /// Generates the first `n` triangular numbers.
     fn triangular_numbers(&self, n: usize) -> Vec<i64>;
+    /// Generates the first `n` square numbers.
     fn square_numbers(&self, n: usize) -> Vec<i64>;
+    /// Generates the first `n` Catalan numbers.
     fn catalan_numbers(&self, n: usize) -> Vec<i64>;
+    /// Generates the first `n` Bell numbers.
     fn bell_numbers(&self, n: usize) -> Vec<i64>;
+    /// Generates Stirling numbers of the second kind.
     fn stirling_numbers(&self, n: usize, k: usize) -> Vec<Vec<i64>>;
     
     // Sequence analysis
+    /// Estimates the growth rate of a sequence.
     fn sequence_growth_rate(&self, sequence: &[i64]) -> f64;
+    /// Identifies the basic pattern of a sequence (e.g., arithmetic, geometric).
     fn sequence_pattern(&self, sequence: &[i64]) -> String;
+    /// Attempts to find a linear recurrence relation for a sequence.
     fn find_recurrence(&self, sequence: &[i64]) -> Option<String>;
+    /// Checks if a sequence appears to be diverging rapidly.
     fn sequence_divergence(&self, sequence: &[i64]) -> bool;
     
     // Sequence transformations
+    /// Calculates the cumulative sum of a sequence.
     fn cumulative_sum(&self, sequence: &[i64]) -> Vec<i64>;
+    /// Calculates the sequence of differences between consecutive terms.
     fn differences(&self, sequence: &[i64]) -> Vec<i64>;
+    /// Computes the convolution of two sequences.
     fn convolution(&self, seq1: &[i64], seq2: &[i64]) -> Vec<i64>;
+    /// Applies a binomial transform to a sequence.
     fn binomial_transform(&self, sequence: &[i64]) -> Vec<i64>;
     
     // Famous sequences
-    fn a000045(&self, n: usize) -> Vec<i64>; // Fibonacci
-    fn a000040(&self, n: usize) -> Vec<i64>; // Primes
-    fn a000217(&self, n: usize) -> Vec<i64>; // Triangular
-    fn a000290(&self, n: usize) -> Vec<i64>; // Squares
-    fn a000108(&self, n: usize) -> Vec<i64>; // Catalan
-    fn a000110(&self, n: usize) -> Vec<i64>; // Bell
-    fn a000142(&self, n: usize) -> Vec<i64>; // Factorials
-    fn a000720(&self, n: usize) -> Vec<i64>; // Prime counting
-    fn a000041(&self, n: usize) -> Vec<i64>; // Partition numbers
-    fn a000079(&self, n: usize) -> Vec<i64>; // Powers of 2
+    /// Generates Fibonacci numbers (A000045).
+    fn a000045(&self, n: usize) -> Vec<i64>;
+    /// Generates prime numbers (A000040).
+    fn a000040(&self, n: usize) -> Vec<i64>;
+    /// Generates triangular numbers (A000217).
+    fn a000217(&self, n: usize) -> Vec<i64>;
+    /// Generates square numbers (A000290).
+    fn a000290(&self, n: usize) -> Vec<i64>;
+    /// Generates Catalan numbers (A000108).
+    fn a000108(&self, n: usize) -> Vec<i64>;
+    /// Generates Bell numbers (A000110).
+    fn a000110(&self, n: usize) -> Vec<i64>;
+    /// Generates factorial numbers (A000142).
+    fn a000142(&self, n: usize) -> Vec<i64>;
+    /// Generates the prime-counting function (A000720).
+    fn a000720(&self, n: usize) -> Vec<i64>;
+    /// Generates partition numbers (A000041).
+    fn a000041(&self, n: usize) -> Vec<i64>;
+    /// Generates powers of 2 (A000079).
+    fn a000079(&self, n: usize) -> Vec<i64>;
     
     // Helper methods
+    /// Checks if a number is prime.
     fn is_prime(&self, n: i64) -> bool;
+    /// Calculates the binomial coefficient "n choose k".
     fn binomial_coefficient(&self, n: usize, k: usize) -> i64;
 }
 
+/// A concrete implementation of the `OEIS` trait.
 pub struct OEISDatabase;
 
 impl Default for OEISDatabase {
@@ -354,4 +399,4 @@ impl OEIS for OEISDatabase {
         }
         result
     }
-} 
+}
