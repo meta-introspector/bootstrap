@@ -167,6 +167,9 @@ pub mod simple_godel_number;
 pub use godel_dyn_trait::GodelDyn;
 pub use simple_godel_number::SimpleGodelNumber;
 
+use super::bootstrap_system::BootstrapSystem;
+use solfunmeme_clifford::SolMultivector;
+
 /// Helper struct for working with Gödel numbers
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct GodelNumber<T: Godel + std::fmt::Debug> {
@@ -270,4 +273,9 @@ impl<T: Godel + std::fmt::Debug> Godel for GodelNumber<T> {
     fn godel_equivalent(&self, other: &Self) -> bool {
         self.value == other.value
     }
+}
+
+pub fn update_flow_for_godel_operation(system: &mut BootstrapSystem) {
+    system.flow_multivector = system.flow_multivector + SolMultivector::from_e(1.0, 4);
+    println!("Flow Multivector after Gödel operation: {:?}", system.flow_multivector);
 } 

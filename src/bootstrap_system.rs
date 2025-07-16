@@ -1,12 +1,18 @@
 use solfunmeme_clifford::SolMultivector;
 use super::stage_management::{get_all_stages, run_stage0, StageInfo};
 
-/// The main system configuration
+/// The main system configuration for the bootstrap process.
+/// This struct holds the overall state and metadata of the running system.
 #[derive(Debug)]
 pub struct BootstrapSystem {
+    /// Information about all 42 stages of the system.
     pub stages: Vec<StageInfo>,
+    /// A description of the mathematical foundations underpinning the system.
     pub mathematical_foundation: String,
+    /// A description of the system's architecture.
     pub architecture: String,
+    /// A `SolMultivector` representing the current flow and state of the system.
+    /// This multivector evolves as the system progresses through its stages and operations.
     pub flow_multivector: SolMultivector,
 }
 

@@ -1,6 +1,7 @@
 use super::bootstrap_system::BootstrapSystem;
 use solfunmeme_clifford::SolMultivector;
 use super::main01;
+use super::godel;
 
 /// Run the complete stage0 process
 /// 
@@ -9,6 +10,9 @@ use super::main01;
 pub fn run_stage0(system: &mut BootstrapSystem) -> Result<(), Box<dyn std::error::Error>> {
     // Call main01 and pass the system
     main01::main01(system);
+
+    // Update flow_multivector for a Gödel operation (e4)
+    godel::update_flow_for_godel_operation(system);
 
     // Update flow_multivector for function execution (e3)
     system.flow_multivector = system.flow_multivector + SolMultivector::from_e(1.0, 3);
