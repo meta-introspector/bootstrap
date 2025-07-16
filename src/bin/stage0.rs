@@ -1,5 +1,16 @@
-//! Stage0: Rust Documentation + Program Execution
-//! This binary generates rustdoc and runs all stages, combining outputs into HTML
+//! # Stage 0 Documentation & Report Generator
+//!
+//! This binary acts as a high-level orchestrator for documentation and system reporting.
+//! It performs two primary functions:
+//!
+//! 1.  **Generates Documentation**: It invokes `rustdoc` to create the official HTML
+//!     documentation for the `bootstrap` library crate.
+//! 2.  **Simulates Stage Execution**: It runs a simulated execution of the 42-stage
+//!     prelude to capture the introductory output from each stage.
+//!
+//! Finally, it combines both the generated documentation and the simulated output into a
+//! single, beautifully styled HTML file (`stage0_output.html`), providing a comprehensive
+//! and human-readable overview of the entire system's state and structure.
 
 use std::process::Command;
 use std::fs;

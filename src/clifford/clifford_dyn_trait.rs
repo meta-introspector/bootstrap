@@ -1,3 +1,9 @@
+//! # Dynamic Clifford Trait
+//!
+//! This module provides a `dyn`-safe version of the `Clifford` trait.
+//! It is designed for scenarios where you need to work with Clifford algebra
+//! objects through trait objects, which requires a simplified, object-safe interface.
+
 /// Dyn-compatible interface for Clifford operations
 /// This trait provides a simplified interface that can be used with trait objects
 pub trait CliffordDyn {
@@ -32,4 +38,4 @@ pub trait CliffordDyn {
     
     /// Get the bivector part
     fn bivector_part(&self) -> Vec<Self::Scalar>;
-} 
+}

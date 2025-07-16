@@ -1,6 +1,16 @@
+//! # Clifford-Gödel Trait
+//!
+//! This module defines the `CliffordGodel` trait, which bridges the gap
+//! between the Clifford algebra module and the Gödel numbering system.
+//!
+//! By implementing this trait, a type can have both a multivector representation
+//! and a unique numerical identifier, allowing algebraic structures to be
+//! encoded, stored, and analyzed as numbers.
+
 use super::clifford_trait::Clifford;
 use crate::godel::Godel;
 
+/// A trait that combines the `Clifford` and `Godel` traits.
 pub trait CliffordGodel: Clifford + Godel {
     /// Get the Gödel number of this Clifford multivector
     fn clifford_godel_number(&self) -> u64 {
@@ -15,4 +25,4 @@ pub trait CliffordGodel: Clifford + Godel {
     
     /// Decompose a Gödel number back into Clifford multivectors
     fn decompose_clifford_godel(n: u64) -> Vec<Self> where Self: Sized;
-} 
+}

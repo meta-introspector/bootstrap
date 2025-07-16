@@ -1,3 +1,9 @@
+//! # Emoji Stage Display
+//!
+//! This module implements the `Display` trait for the `EmojiStage` enum.
+//! It maps each stage variant to its corresponding emoji character, allowing
+//! the stages to be printed as their symbolic representations.
+
 use std::fmt;
 use super::emoji_stage_enum::EmojiStage;
 
@@ -36,4 +42,4 @@ impl fmt::Display for EmojiStage {
         };
         write!(f, "{}", emoji)
     }
-} 
+}

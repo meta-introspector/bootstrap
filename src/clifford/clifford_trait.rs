@@ -1,3 +1,8 @@
+//! # Clifford Algebra Trait
+//!
+//! This module defines the core `Clifford` trait, which outlines the comprehensive
+//! set of operations for multivectors in geometric algebra. This trait serves as
+//! the primary interface for all Clifford algebra objects in the system.
 
 /// Clifford trait representing multivector structures in geometric algebra
 /// 
@@ -427,4 +432,4 @@ pub trait Clifford {
     
     /// Get the Gromov-Wasserstein distance
     fn gromov_wasserstein_distance(&self, other: &Self, p: Self::Scalar) -> Self::Scalar;
-} 
+}

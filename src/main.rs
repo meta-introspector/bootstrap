@@ -1,5 +1,11 @@
-//! Stage0: Prelude - All 42 stages introduce themselves
-//! Output from this stage becomes the foundation for stage1
+//! # Bootstrap Binary
+//!
+//! This is the main entry point for the bootstrap system. It executes the "Stage 0 Prelude,"
+//! a process where all 42 stages of the system introduce themselves and their mathematical properties.
+//!
+//! The output of this binary is a foundational report that can be used as input for subsequent stages
+//! of the system's lifecycle. It concludes by calculating a "System Commitment Value," a unique
+//! signature representing the state of the entire system.
 //!
 //! Copyright (C) 2025 James Michael Dupont <h4@solfunmeme.com>
 //!

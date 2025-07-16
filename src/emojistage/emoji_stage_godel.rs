@@ -1,3 +1,10 @@
+//! # Emoji Stage Gödel Numbering
+//!
+//! This module implements the `Godel` trait for the `EmojiStage` enum.
+//! It provides the logic for converting each symbolic stage into a unique
+//! prime number, allowing systems of stages to be represented as a single
+//! composite Gödel number.
+
 use super::emoji_stage_enum::EmojiStage;
 use crate::godel::Godel;
 
@@ -66,4 +73,4 @@ impl Godel for EmojiStage {
     fn godel_equivalent(&self, other: &Self) -> bool {
         self.godel_number() == other.godel_number()
     }
-} 
+}

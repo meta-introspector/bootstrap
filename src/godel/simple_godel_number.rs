@@ -1,3 +1,9 @@
+//! # Simple Gödel Number
+//!
+//! This module provides a basic, concrete implementation of the `GodelDyn` trait.
+//! It is used as a straightforward way to represent a Gödel number when a simple,
+//! no-frills implementation is needed.
+
 /// Simple concrete type that implements GodelDyn
 #[derive(Debug, Clone)]
 pub struct SimpleGodelNumber {
@@ -58,4 +64,4 @@ impl super::godel_dyn_trait::GodelDyn for SimpleGodelNumber {
         
         factors
     }
-} 
+}

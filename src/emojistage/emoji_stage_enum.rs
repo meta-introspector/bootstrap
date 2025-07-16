@@ -1,5 +1,12 @@
+//! # Emoji Stage Enum
+//!
+//! This module defines the core `EmojiStage` enum. Each variant of this enum
+//! represents a unique, symbolic "stage" or concept within the bootstrap system,
+//! often associated with a number from 1 to 42.
+
 use std::string::String;
 
+/// Represents a symbolic stage in the system, often with an associated emoji.
 #[derive(Debug, Clone, PartialEq, Eq, Hash)]
 pub enum EmojiStage {
     Unity,
@@ -61,4 +68,4 @@ pub enum EmojiStage {
     Lightning,
     Shield,
     Unknown(String),
-} 
+}
