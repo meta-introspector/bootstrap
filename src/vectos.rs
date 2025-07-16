@@ -4,7 +4,7 @@
 //! creating a unified execution engine that integrates all other mathematical and
 //! artistic modules (`godel`, `bott`, `clifford`, `bach`, etc.). It provides a
 //! single, cohesive interface for performing operations across these diverse
--//! domains and for composing them in novel and insightful ways.
+//! domains and for composing them in novel and insightful ways.
 //!
 //! ## Core Components
 //!

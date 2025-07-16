@@ -2,7 +2,7 @@
 //! 
 //! This module is dedicated to the generation and manipulation of visual art
 //! inspired by the work of M.C. Escher. It provides tools for creating
--//! tessellations, impossible objects, fractals, and other geometric patterns
+//! tessellations, impossible objects, fractals, and other geometric patterns
 //! that explore concepts of symmetry, perspective, and infinity.
 //! 
 //! ## Core Components

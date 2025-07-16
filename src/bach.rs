@@ -9,7 +9,7 @@
 //!
 //! The `bach` module treats music not just as an art form, but as a mathematical
 //! language. It provides the building blocks to explore the intricate relationships
-_between music theory, harmony, and mathematical principles. The central `Bach`
+//! _between music theory, harmony, and mathematical principles. The central `Bach`
 //! trait encapsulates a wide array of functionalities, from basic note manipulation
 //! to the generation of complex forms like fugues and chorales.
 //!
