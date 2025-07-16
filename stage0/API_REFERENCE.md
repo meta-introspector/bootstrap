@@ -1,357 +1,497 @@
-# Bootstrap Stage0 - API Reference
+# Bootstrap Stage 0 API Reference
 
 ## Overview
 
-This document provides a comprehensive API reference for the Bootstrap Stage0 flow-based microkernel. Each type is a potential flow in a Navier-Stokes equation, with specific mathematical properties and operations.
+This document provides a comprehensive reference for all public APIs in the Bootstrap Stage 0 microkernel.
 
 ## Core Types
 
-### Hash Flow
+### Kernel
 
-**File**: `src/hash.rs`  
-**Purpose**: Content identification through hash space
+The central orchestrator of the microkernel system.
 
-#### Struct Definition
-```rust
-pub struct Hash([u8; 32]);
-```
-
-#### Methods
-```rust
-impl Hash {
-    /// Creates a new hash potential from flow field
-    pub fn from_flow(data: &[u8]) -> Self
-    
-    /// Returns the flow field at this potential
-    pub fn flow_field(&self) -> &[u8; 32]
-    
-    /// Computes the gradient of this hash potential
-    pub fn gradient(&self) -> Vec<u8>
-}
-```
-
-#### Flow Operator
-```rust
-/// Transforms content flow into hash potential
-pub fn hash_flow(data: &[u8]) -> Hash
-```
-
-#### Mathematical Properties
-- **Potential**: Content identification field
-- **Gradient**: Rate of change in hash space
-- **Flow Field**: 32-byte hash space
-- **Convergence**: Content converges to unique hash
-
-### Artifact Flow
-
-**File**: `src/artifact.rs`  
-**Purpose**: Content storage and materialization
-
-#### Struct Definition
-```rust
-pub struct Artifact {
-    pub hash: Hash,
-    pub content: Vec<u8>,
-}
-```
-
-#### Methods
-```rust
-impl Artifact {
-    /// Creates a new artifact potential from content flow
-    pub fn from_content_flow(content: Vec<u8>) -> Self
-    
-    /// Returns the content flow at this potential
-    pub fn content_flow(&self) -> &[u8]
-    
-    /// Computes the divergence of this artifact potential
-    pub fn divergence(&self) -> usize
-}
-```
-
-#### Flow Operator
-```rust
-/// Transforms content into artifact potential
-pub fn artifact_flow(content: Vec<u8>) -> Artifact
-```
-
-#### Mathematical Properties
-- **Potential**: Content storage field
-- **Divergence**: Content size/length
-- **Materialization**: Content becomes concrete artifact
-- **Flow**: Content flows through storage space
-
-### Storage Flow
-
-**File**: `src/storage.rs`  
-**Purpose**: Storage field operations
-
-#### Struct Definition
-```rust
-pub struct Storage {
-    field: HashMap<Hash, Artifact>,
-}
-```
-
-#### Methods
-```rust
-impl Storage {
-    /// Creates a new storage potential field
-    pub fn new_field() -> Self
-    
-    /// Stores an artifact in the storage field
-    pub fn store_flow(&mut self, artifact: Artifact) -> Result<(), StorageFlowError>
-    
-    /// Retrieves an artifact from the storage field
-    pub fn retrieve_flow(&self, hash: &Hash) -> Option<Artifact>
-    
-    /// Computes the curl of the storage field
-    pub fn field_curl(&self) -> usize
-}
-```
-
-#### Flow Operator
-```rust
-/// Transforms storage operations into storage potentials
-pub fn storage_flow() -> Storage
-```
-
-#### Error Type
-```rust
-pub enum StorageFlowError {
-    FlowFailed,
-    NotFound,
-}
-```
-
-#### Mathematical Properties
-- **Field**: Storage potential field
-- **Curl**: Number of stored artifacts
-- **Mapping**: Hash to artifact mapping
-- **Convergence**: Artifacts converge in storage field
-
-### Kernel Flow
-
-**File**: `src/kernel.rs`  
-**Purpose**: System coordination and cycle management
-
-#### Struct Definition
 ```rust
 pub struct Kernel {
-    storage: Storage,
-    cycle: u64,
+    pub step: u64,
+    pub history: EquivalenceProof,
+    // Private fields: store, verifier, projector, hasher
 }
 ```
 
 #### Methods
+
+##### `new()`
+Creates a new kernel with the specified components.
+
 ```rust
-impl Kernel {
-    /// Creates a new kernel potential field
-    pub fn new_field() -> Self
-    
-    /// Stores content flow and returns hash potential
-    pub fn store_flow(&mut self, content: Vec<u8>) -> Hash
-    
-    /// Retrieves artifact flow by hash potential
-    pub fn retrieve_flow(&self, hash: &Hash) -> Option<Artifact>
-    
-    /// Advances the cycle flow (42-step cycle)
-    pub fn advance_cycle_flow(&mut self)
-    
-    /// Gets the current cycle potential
-    pub fn cycle_potential(&self) -> u64
-    
-    /// Computes the system flow divergence
-    pub fn system_divergence(&self) -> usize
-}
+pub fn new(
+    verifier: Box<dyn ProofVerifier>,
+    projector: Box<dyn ManifoldProjector>,
+    hasher: Box<dyn Hasher>,
+) -> Self
 ```
 
-#### Flow Operator
+**Parameters:**
+- `verifier`: Cryptographic proof verifier
+- `projector`: Geometric projection component
+- `hasher`: Content hashing component
+
+**Returns:** A new kernel instance with step 0 and empty history.
+
+##### `ingest()`
+Ingests a proof into the kernel's verifier and places it on the Chord.
+
 ```rust
-/// Transforms system operations into kernel potentials
-pub fn kernel_flow() -> Kernel
+pub fn ingest(&mut self, proof: Proof) -> Result<(), &'static str>
 ```
 
-#### Mathematical Properties
-- **Potential**: Central coordination field
-- **Divergence**: System complexity (number of artifacts)
-- **Cycle**: 42-step periodic evolution
-- **Coordination**: All flows converge here
+**Parameters:**
+- `proof`: Cryptographic proof to ingest
 
-### System Flow
+**Returns:** `Ok(())` on success, error message on failure.
 
-**File**: `src/system.rs`  
-**Purpose**: Complete bootstrap system as unified flow field
+##### `get_coordinate()`
+Retrieves the geometric coordinate of an entity on the manifold.
 
-#### Struct Definition
 ```rust
-pub struct System {
-    kernel: Kernel,
-}
+pub fn get_coordinate(&self, hash: &Hash) -> Option<Coordinate>
 ```
 
-#### Methods
+**Parameters:**
+- `hash`: Hash of the entity to locate
+
+**Returns:** `Some(Coordinate)` if found, `None` otherwise.
+
+##### `rewrite_hasher()`
+Replaces the kernel's hasher with a new one, advancing the cycle.
+
 ```rust
-impl System {
-    /// Creates a new system potential field
-    pub fn new_field() -> Self
-    
-    /// Stores content in the system flow field
-    pub fn store_system_flow(&mut self, content: Vec<u8>) -> Hash
-    
-    /// Retrieves content from the system flow field
-    pub fn retrieve_system_flow(&self, hash: &Hash) -> Option<Artifact>
-    
-    /// Gets the current system cycle potential
-    pub fn system_cycle_potential(&self) -> u64
-    
-    /// Computes the total system flow divergence
-    pub fn total_system_divergence(&self) -> usize
-    
-    /// Computes the system flow curl (vorticity)
-    pub fn system_curl(&self) -> u64
-}
+pub fn rewrite_hasher(&mut self, new_hasher: Box<dyn Hasher>)
 ```
 
-#### Flow Operators
-```rust
-/// Transforms system operations into unified system potentials
-pub fn system_flow() -> System
+**Parameters:**
+- `new_hasher`: New hasher implementation
 
-/// The entry point into the complete flow field
-pub fn bootstrap_flow() -> System
+**Side Effects:**
+- Advances the 42-step cycle
+- Records rewrite operation in history
+
+##### `rewrite_projector()`
+Replaces the kernel's projector with a new one, advancing the cycle.
+
+```rust
+pub fn rewrite_projector(&mut self, new_projector: Box<dyn ManifoldProjector>)
 ```
 
-#### Mathematical Properties
-- **Potential**: Higher-order unified field
-- **Curl**: System vorticity (cycle state)
-- **Divergence**: Total system complexity
-- **Coordination**: All sub-flows unified here
+**Parameters:**
+- `new_projector`: New projector implementation
 
-## Main Interface
+**Side Effects:**
+- Advances the 42-step cycle
+- Records rewrite operation in history
 
-### Bootstrap Type
+### Artifact
 
-**File**: `src/lib.rs`  
-**Purpose**: Main entry point into the flow system
+Content-addressable data units.
 
-#### Struct Definition
 ```rust
-pub struct Bootstrap {
-    system: System,
+pub struct Artifact {
+    pub content: Vec<u8>,
+    pub hashes: Vec<Hash>,
 }
 ```
 
 #### Methods
+
+##### `new()`
+Creates a new artifact from content using the provided hasher.
+
 ```rust
-impl Bootstrap {
-    /// Creates a new bootstrap flow field
-    pub fn new() -> Self
-    
-    /// Stores content in the bootstrap flow
-    pub fn store(&mut self, content: Vec<u8>) -> Hash
-    
-    /// Retrieves content from the bootstrap flow
-    pub fn retrieve(&self, hash: &Hash) -> Option<Artifact>
-    
-    /// Gets the current cycle potential
-    pub fn cycle_step(&self) -> u64
-    
-    /// Computes the total system divergence
-    pub fn total_divergence(&self) -> usize
-    
-    /// Computes the system curl (vorticity)
-    pub fn curl(&self) -> u64
+pub fn new(content: Vec<u8>, hasher: &dyn Hasher) -> Self
+```
+
+**Parameters:**
+- `content`: Raw binary content
+- `hasher`: Hashing algorithm to use
+
+**Returns:** New artifact with computed hash.
+
+### Hash
+
+Generic hash representation.
+
+```rust
+pub struct Hash {
+    pub algorithm_id: u64,
+    pub hash_bytes: Vec<u8>,
 }
 ```
 
-#### Default Implementation
+**Fields:**
+- `algorithm_id`: Unique identifier for the hashing algorithm
+- `hash_bytes`: Raw hash output bytes
+
+### Coordinate
+
+8-dimensional geometric coordinate.
+
 ```rust
-impl Default for Bootstrap {
-    fn default() -> Self
+pub struct Coordinate(pub [f64; 8]);
+```
+
+#### Methods
+
+##### `new()`
+Creates a new coordinate from an 8D vector.
+
+```rust
+pub fn new(vector: [f64; 8]) -> Self
+```
+
+##### `normalize()`
+Normalizes the coordinate to lie on the surface of a unit 8-sphere.
+
+```rust
+pub fn normalize(&self) -> Self
+```
+
+**Returns:** Normalized coordinate with magnitude ≤ 1.
+
+### Proof
+
+Cryptographic proof structure.
+
+```rust
+pub struct Proof {
+    pub hash: Hash,
+    pub content: Vec<u8>,
+    pub metadata: ProofMetadata,
 }
 ```
 
-## Flow Operations Summary
+### EquivalenceProof
 
-### Hash Operations
-- `hash_flow(data) -> Hash`: Transform content to hash potential
-- `Hash::from_flow(data) -> Hash`: Create hash from content
-- `hash.gradient() -> Vec<u8>`: Compute hash gradient
-- `hash.flow_field() -> &[u8; 32]`: Get hash flow field
+Identity transformation history.
 
-### Artifact Operations
-- `artifact_flow(content) -> Artifact`: Transform content to artifact
-- `Artifact::from_content_flow(content) -> Artifact`: Create artifact from content
-- `artifact.divergence() -> usize`: Compute artifact divergence
-- `artifact.content_flow() -> &[u8]`: Get content flow
+```rust
+pub struct EquivalenceProof {
+    pub path: Vec<RewriteOp>,
+}
+```
 
-### Storage Operations
-- `storage_flow() -> Storage`: Create storage field
-- `storage.store_flow(artifact) -> Result<(), StorageFlowError>`: Store artifact
-- `storage.retrieve_flow(hash) -> Option<Artifact>`: Retrieve artifact
-- `storage.field_curl() -> usize`: Compute field curl
+### RewriteOp
 
-### Kernel Operations
-- `kernel_flow() -> Kernel`: Create kernel field
-- `kernel.store_flow(content) -> Hash`: Store content through kernel
-- `kernel.retrieve_flow(hash) -> Option<Artifact>`: Retrieve through kernel
-- `kernel.cycle_potential() -> u64`: Get cycle state
-- `kernel.system_divergence() -> usize`: Get system complexity
+Types of rewrite operations.
 
-### System Operations
-- `system_flow() -> System`: Create system field
-- `bootstrap_flow() -> System`: Create bootstrap system
-- `system.store_system_flow(content) -> Hash`: Store in system
-- `system.retrieve_system_flow(hash) -> Option<Artifact>`: Retrieve from system
-- `system.system_curl() -> u64`: Get system vorticity
-- `system.total_system_divergence() -> usize`: Get total complexity
+```rust
+pub enum RewriteOp {
+    UpdateHasher,
+    UpdateProjector,
+}
+```
+
+## Traits
+
+### Hasher
+
+Contract for pluggable hashing algorithms.
+
+```rust
+pub trait Hasher {
+    fn algorithm_id(&self) -> u64;
+    fn hash(&self, data: &[u8]) -> Hash;
+}
+```
+
+#### Methods
+
+##### `algorithm_id()`
+Returns the unique identifier for this hashing algorithm.
+
+```rust
+fn algorithm_id(&self) -> u64
+```
+
+**Returns:** Algorithm identifier (0 is reserved for stage0 default).
+
+##### `hash()`
+Hashes the given data and returns a Hash struct.
+
+```rust
+fn hash(&self, data: &[u8]) -> Hash
+```
+
+**Parameters:**
+- `data`: Raw bytes to hash
+
+**Returns:** Hash struct with algorithm ID and hash bytes.
+
+### ManifoldProjector
+
+Contract for geometric projection algorithms.
+
+```rust
+pub trait ManifoldProjector {
+    fn project(&self, hash: &Hash) -> Coordinate;
+}
+```
+
+#### Methods
+
+##### `project()`
+Projects a hash to a coordinate in the 8D manifold.
+
+```rust
+fn project(&self, hash: &Hash) -> Coordinate
+```
+
+**Parameters:**
+- `hash`: Hash to project
+
+**Returns:** 8D coordinate on the unit hypersphere.
+
+### ProofVerifier
+
+Contract for cryptographic proof verification.
+
+```rust
+pub trait ProofVerifier {
+    fn ingest_proof(&mut self, proof: Proof) -> Result<(), &'static str>;
+}
+```
+
+#### Methods
+
+##### `ingest_proof()`
+Ingests and verifies a cryptographic proof.
+
+```rust
+fn ingest_proof(&mut self, proof: Proof) -> Result<(), &'static str>
+```
+
+**Parameters:**
+- `proof`: Proof to verify
+
+**Returns:** `Ok(())` if valid, error message if invalid.
+
+### Describable
+
+Contract for objects that can provide canonical descriptions.
+
+```rust
+pub trait Describable {
+    fn describe(&self) -> &[u8];
+}
+```
+
+#### Methods
+
+##### `describe()`
+Returns the canonical description of the object.
+
+```rust
+fn describe(&self) -> &[u8]
+```
+
+**Returns:** Canonical byte representation for hashing.
+
+## Default Implementations
+
+### ChecksumHasher
+
+Default, non-cryptographic hasher for stage0.
+
+```rust
+pub struct ChecksumHasher;
+```
+
+**Algorithm ID:** 0 (reserved for stage0 default)
+
+**Implementation:** Simple checksum using byte addition with wrapping arithmetic.
+
+### DefaultProjector
+
+Default geometric projector for stage0.
+
+```rust
+pub struct DefaultProjector;
+```
+
+**Implementation:** Splits hash bytes into 8 chunks, interprets as u64 values, normalizes to unit hypersphere.
+
+### DefaultProofVerifier
+
+Default proof verifier for stage0.
+
+```rust
+pub struct DefaultProofVerifier;
+```
+
+**Implementation:** Basic verification that proof hash matches content hash.
+
+## Usage Examples
+
+### Basic Kernel Usage
+
+```rust
+use bootstrap_stage0::{
+    Kernel, ChecksumHasher, DefaultProjector, DefaultProofVerifier
+};
+
+// Create kernel
+let mut kernel = Kernel::new(
+    Box::new(DefaultProofVerifier),
+    Box::new(DefaultProjector),
+    Box::new(ChecksumHasher)
+);
+
+// Check initial state
+assert_eq!(kernel.step, 0);
+assert!(kernel.history.path.is_empty());
+```
+
+### Artifact Creation and Storage
+
+```rust
+use bootstrap_stage0::{Artifact, ChecksumHasher};
+
+let hasher = ChecksumHasher;
+let content = b"Hello, World!".to_vec();
+
+// Create artifact
+let artifact = Artifact::new(content.clone(), &hasher);
+
+// Verify properties
+assert_eq!(artifact.content, content);
+assert_eq!(artifact.hashes.len(), 1);
+assert_eq!(artifact.hashes[0], hasher.hash(&content));
+```
+
+### Component Rewriting
+
+```rust
+// Rewrite hasher
+kernel.rewrite_hasher(Box::new(ChecksumHasher));
+assert_eq!(kernel.step, 1);
+assert_eq!(kernel.history.path.len(), 1);
+assert_eq!(kernel.history.path[0], RewriteOp::UpdateHasher);
+
+// Rewrite projector
+kernel.rewrite_projector(Box::new(DefaultProjector));
+assert_eq!(kernel.step, 2);
+assert_eq!(kernel.history.path.len(), 2);
+```
+
+### Custom Hash Implementation
+
+```rust
+use bootstrap_stage0::{Hash, Hasher};
+
+struct CustomHasher;
+
+impl Hasher for CustomHasher {
+    fn algorithm_id(&self) -> u64 {
+        42 // Custom algorithm ID
+    }
+    
+    fn hash(&self, data: &[u8]) -> Hash {
+        // Custom hashing logic
+        let mut sum = 0u64;
+        for &byte in data {
+            sum = sum.wrapping_add(byte as u64);
+        }
+        
+        Hash {
+            algorithm_id: self.algorithm_id(),
+            hash_bytes: sum.to_be_bytes().to_vec(),
+        }
+    }
+}
+```
+
+### Custom Projector Implementation
+
+```rust
+use bootstrap_stage0::{Coordinate, Hash, ManifoldProjector};
+
+struct CustomProjector;
+
+impl ManifoldProjector for CustomProjector {
+    fn project(&self, hash: &Hash) -> Coordinate {
+        // Custom projection logic
+        let mut coords = [0.0; 8];
+        for (i, &byte) in hash.hash_bytes.iter().take(8).enumerate() {
+            coords[i] = byte as f64 / 255.0;
+        }
+        Coordinate::new(coords).normalize()
+    }
+}
+```
 
 ## Error Handling
 
-### StorageFlowError
+### Common Error Patterns
+
+1. **Invalid Proof**: Proof verification fails
+2. **Missing Artifact**: Hash not found in storage
+3. **Algorithm Mismatch**: Hash algorithm ID not recognized
+4. **Invalid Coordinates**: Projection produces invalid geometry
+
+### Error Recovery
+
 ```rust
-pub enum StorageFlowError {
-    #[error("Storage flow operation failed")]
-    FlowFailed,
-    #[error("Hash potential not found in field")]
-    NotFound,
+// Handle proof ingestion errors
+match kernel.ingest(proof) {
+    Ok(()) => println!("Proof ingested successfully"),
+    Err(e) => println!("Proof ingestion failed: {}", e),
+}
+
+// Handle missing coordinates
+match kernel.get_coordinate(&hash) {
+    Some(coord) => println!("Found coordinate: {:?}", coord),
+    None => println!("No coordinate found for hash"),
 }
 ```
 
-## Mathematical Properties Reference
+## Performance Considerations
 
-### Flow Properties
-- **Gradient**: Rate of change in potential (Hash)
-- **Divergence**: Flow source/sink strength (Artifact, Kernel, System)
-- **Curl**: Vorticity of the flow field (Storage, System)
-- **Potential**: Scalar field from which flow derives (all types)
+### Memory Usage
+- Artifacts store full content in memory
+- Hash storage is O(1) per artifact
+- History grows linearly with rewrite operations
 
-### 42-Step Cycle
-- **Period**: 42 operations before cycle completion
-- **Advancement**: Each storage operation advances cycle
-- **Wrapping**: Cycle wraps around at 42 (modulo 42)
-- **State**: Current cycle state represents system evolution
+### Computational Complexity
+- Hash generation: O(n) where n is content size
+- Manifold projection: O(1) for fixed-size hashes
+- Component rewrite: O(1) for cycle advancement
 
-## Usage Patterns
+### Optimization Tips
+1. Reuse hasher instances when possible
+2. Batch artifact operations when feasible
+3. Consider content size for memory usage
+4. Monitor history size for long-running systems
 
-### Basic Flow
-1. Create bootstrap system: `Bootstrap::new()`
-2. Store content: `bootstrap.store(content)`
-3. Retrieve content: `bootstrap.retrieve(&hash)`
-4. Check properties: `bootstrap.cycle_step()`, `bootstrap.curl()`
+## Thread Safety
 
-### Advanced Flow Composition
-1. Create individual flows: `hash_flow()`, `artifact_flow()`, etc.
-2. Compose flows: Chain operations through different flow types
-3. Analyze properties: Check gradients, divergences, curls
-4. Monitor evolution: Track cycle advancement and system state
+### Current Limitations
+- Kernel is not thread-safe by default
+- Components should be synchronized externally
+- History modifications require exclusive access
 
-### Error Handling
-```rust
-match storage.store_flow(artifact) {
-    Ok(()) => println!("Flow stored successfully"),
-    Err(StorageFlowError::FlowFailed) => println!("Flow operation failed"),
-    Err(StorageFlowError::NotFound) => println!("Hash not found in field"),
-}
-``` 
+### Future Considerations
+- Thread-safe kernel implementation
+- Concurrent component replacement
+- Atomic rewrite operations
+
+## Versioning
+
+### API Stability
+- Core traits are stable
+- Default implementations may evolve
+- New trait methods will be added with default implementations
+
+### Migration Guide
+- Algorithm IDs are reserved for stage0 default (0)
+- Custom implementations should use IDs ≥ 1
+- Coordinate normalization is always applied
+- Proof verification is required for all ingested proofs

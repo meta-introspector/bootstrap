@@ -1,236 +1,164 @@
-# Bootstrap Stage0 - Flow-Based Microkernel
+# Bootstrap Stage 0 - Microkernel Foundation
 
 ## Overview
 
-Bootstrap Stage0 is a minimal, self-contained microkernel constructed as **flows** where each type is a **potential flow** in a Navier-Stokes equation. Each module is a **vector field**, each function is a **flow operation**, and the system is a **higher-order potential flow**.
+Bootstrap Stage 0 is the core, dependency-free foundation of the solfunmeme-dioxus microkernel architecture. It implements a minimal, self-contained runtime environment that provides the essential building blocks for a content-addressable, extensible system.
 
 ## Core Philosophy
 
-### Flow-Based Architecture
-- **Each type = a potential flow** in mathematical space
-- **Each file = a vector field** with defined operations
-- **Each function = a flow operation** that transforms data
-- **Each module = a flow component** with specific responsibilities
-- **The system = a higher-order potential flow** that coordinates all sub-flows
+The stage0 microkernel embodies several key principles:
 
-### Mathematical Foundation
-The system is built on fluid dynamics principles where:
-- **Gradient**: Rate of change in potential
-- **Divergence**: Flow source/sink strength  
-- **Curl**: Vorticity of the flow field
-- **Potential**: Scalar field from which flow derives
+- **Minimalism**: Zero external dependencies, pure Rust with only std/core
+- **Self-awareness**: The kernel understands its own structure and capabilities
+- **Content-addressable**: All artifacts indexed by cryptographic hash
+- **Extensible**: Clear interface for dynamic loading of external functionality
+- **Deterministic**: Consistent behavior across environments
+- **Univalence**: Explicit modeling of identity as transformation paths
+- **Ouroboros Cycle**: 42-step self-renewal cycle
 
 ## Architecture
 
-### File Structure
-```
-src/
-├── hash.rs         // Hash potential flow
-├── artifact.rs     // Artifact potential flow  
-├── storage.rs      // Storage potential flow
-├── kernel.rs       // Kernel potential flow
-├── system.rs       // System potential flow
-└── lib.rs          // Unified flow field
-```
+### Core Components
 
-### Flow Types
+1. **Kernel** (`kernel.rs`): Central orchestrator managing the 42-step cycle
+2. **Artifact** (`artifact.rs`): Content-addressable data units
+3. **Hash** (`hash.rs`): Generic hash representation with pluggable algorithms
+4. **Manifold** (`manifold.rs`): 8D geometric projection system
+5. **Chord Store** (`chord.rs`): Distributed hash table for artifact storage
+6. **Proof System** (`proof.rs`, `verifier.rs`): Cryptographic verification
+7. **Univalence** (`univalence.rs`): Identity transformation tracking
 
-#### 1. Hash Flow (`hash.rs`)
-**Purpose**: Content identification through hash space
+### Key Concepts
 
-```rust
-pub struct Hash([u8; 32]);
-```
+#### Content-Addressable Storage
+All data (`Artifact`s) is identified by the hash of its content, enabling:
+- Deduplication through content hashing
+- Immutable data references
+- Cryptographic integrity verification
 
-- **Flow Field**: Hash space where content converges
-- **Flow Operator**: `hash_flow(data) -> Hash`
-- **Mathematical**: Represents a potential in content identification field
-- **Properties**: Gradient, flow field, potential convergence
+#### 8D Manifold Projection
+Artifacts are mapped to coordinates on an 8-dimensional hypersphere, providing:
+- Spatial representation of all data
+- Geometric relationships between artifacts
+- Scalable indexing mechanism
 
-#### 2. Artifact Flow (`artifact.rs`)
-**Purpose**: Content storage and materialization
+#### Ouroboros Cycle
+The kernel operates on a 42-step cycle, advancing each time a component is rewritten:
+- Symbolizes perpetual self-renewal
+- Tracks system evolution through rewrite history
+- Maintains identity through transformation paths
 
-```rust
-pub struct Artifact {
-    pub hash: Hash,
-    pub content: Vec<u8>,
-}
-```
-
-- **Flow Field**: Storage space where content materializes
-- **Flow Operator**: `artifact_flow(content) -> Artifact`
-- **Mathematical**: Represents a potential in content storage field
-- **Properties**: Divergence, content flow, materialization
-
-#### 3. Storage Flow (`storage.rs`)
-**Purpose**: Storage field operations
-
-```rust
-pub struct Storage {
-    field: HashMap<Hash, Artifact>,
-}
-```
-
-- **Flow Field**: Field of storage potentials where artifacts converge
-- **Flow Operator**: `storage_flow() -> Storage`
-- **Mathematical**: Represents a field of storage potentials
-- **Properties**: Curl, field operations, potential mapping
-
-#### 4. Kernel Flow (`kernel.rs`)
-**Purpose**: System coordination and cycle management
-
-```rust
-pub struct Kernel {
-    storage: Storage,
-    cycle: u64,
-}
-```
-
-- **Flow Field**: Central coordination field where all flows converge
-- **Flow Operator**: `kernel_flow() -> Kernel`
-- **Mathematical**: Represents the central coordination potential
-- **Properties**: System divergence, cycle management, flow coordination
-
-#### 5. System Flow (`system.rs`)
-**Purpose**: Complete bootstrap system as unified flow field
-
-```rust
-pub struct System {
-    kernel: Kernel,
-}
-```
-
-- **Flow Field**: Unified flow field where all potentials converge
-- **Flow Operator**: `system_flow() -> System`
-- **Mathematical**: Higher-order potential that coordinates all sub-flows
-- **Properties**: System curl, total divergence, unified coordination
+#### Univalence Implementation
+The system explicitly models the Univalent Axiom by:
+- Treating identity as a path of transformations
+- Recording rewrite history as `EquivalenceProof`
+- Maintaining continuity through component changes
 
 ## Usage
 
-### Basic Usage
+### Basic Example
+
 ```rust
-use bootstrap::Bootstrap;
+use bootstrap_stage0::{
+    Kernel, ChecksumHasher, DefaultProjector, DefaultProofVerifier
+};
 
-// Create a new bootstrap flow field
-let mut bootstrap = Bootstrap::new();
+// Create a new kernel with default components
+let mut kernel = Kernel::new(
+    Box::new(DefaultProofVerifier),
+    Box::new(DefaultProjector),
+    Box::new(ChecksumHasher)
+);
 
-// Store content in the flow
-let content = b"Hello, Flow World!".to_vec();
-let hash = bootstrap.store(content);
+// Store an artifact
+let content = b"Hello, World!".to_vec();
+let hash = kernel.store_artifact(content).unwrap();
 
-// Retrieve content from the flow
-let retrieved = bootstrap.retrieve(&hash);
+// Retrieve artifact coordinate on manifold
+let coord = kernel.get_artifact_coordinate(&hash);
+assert!(coord.is_some());
 
-// Check flow properties
-let divergence = bootstrap.total_divergence();
-let curl = bootstrap.curl();
-let cycle = bootstrap.cycle_step();
+// Perform a rewrite (advances the cycle)
+kernel.rewrite_hasher(Box::new(ChecksumHasher));
+assert_eq!(kernel.step, 1);
 ```
 
-### Advanced Flow Operations
+### Component Replacement
+
 ```rust
-use bootstrap::{Hash, Artifact, Storage, Kernel, System};
+// Replace the hasher (advances cycle)
+kernel.rewrite_hasher(Box::new(NewHasher));
 
-// Create individual flow components
-let hash = Hash::from_flow(b"test data");
-let artifact = Artifact::from_content_flow(b"content".to_vec());
-let storage = Storage::new_field();
-let kernel = Kernel::new_field();
-let system = System::new_field();
+// Replace the projector (advances cycle)
+kernel.rewrite_projector(Box::new(NewProjector));
 
-// Perform flow operations
-let new_hash = hash_flow(b"new data");
-let new_artifact = artifact_flow(b"new content".to_vec());
+// Check cycle position
+println!("Current step: {}", kernel.step);
 ```
 
-## Mathematical Properties
+## Development
 
-### Flow Dynamics
-Each flow type exhibits specific mathematical properties:
+### Building
 
-1. **Hash Flow**: Potential convergence, gradient computation
-2. **Artifact Flow**: Content divergence, materialization
-3. **Storage Flow**: Field curl, potential mapping
-4. **Kernel Flow**: System divergence, cycle evolution
-5. **System Flow**: Higher-order coordination, unified field
+```bash
+cd crates/bootstrap/stage0
+cargo build
+```
 
-### 42-Step Cycle
-The system operates on a 42-step cycle representing:
-- **Flow periodicity**: System returns to initial state every 42 operations
-- **Potential cycling**: Each operation advances the cycle potential
-- **Field evolution**: Flow field evolves through 42 distinct states
+### Testing
 
-## Design Principles
-
-### 1. Minimalism
-- Zero external dependencies
-- Only essential functionality
-- Pure Rust implementation
-- Self-contained design
-
-### 2. Flow-Based Design
-- Mathematical consistency with fluid dynamics
-- Predictable flow patterns
-- Composable operations
-- Extensible architecture
-
-### 3. Content-Addressable Storage
-- All data identified by content hash
-- Deduplication through content addressing
-- Immutable data model
-- Hash-based retrieval
-
-### 4. Extensibility
-- Pluggable components via traits
-- Modular flow architecture
-- Clear separation of concerns
-- Easy to extend with new flow types
-
-## Testing
-
-Run the test suite to verify flow behavior:
 ```bash
 cargo test
 ```
 
-Tests verify:
-- Flow creation and initialization
-- Content storage and retrieval
-- Cycle advancement and wrapping
-- Flow property computation
-- Mathematical consistency
+### Adding New Components
 
-## Performance
+1. Implement the appropriate trait (`Hasher`, `ManifoldProjector`, etc.)
+2. Create a new module for your component
+3. Add it to `lib.rs` exports
+4. Update the components manifest
 
-The flow-based architecture provides:
-- **Predictable performance**: Flow operations have consistent complexity
-- **Efficient storage**: Content-addressable deduplication
-- **Scalable design**: Flow fields can grow without performance degradation
-- **Memory efficiency**: Minimal overhead for flow operations
+## Design Decisions
 
-## Future Extensions
+### Why 42 Steps?
+The 42-step cycle references Douglas Adams' "The Hitchhiker's Guide to the Galaxy" and represents:
+- The answer to life, the universe, and everything
+- A complete cycle of transformation and renewal
+- A manageable number for tracking system evolution
 
-### Planned Flow Types
-- **Network Flow**: Communication potential flows
-- **Compute Flow**: Processing potential flows
-- **UI Flow**: Interface potential flows
-- **AI Flow**: Intelligence potential flows
+### Why 8D Manifold?
+The 8-dimensional space provides:
+- Sufficient dimensionality for complex relationships
+- Geometric properties useful for indexing
+- Mathematical elegance in the projection
 
-### Advanced Features
-- **Flow visualization**: Mathematical visualization of flow fields
-- **Flow analysis**: Performance and behavior analysis tools
-- **Flow optimization**: Automatic flow field optimization
-- **Flow composition**: Higher-order flow composition operators
+### Why No Dependencies?
+Stage 0 is intentionally dependency-free to:
+- Ensure bootstrap capability from minimal components
+- Avoid external attack vectors
+- Maintain complete control over the core system
+- Enable deployment in constrained environments
+
+## Future Stages
+
+Stage 0 is the foundation for future bootstrap stages:
+
+- **Stage 1**: File I/O and persistent storage
+- **Stage 2**: Network communication and distributed coordination
+- **Stage 3**: Advanced cryptographic primitives
+- **Stage 4**: Plugin system and dynamic loading
+- **Stage 5**: Full system integration
 
 ## Contributing
 
-When contributing to the flow-based system:
-1. Each new type should be a potential flow
-2. Each new file should represent a vector field
-3. Each new function should be a flow operation
-4. Maintain mathematical consistency with fluid dynamics
-5. Follow the 42-step cycle principle
+When contributing to stage0:
+
+1. Maintain zero external dependencies
+2. Follow the univalence principle
+3. Ensure all components are pluggable
+4. Add comprehensive tests
+5. Update documentation for any changes
 
 ## License
 
-MIT License - see LICENSE file for details. 
+This project is part of the solfunmeme-dioxus ecosystem and follows the same licensing terms.
