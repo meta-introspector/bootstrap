@@ -38,3 +38,7 @@ path = "src/bin/simple_phase_demo.rs"
 [[bin]]
 name = "standalone_phase_demo"
 path = "src/bin/standalone_phase_demo.rs" 
+
+[[bin]]
+name = "abstract_stage"
+path = "src/bin/abstract_stage.rs" 
