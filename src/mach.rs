@@ -77,7 +77,7 @@ impl Mach for Machian {
         // Placeholder: proportional to inertial mass
         self.inertial_mass(local_mass, universe_mass, distance)
     }
-    fn universe_inertia_tensor(&self, masses: &[(f64, (f64, f64, f64))]) -> [[f64; 3]; 3] {
+    fn universe_inertia_tensor(&self, _masses: &[(f64, (f64, f64, f64))]) -> [[f64; 3]; 3] {
         // Placeholder: identity tensor
         [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]]
     }

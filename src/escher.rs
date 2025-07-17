@@ -56,7 +56,7 @@ impl Default for EscherArtist {
 }
 
 impl Escher for EscherArtist {
-    fn generate_tessellation(&self, pattern: &str, width: usize, height: usize) -> Vec<Vec<u8>> {
+    fn generate_tessellation(&self, _pattern: &str, width: usize, height: usize) -> Vec<Vec<u8>> {
         vec![vec![0; width]; height]
     }
     fn analyze_symmetry(&self, _tessellation: &[Vec<u8>]) -> String {

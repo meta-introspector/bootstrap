@@ -66,7 +66,7 @@ impl Euler for Eulerian {
         0.5 * inertia * angular_velocity * angular_velocity
     }
     fn euler_angles_to_matrix(&self, angles: (f64, f64, f64)) -> [[f64; 3]; 3] {
-        let (phi, theta, psi) = angles;
+        let (_phi, _theta, _psi) = angles;
         // Placeholder: identity matrix
         [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]]
     }

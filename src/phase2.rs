@@ -588,7 +588,7 @@ impl Phase2 for Phase2Engine {
     }
     
     // Mathematical reflection implementations
-    fn reflect_on_godel_structure(&self, godel_numbers: &[u64]) -> GodelReflection {
+    fn reflect_on_godel_structure(&self, _godel_numbers: &[u64]) -> GodelReflection {
         GodelReflection {
             encoding_efficiency: 0.85,
             mathematical_elegance: 0.92,

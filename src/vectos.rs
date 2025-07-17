@@ -270,7 +270,7 @@ impl Vectos for VectosEngine {
             "clifford_norm" => {
                 if !params.is_empty() {
                     let norm = solfunmeme_clifford::get_multivector_norm(&self.clifford);
-                    vec![norm]
+                    vec![norm.into()]
                 } else {
                     vec![0.0]
                 }
@@ -394,7 +394,7 @@ impl Vectos for VectosEngine {
                 symmetry, golden_ratio, tiling.len())
     }
     
-    fn ns_mach_physics(&self, velocity_field: &[[f64; 2]], reference_frame: (f64, f64, f64)) -> Vec<f64> {
+    fn ns_mach_physics(&self, velocity_field: &[[f64; 2]], _reference_frame: (f64, f64, f64)) -> Vec<f64> {
         let reynolds = self.ns.reynolds_number(velocity_field[0][0], 1.0);
         let lorentz = self.mach.lorentz_factor(velocity_field[0][0], 299792458.0);
         vec![reynolds, lorentz]

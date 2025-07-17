@@ -10,4 +10,4 @@
 //! - **`SolMultivector`**: A struct representing a multivector from `solfunmeme_clifford`.
 //! - **`BertCliffordEncoder`**: Encoder to map BERT embeddings to Clifford algebra representation.
 
-pub use solfunmeme_clifford::{SolMultivector, BertCliffordEncoder, SolCl, BertConfig as CliffordBertConfig};
+pub use solfunmeme_clifford::{SolMultivector, SolCl};

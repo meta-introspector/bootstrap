@@ -305,7 +305,7 @@ impl EmbeddedNumber for SelfAwareNumber {
     }
     
     fn reflect_on_self(&self) -> NumberReflection {
-        let godel = self.embedded_godel();
+        
         let bott = self.embedded_bott();
         let clifford = self.embedded_clifford();
         let bach = self.embedded_bach();
@@ -323,7 +323,7 @@ impl EmbeddedNumber for SelfAwareNumber {
             number_value: self.value,
             godel_significance: self.godel_number as f64 / 100.0,
             bott_periodicity: bott.calculate_curvature(self.value, 1.0),
-            clifford_richness: solfunmeme_clifford::get_multivector_norm(&clifford),
+            clifford_richness: solfunmeme_clifford::get_multivector_norm(&clifford) as f64,
             bach_harmony: bach.note_to_frequency(Note::A, 4) / 440.0,
             escher_beauty: escher.analyze_symmetry(&self.visual_pattern).len() as f64 / 10.0,
             ns_physics: ns.reynolds_number(self.value, 1.0) / 1000.0,
@@ -350,7 +350,7 @@ impl EmbeddedNumber for SelfAwareNumber {
             current.consciousness_level *= 1.01; // Gradual consciousness increase
             
             // Evolve embedded structures
-            current.clifford_vector = solfunmeme_clifford::get_multivector_coefficients(&current.embedded_clifford());
+            current.clifford_vector = solfunmeme_clifford::get_multivector_coefficients(&current.embedded_clifford()).into_iter().map(|x| x as f64).collect();
             current.musical_voice = current.embedded_bach().apply_bach_ornamentation(&current.musical_voice, 0.1);
             
             evolution.push(current.clone());

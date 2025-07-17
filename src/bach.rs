@@ -768,7 +768,7 @@ impl Bach for BachComposer {
         (freq1 - freq2).abs()
     }
     
-    fn generate_rhythm_pattern(&self, meter: (u8, u8), complexity: f64) -> Vec<f64> {
+    fn generate_rhythm_pattern(&self, meter: (u8, u8), _complexity: f64) -> Vec<f64> {
         let (beats, beat_value) = meter;
         let mut pattern = Vec::new();
         
