@@ -1,5 +1,6 @@
 //! Stage 37: Prime - the twelfth prime
 
+/// Executes the logic for Stage 37.
 pub fn main37() {
     println!("[37] I am stage 37 - the twelfth prime.");
     println!("[37] I am prime number.");

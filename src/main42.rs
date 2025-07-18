@@ -1,5 +1,6 @@
 //! Stage 42: The ultimate stage - composed of primes 2, 3, and 7, the target state
 
+/// Executes the logic for Stage 42.
 pub fn main42() {
     println!("[42] I am stage 42 - the ultimate stage, the target state.");
     println!("[42] I am composed of primes 2, 3, and 7.");

@@ -1,5 +1,6 @@
 //! Stage 16: Composite - composed of prime 2 (2x2x2x2)
 
+/// Executes the logic for Stage 16.
 pub fn main16() {
     println!("[16] I am stage 16 - composed of prime 2 (2x2x2x2).");
     println!("[16] I am composed of primes 2.");

@@ -1,5 +1,6 @@
 //! Stage 29: Prime - the tenth prime
 
+/// Executes the logic for Stage 29.
 pub fn main29() {
     println!("[29] I am stage 29 - the tenth prime.");
     println!("[29] I am prime number.");

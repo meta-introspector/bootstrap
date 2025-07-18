@@ -1,5 +1,6 @@
 //! Stage 2: Prime - The first prime, factor of 42, Fibonacci number
 
+/// Executes the logic for Stage 2.
 pub fn main02() {
     println!("[2] I am stage 2 - the first prime number.");
     println!("[2] I am a factor of 42.");

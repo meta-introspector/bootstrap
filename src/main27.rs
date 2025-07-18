@@ -1,5 +1,7 @@
 //! Stage 27: Composite - composed of prime 3 (3x3x3)
 
+/// Executes the logic for Stage 27.
+/// Executes the logic for Stage 27.
 pub fn main27() {
     println!("[27] I am stage 27 - composed of prime 3 (3x3x3).");
     println!("[27] I am composed of primes 3.");

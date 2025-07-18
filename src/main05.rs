@@ -1,5 +1,6 @@
 //! Stage 5: Prime - The third prime, Fibonacci number, not a factor of 42
 
+/// Executes the logic for Stage 5.
 pub fn main05() {
     println!("[5] I am stage 5 - the third prime number.");
     println!("[5] I am a Fibonacci number.");

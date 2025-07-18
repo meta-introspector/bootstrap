@@ -1,5 +1,6 @@
 //! Stage 17: Prime - the seventh prime
 
+/// Executes the logic for Stage 17.
 pub fn main17() {
     println!("[17] I am stage 17 - the seventh prime.");
     println!("[17] I am prime number.");

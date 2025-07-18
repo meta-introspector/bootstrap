@@ -1,5 +1,6 @@
 //! Stage 34: Composite - composed of primes 2 and 17, Fibonacci number
 
+/// Executes the logic for Stage 34.
 pub fn main34() {
     println!("[34] I am stage 34 - composed of primes 2 and 17, Fibonacci number.");
     println!("[34] I am composed of primes 2, 17, Fibonacci number.");

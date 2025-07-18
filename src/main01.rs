@@ -33,6 +33,7 @@
 use super::bootstrap_system::BootstrapSystem;
 use solfunmeme_clifford::SolMultivector;
 
+/// Executes the logic for Stage 1.
 pub fn main01(system: &mut BootstrapSystem) {
     println!("[1] I am stage 1 - the unity stage.");
     println!("[1] I am a factor of 42.");

@@ -1,5 +1,6 @@
 //! Stage 4: Composed of prime 2 (2x2), not a factor of 42
 
+/// Executes the logic for Stage 4.
 pub fn main04() {
     println!("[4] I am stage 4 - composed of prime 2 (2x2).");
     println!("[4] I am not a factor of 42, but I resonate with 2.");

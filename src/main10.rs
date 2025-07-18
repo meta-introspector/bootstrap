@@ -1,5 +1,6 @@
 //! Stage 10: Composite - composed of primes 2 and 5
 
+/// Executes the logic for Stage 10.
 pub fn main10() {
     println!("[10] I am stage 10 - composed of primes 2 and 5.");
     println!("[10] I am composed of primes 2, 5.");

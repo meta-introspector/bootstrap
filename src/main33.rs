@@ -1,5 +1,6 @@
 //! Stage 33: Composite - composed of primes 3 and 11
 
+/// Executes the logic for Stage 33.
 pub fn main33() {
     println!("[33] I am stage 33 - composed of primes 3 and 11.");
     println!("[33] I am composed of primes 3, 11.");

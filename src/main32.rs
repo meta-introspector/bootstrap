@@ -1,5 +1,6 @@
 //! Stage 32: Composite - composed of prime 2 (2x2x2x2x2)
 
+/// Executes the logic for Stage 32.
 pub fn main32() {
     println!("[32] I am stage 32 - composed of prime 2 (2x2x2x2x2).");
     println!("[32] I am composed of primes 2.");

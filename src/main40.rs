@@ -1,5 +1,6 @@
 //! Stage 40: Composite - composed of primes 2 and 5 (2x2x2x5)
 
+/// Executes the logic for Stage 40.
 pub fn main40() {
     println!("[40] I am stage 40 - composed of primes 2 and 5 (2x2x2x5).");
     println!("[40] I am composed of primes 2, 5.");

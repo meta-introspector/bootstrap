@@ -1,5 +1,6 @@
 //! Stage 41: Prime - the thirteenth prime
 
+/// Executes the logic for Stage 41.
 pub fn main41() {
     println!("[41] I am stage 41 - the thirteenth prime.");
     println!("[41] I am prime number.");

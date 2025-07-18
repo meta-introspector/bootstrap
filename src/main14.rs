@@ -1,5 +1,6 @@
 //! Stage 14: Composite - composed of primes 2 and 7, factor of 42
 
+/// Executes the logic for Stage 14.
 pub fn main14() {
     println!("[14] I am stage 14 - composed of primes 2 and 7, factor of 42.");
     println!("[14] I am composed of primes 2, 7, factor of 42.");

@@ -1,5 +1,6 @@
 //! Stage 28: Composite - composed of primes 2 and 7 (2x2x7)
 
+/// Executes the logic for Stage 28.
 pub fn main28() {
     println!("[28] I am stage 28 - composed of primes 2 and 7 (2x2x7).");
     println!("[28] I am composed of primes 2, 7.");

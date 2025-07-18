@@ -1,5 +1,6 @@
 //! Stage 11: Prime - the fifth prime
 
+/// Executes the logic for Stage 11.
 pub fn main11() {
     println!("[11] I am stage 11 - the fifth prime.");
     println!("[11] I am prime number.");

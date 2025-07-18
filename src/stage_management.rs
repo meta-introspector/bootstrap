@@ -33,12 +33,20 @@ pub fn get_all_stages() -> Vec<StageInfo> {
 /// Information about a single stage
 #[derive(Debug, Clone)]
 pub struct StageInfo {
+    /// The stage number.
     pub number: u32,
+    /// The name of the stage.
     pub name: String,
+    /// A description of the stage.
     pub description: String,
+    /// OEIS sequences associated with the stage number.
     pub oeis_sequences: Vec<String>,
+    /// True if the stage number is prime.
     pub is_prime: bool,
+    /// True if the stage number is a Fibonacci number.
     pub is_fibonacci: bool,
+    /// True if the stage number is a factor of 42.
     pub is_factor_of_42: bool,
+    /// The prime factors of the stage number.
     pub prime_factors: Vec<u32>,
 }

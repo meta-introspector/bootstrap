@@ -1,5 +1,6 @@
 //! Stage 35: Composite - composed of primes 5 and 7
 
+/// Executes the logic for Stage 35.
 pub fn main35() {
     println!("[35] I am stage 35 - composed of primes 5 and 7.");
     println!("[35] I am composed of primes 5, 7.");
