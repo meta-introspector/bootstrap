@@ -21,7 +21,7 @@
 //!   `HarmonicNumber`, and `ResonantNumber` that capture the output of a number's
 //!   self-analysis and its interactions with other numbers.
 
-use crate::godel::{Godel, GodelDyn};
+use crate::godel::{GodelDyn};
 use crate::bott::Bott;
 
 use crate::bach::{Bach, Note, Voice};

@@ -1,3 +1,4 @@
+/// Checks if a number is a Fibonacci number.
 pub fn is_fibonacci(n: u64) -> bool {
     let mut a = 0u64;
     let mut b = 1u64;

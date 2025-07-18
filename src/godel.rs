@@ -173,7 +173,9 @@ use solfunmeme_clifford::SolMultivector;
 /// Helper struct for working with Gödel numbers
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct GodelNumber<T: Godel + std::fmt::Debug> {
+    /// The numerical value of the Gödel number.
     pub value: u64,
+    /// A phantom data field to hold the type T.
     pub _phantom: std::marker::PhantomData<T>,
 }
 
@@ -275,6 +277,7 @@ impl<T: Godel + std::fmt::Debug> Godel for GodelNumber<T> {
     }
 }
 
+/// Updates the flow multivector for a Gödel operation.
 pub fn update_flow_for_godel_operation(system: &mut BootstrapSystem) {
     system.flow_multivector = system.flow_multivector.clone() + SolMultivector::from_indexed_iter([(1 << (4 - 1), 1.0)].into_iter()).unwrap();
     println!("Flow Multivector after Gödel operation: {:?}", system.flow_multivector);

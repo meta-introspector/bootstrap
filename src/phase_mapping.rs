@@ -6,14 +6,16 @@ use std::hash::Hash;
 pub struct Phase(pub u8);
 
 impl Phase {
+    /// Creates a new Phase if the value is between 1 and 42.
     pub fn new(phase: u8) -> Option<Self> {
-        if phase <= 42 {
+        if phase > 0 && phase <= 42 {
             Some(Phase(phase))
         } else {
             None
         }
     }
 
+    /// Returns the numerical value of the phase.
     pub fn value(&self) -> u8 {
         self.0
     }
@@ -83,18 +85,27 @@ impl Phase {
 /// Mathematical properties of a phase
 #[derive(Debug, Clone)]
 pub struct PhaseProperties {
+    /// The phase number.
     pub phase: u8,
+    /// Whether the phase number is prime.
     pub is_prime: bool,
+    /// Whether the phase number is a Fibonacci number.
     pub is_fibonacci: bool,
+    /// Whether the phase number is a perfect square.
     pub is_perfect_square: bool,
+    /// The factors of the phase number.
     pub factors: Vec<u8>,
+    /// The resonance frequency of the phase.
     pub resonance_frequency: f64,
 }
 
 /// Trait for dimensionality reduction algorithms
 pub trait DimensionalityReducer {
+    /// Reduces a high-dimensional embedding to a single phase.
     fn reduce_to_phase(&self, embedding: &[f64]) -> Phase;
+    /// Calculates the confidence of a mapping between an embedding and a phase.
     fn calculate_confidence(&self, embedding: &[f64], phase: Phase) -> f64;
+    /// Calculates the harmonic resonance between an embedding and a phase.
     fn calculate_harmonic_resonance(&self, embedding: &[f64], phase: Phase) -> f64;
 }
 
@@ -172,15 +183,20 @@ impl DimensionalityReducer for HarmonicReducer {
 
 /// Entity that can be mapped to a phase
 pub trait PhaseEntity {
+    /// Returns the name of the entity.
     fn get_name(&self) -> &str;
+    /// Returns the embedding of the entity.
     fn get_embedding(&self) -> &[f64];
 }
 
 /// Function entity
 #[derive(Debug, Clone)]
 pub struct FunctionEntity {
+    /// The name of the function.
     pub name: String,
+    /// The embedding of the function.
     pub embedding: Vec<f64>,
+    /// The semantic type of the function.
     pub semantic_type: String,
 }
 
@@ -197,8 +213,11 @@ impl PhaseEntity for FunctionEntity {
 /// Module entity
 #[derive(Debug, Clone)]
 pub struct ModuleEntity {
+    /// The name of the module.
     pub name: String,
+    /// The embedding of the module.
     pub embedding: Vec<f64>,
+    /// The functions in the module.
     pub functions: Vec<String>,
 }
 
@@ -215,8 +234,11 @@ impl PhaseEntity for ModuleEntity {
 /// Statistics for a phase
 #[derive(Debug, Clone)]
 pub struct PhaseStatistics {
+    /// The number of entities in the phase.
     pub entity_count: usize,
+    /// The names of the entities in the phase.
     pub entities: Vec<String>,
+    /// The properties of the phase.
     pub properties: PhaseProperties,
 }
 
@@ -228,6 +250,7 @@ pub struct PhaseMappingSystem {
 }
 
 impl PhaseMappingSystem {
+    /// Creates a new PhaseMappingSystem with the given dimensionality reducer.
     pub fn new(reducer: Box<dyn DimensionalityReducer>) -> Self {
         Self {
             reducer,
@@ -370,8 +393,12 @@ impl PhaseMappingSystem {
 /// Analysis of phase distribution
 #[derive(Debug, Clone)]
 pub struct PhaseDistributionAnalysis {
+    /// The total number of entities.
     pub total_entities: usize,
+    /// The distribution of entities across phases.
     pub distribution: HashMap<Phase, usize>,
+    /// The phase with the most entities.
     pub most_populated_phase: Option<Phase>,
+    /// The phase with the fewest entities.
     pub least_populated_phase: Option<Phase>,
 }

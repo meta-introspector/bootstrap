@@ -1,3 +1,4 @@
+/// Checks if a number is prime.
 pub fn is_prime(n: u64) -> bool {
     if n < 2 { return false; }
     if n == 2 { return true; }

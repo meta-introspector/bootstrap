@@ -117,12 +117,20 @@ fn get_prime_factors(n: u32) -> Vec<u32> {
 /// Information about a stage
 #[derive(Debug, Clone)]
 pub struct StageInfo {
+    /// The stage number.
     pub number: u32,
+    /// The name of the stage.
     pub name: String,
+    /// A description of the stage.
     pub description: String,
+    /// A list of OEIS sequences associated with the stage.
     pub oeis_sequences: Vec<String>,
+    /// Whether the stage number is prime.
     pub is_prime: bool,
+    /// Whether the stage number is a Fibonacci number.
     pub is_fibonacci: bool,
+    /// Whether the stage number is a factor of 42.
     pub is_factor_of_42: bool,
+    /// The prime factors of the stage number.
     pub prime_factors: Vec<u32>,
 } 

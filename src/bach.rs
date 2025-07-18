@@ -624,7 +624,7 @@ impl Bach for BachComposer {
         voices
     }
     
-    fn generate_counterpoint(&self, cantus_firmus: &Voice, rules: &CounterpointRules) -> Voice {
+    fn generate_counterpoint(&self, cantus_firmus: &Voice, _rules: &CounterpointRules) -> Voice {
         let mut counterpoint = Voice {
             notes: Vec::new(),
             octave: cantus_firmus.octave + 1,
@@ -700,7 +700,7 @@ impl Bach for BachComposer {
         subject
     }
     
-    fn generate_fugue_answer(&self, subject: &Voice, key: Note) -> Voice {
+    fn generate_fugue_answer(&self, subject: &Voice, _key: Note) -> Voice {
         // Transpose the subject up a perfect fifth
         self.invert_melody(subject, Interval::PerfectFifth)
     }
@@ -769,7 +769,7 @@ impl Bach for BachComposer {
     }
     
     fn generate_rhythm_pattern(&self, meter: (u8, u8), _complexity: f64) -> Vec<f64> {
-        let (beats, beat_value) = meter;
+        let (beats, _beat_value) = meter;
         let mut pattern = Vec::new();
         
         for i in 0..beats as usize {

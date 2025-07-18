@@ -7,10 +7,12 @@
 /// Simple concrete type that implements GodelDyn
 #[derive(Debug, Clone)]
 pub struct SimpleGodelNumber {
+    /// The numerical value of the Gödel number.
     pub value: u64,
 }
 
 impl SimpleGodelNumber {
+    /// Creates a new SimpleGodelNumber.
     pub fn new(value: u64) -> Self {
         Self { value }
     }

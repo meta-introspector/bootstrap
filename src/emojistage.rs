@@ -31,11 +31,16 @@
 //! to self-describe and reflect upon its own symbolic and mathematical structure.
 
 pub mod emoji_stage_enum;
+/// Implementation of the EmojiStage enum.
 pub mod emoji_stage_impl;
 pub mod stage_properties;
+/// Utility function to check if a number is prime.
 pub mod is_prime;
+/// Utility function to check if a number is a Fibonacci number.
 pub mod is_fibonacci;
+/// Utility function to check if a number is a perfect square.
 pub mod is_perfect_square;
+/// Utility function to get the factors of a number.
 pub mod get_factors;
 pub mod calculate_resonance_frequency;
 pub mod emoji_stage_display;

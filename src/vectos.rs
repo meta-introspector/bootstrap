@@ -369,7 +369,7 @@ impl Vectos for VectosEngine {
     }
     
     fn clifford_bach_harmony(&self, multivector: &[f64], chord: &Chord) -> Voice {
-        let norm = solfunmeme_clifford::get_multivector_norm(&self.clifford);
+        let _norm = solfunmeme_clifford::get_multivector_norm(&self.clifford);
         let chord_notes = self.bach.build_chord(chord.root, chord.chord_type);
         
         let mut voice = Voice {

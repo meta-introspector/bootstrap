@@ -28,7 +28,7 @@ pub mod oeis;
 pub mod vectos;
 pub mod phase2;
 pub mod number_embedding;
-pub mod function_number_linkage;
+/// Module for mapping between phases and their properties.
 pub mod phase_mapping;
 
 // Re-export all stage modules
@@ -77,7 +77,9 @@ pub mod main42;
 
 
 
+/// Module for the main bootstrap system.
 pub mod bootstrap_system;
+/// Module for managing the stages of the bootstrap process.
 pub mod stage_management;
 
 pub use bootstrap_system::BootstrapSystem;

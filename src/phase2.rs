@@ -553,7 +553,7 @@ impl Phase2 for Phase2Engine {
         }
     }
     
-    fn llm_optimize_system(&self, current_state: &MathematicalUniverse) -> OptimizationPlan {
+    fn llm_optimize_system(&self, _current_state: &MathematicalUniverse) -> OptimizationPlan {
         let mut target_metrics = HashMap::new();
         target_metrics.insert("coherence".to_string(), 0.95);
         target_metrics.insert("efficiency".to_string(), 0.90);
