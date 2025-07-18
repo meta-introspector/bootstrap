@@ -14,6 +14,11 @@ categories = ["system"]
 rand = "0.8"
 chrono = { version = "0.4", features = ["serde"] }
 solfunmeme_clifford = { path = "../crates/solfunmeme_clifford" }
+anyhow = "1.0"
+sophia_api = { path = "../vendor/sophia_rs/api" }
+sophia_inmem = { path = "../vendor/sophia_rs/inmem" }
+sophia_iri = { path = "../vendor/sophia_rs/iri" }
+sophia_turtle = { path = "../vendor/sophia_rs/turtle" }
 
 [[bin]]
 name = "stage0"

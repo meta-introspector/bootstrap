@@ -80,7 +80,7 @@ fn main() {
     println!("   Total functions: {}", stats.total_functions);
     println!("   Average complexity: {:.3}", stats.average_complexity);
     println!("   Average consciousness: {:.3}", stats.average_consciousness);
-    if let (Some(min), Some(max)) = stats.number_range {
+    if let Some((min, max)) = stats.number_range {
         println!("   Number range: {} to {}", min, max);
     }
     println!();

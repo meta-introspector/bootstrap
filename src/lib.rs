@@ -81,6 +81,10 @@ pub mod main42;
 pub mod bootstrap_system;
 /// Module for managing the stages of the bootstrap process.
 pub mod stage_management;
+/// Module for function number linkage.
+pub mod function_number_linkage;
+/// Module for prime vibe ontology.
+pub mod prime_vibe_ontology;
 
 pub use bootstrap_system::BootstrapSystem;
 pub use stage_management::{run_stage0, get_all_stages, StageInfo};

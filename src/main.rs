@@ -26,7 +26,14 @@
 use bootstrap::bootstrap_system::BootstrapSystem;
 
 fn main() {
-    let mut system = BootstrapSystem::new();
+    let mut system = match BootstrapSystem::new() {
+        Ok(system) => system,
+        Err(e) => {
+            eprintln!("Failed to initialize Bootstrap system: {}", e);
+            return;
+        }
+    };
+
     if let Err(e) = system.run() {
         eprintln!("Bootstrap system encountered an error: {}", e);
     }

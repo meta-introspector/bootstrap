@@ -1,14 +1,16 @@
-use super::bootstrap_system::BootstrapSystem;
-use solfunmeme_clifford::SolMultivector;
-use super::main01;
-use super::godel;
-
+use sophia_api::prelude::*;
+use sophia_api::term::SimpleTerm;
+use sophia_iri::Iri;
+use sophia_turtle::serializer::turtle::{TurtleSerializer, TurtleConfig};
+use std::fs;
+use std::path::PathBuf;
+use std::io::Write;
 
 /// Run the complete stage0 process
 /// 
 /// This function generates rustdoc, runs all stages, and combines the output
 /// into a comprehensive HTML file that documents the entire system.
-pub fn run_stage0(system: &mut BootstrapSystem) -> Result<(), Box<dyn std::error::Error>> {
+pub fn run_stage0(system: &mut BootstrapSystem) -> anyhow::Result<()> {
     // Call main01 and pass the system
     main01::main01(system);
 
@@ -19,6 +21,13 @@ pub fn run_stage0(system: &mut BootstrapSystem) -> Result<(), Box<dyn std::error
     system.flow_multivector = system.flow_multivector.clone() + SolMultivector::from_indexed_iter([(1 << (3 - 1), 1.0)].into_iter()).unwrap();
     println!("Flow Multivector after run_stage0 execution: {:?}", system.flow_multivector);
 
+    // Emit RDF for prime stages
+    for stage in &system.stages {
+        if stage.is_prime {
+            emit_prime_vibe_rdf(system, stage)?;
+        }
+    }
+
     Ok(())
 }
 
@@ -26,7 +35,7 @@ pub fn run_stage0(system: &mut BootstrapSystem) -> Result<(), Box<dyn std::error
 /// 
 /// Returns a vector of stage information including their mathematical properties,
 /// OEIS sequences, and relationships to other stages.
-pub fn get_all_stages() -> Vec<StageInfo> {
+pub fn get_all_stages(ontology: &PrimeVibeOntology) -> Vec<StageInfo> {
     let mut stages = Vec::new();
     for i in 1..=42 {
         let osi_layer = match i {
@@ -47,6 +56,12 @@ pub fn get_all_stages() -> Vec<StageInfo> {
         if (i as u32).is_power_of_two() { vibe_tags.push("power_of_two".to_string()); }
         // Add more complex logic for other tags based on prime factors, etc.
 
+        let prime_vibe_info = if is_prime(i) {
+            ontology.get_prime_vibe(i as u64)
+        } else {
+            None
+        };
+
         stages.push(StageInfo {
             number: i,
             name: format!("Stage {}", i),
@@ -58,6 +73,7 @@ pub fn get_all_stages() -> Vec<StageInfo> {
             prime_factors: get_prime_factors(i),
             osi_layer,
             vibe_tags,
+            prime_vibe_info,
         });
     }
     stages
@@ -94,6 +110,70 @@ fn get_prime_factors(n: u32) -> Vec<u32> {
     factors
 }
 
+fn emit_prime_vibe_rdf(system: &BootstrapSystem, stage: &StageInfo) -> anyhow::Result<()> {
+    let rdf_path = PathBuf::from("ontologies/zos/stage_prime_vibes.ttl");
+    let mut file = fs::OpenOptions::new()
+        .create(true)
+        .append(true)
+        .open(&rdf_path)?;
+
+    let mut serializer = TurtleSerializer::new_stringifier();
+
+    let stage_iri = Iri::new_unchecked(format!("{}Stage{}", system.prime_vibe_ontology.vibe_prefix.as_str(), stage.number).as_str());
+    let prime_vibe_iri = Iri::new_unchecked(format!("{}PrimeVibe{}", system.prime_vibe_ontology.vibe_prefix.as_str(), stage.number).as_str());
+
+    let mut triples = Vec::new();
+    triples.push((
+        stage_iri.to_owned(),
+        Iri::new_unchecked("http://www.w3.org/1999/02/22-rdf-syntax-ns#type").to_owned(),
+        Iri::new_unchecked(format!("{}BootstrappingPhase", system.prime_vibe_ontology.vibe_prefix.as_str()).as_str()).to_owned(),
+    ));
+    triples.push((
+        stage_iri.to_owned(),
+        Iri::new_unchecked(format!("{}hasPrimeVibe", system.prime_vibe_ontology.vibe_prefix.as_str()).as_str()).to_owned(),
+        prime_vibe_iri.to_owned(),
+    ));
+
+    if let Some(prime_vibe_info) = &stage.prime_vibe_info {
+        triples.push((
+            prime_vibe_iri.to_owned(),
+            Iri::new_unchecked("http://www.w3.org/1999/02/22-rdf-syntax-ns#type").to_owned(),
+            Iri::new_unchecked(format!("{}PrimeNumber", system.prime_vibe_ontology.vibe_prefix.as_str()).as_str()).to_owned(),
+        ));
+        triples.push((
+            prime_vibe_iri.to_owned(),
+            Iri::new_unchecked("http://www.w3.org/2000/01/rdf-schema#label").to_owned(),
+            SimpleTerm::Literal(prime_vibe_info.label.as_str().into()),
+        ));
+        if let Some(comment) = &prime_vibe_info.comment {
+            triples.push((
+                prime_vibe_iri.to_owned(),
+                Iri::new_unchecked("http://www.w3.org/2000/01/rdf-schema#comment").to_owned(),
+                SimpleTerm::Literal(comment.as_str().into()),
+            ));
+        }
+        if let Some(emoji) = &prime_vibe_info.emoji {
+            triples.push((
+                prime_vibe_iri.to_owned(),
+                Iri::new_unchecked(format!("{}hasAssociatedEmoji", system.prime_vibe_ontology.vibe_prefix.as_str()).as_str()).to_owned(),
+                SimpleTerm::Literal(emoji.as_str().into()),
+            ));
+        }
+        if let Some(insight) = &prime_vibe_info.creative_insight {
+            triples.push((
+                prime_vibe_iri.to_owned(),
+                Iri::new_unchecked(format!("{}creativeInsight", system.prime_vibe_ontology.vibe_prefix.as_str()).as_str()).to_owned(),
+                SimpleTerm::Literal(insight.as_str().into()),
+            ));
+        }
+    }
+
+    serializer.serialize_triples(triples.into_iter().map(|(s, p, o)| Triple::new(s.into_term(), p.into_term(), o.into_term())))?;
+    file.write_all(serializer.to_string().as_bytes())?;
+
+    Ok(())
+}
+
 /// Information about a single stage
 #[derive(Debug, Clone)]
 pub struct StageInfo {
@@ -117,4 +197,8 @@ pub struct StageInfo {
     pub osi_layer: Option<u8>,
     /// Tags describing the vibe or conceptual role of the stage.
     pub vibe_tags: Vec<String>,
+    /// Information about the prime vibe of the stage, if it is a prime number.
+    pub prime_vibe_info: Option<PrimeVibeInfo>,
 }
+
+
