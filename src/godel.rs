@@ -279,6 +279,6 @@ impl<T: Godel + std::fmt::Debug> Godel for GodelNumber<T> {
 
 /// Updates the flow multivector for a Gödel operation.
 pub fn update_flow_for_godel_operation(system: &mut BootstrapSystem) {
-    system.flow_multivector = system.flow_multivector.clone() + SolMultivector::from_indexed_iter([(1 << (4 - 1), 1.0)].into_iter()).unwrap();
+    system.flow_multivector = system.flow_multivector.clone() + SolMultivector::from_indexed_iter([(1 << 2, 1.0)].into_iter()).unwrap();
     println!("Flow Multivector after Gödel operation: {:?}", system.flow_multivector);
 } 
