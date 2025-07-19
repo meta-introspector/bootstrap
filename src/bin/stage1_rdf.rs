@@ -6,7 +6,7 @@ use std::fs;
 use std::path::PathBuf;
 
 fn main() -> Result<()> {
-    let mut system = BootstrapSystem::new();
+    let mut system = BootstrapSystem::new()?;
     run_stage0(&mut system)?;
 
     // Now, emit RDF using solfunmeme_rdf_utils

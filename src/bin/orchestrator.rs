@@ -298,7 +298,7 @@ fn execute_function_analysis(report: &mut SystemReport) {
     
     for (number, name, description) in function_definitions {
         if let Ok(()) = language.define_function(number, name, description) {
-            report.function_analysis.function_numbers.push(number);
+            report.function_analysis.function_numbers.push(number as u64);
         }
     }
     
@@ -313,7 +313,10 @@ fn execute_function_analysis(report: &mut SystemReport) {
     report.function_analysis.mathematical_properties.prime_functions = analysis.prime_functions;
     report.function_analysis.mathematical_properties.fibonacci_functions = analysis.fibonacci_functions;
     report.function_analysis.mathematical_properties.average_resonance = analysis.average_resonance;
-    report.function_analysis.mathematical_properties.number_range = stats.number_range;
+    report.function_analysis.mathematical_properties.number_range = match stats.number_range {
+        Some((min, max)) => (Some(min as u64), Some(max as u64)),
+        None => (None, None),
+    };
     
     println!("   ✓ Function analysis completed");
 }
