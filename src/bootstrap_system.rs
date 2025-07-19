@@ -17,7 +17,7 @@ pub struct BootstrapSystem {
     /// This multivector evolves as the system progresses through its stages and operations.
     pub flow_multivector: SolMultivector,
     /// The loaded prime vibe ontology.
-    pub prime_vibe_ontology: PrimeVibeOntology<'static>,
+    pub prime_vibe_ontology: PrimeVibeOntology,
 }
 
 impl BootstrapSystem {

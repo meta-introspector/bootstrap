@@ -1,16 +1,15 @@
-use anyhow::Result;
 use solfunmeme_rdf_utils::rdf_graph::RdfGraph;
 use std::fs;
 
 #[derive(Debug, Clone)]
-pub struct PrimeVibeOntology<'a> {
-    graph: RdfGraph<'a>,
+pub struct PrimeVibeOntology {
+    graph: RdfGraph,
     pub em_prefix: String,
     pub vibe_prefix: String,
 }
 
-impl<'a> PrimeVibeOntology<'a> {
-    pub fn new() -> Result<Self> {
+impl PrimeVibeOntology {
+    pub fn new() -> anyhow::Result<Self> {
         let ttl_content = fs::read_to_string("ontologies/zos/prime_numbers.ttl")?;
         let graph = RdfGraph::from_turtle_str(&ttl_content)?;
 
@@ -30,19 +29,15 @@ impl<'a> PrimeVibeOntology<'a> {
         let mut creative_insight = None;
 
         // Query for triples with the prime_iri_str as subject
-        for triple in self.graph.triples_matching(Some(&prime_iri_str), None, None) {
-            let (s, p, o) = triple.unwrap();
-            let p_str = p.as_str().unwrap();
-            let o_str = o.as_str().unwrap();
-
-            if p_str == "http://www.w3.org/2000/01/rdf-schema#label" {
-                label = Some(o_str.to_string());
-            } else if p_str == "http://www.w3.org/2000/01/rdf-schema#comment" {
-                comment = Some(o_str.to_string());
-            } else if p_str == format!("{}hasAssociatedEmoji", self.vibe_prefix) {
-                emoji = Some(o_str.to_string());
-            } else if p_str == format!("{}creativeInsight", self.vibe_prefix) {
-                creative_insight = Some(o_str.to_string());
+        for (_, p, o) in self.graph.query_graph_triples(Some(&prime_iri_str), None, None) {
+            if p == "http://www.w3.org/2000/01/rdf-schema#label" {
+                label = Some(o);
+            } else if p == "http://www.w3.org/2000/01/rdf-schema#comment" {
+                comment = Some(o);
+            } else if p == format!("{}hasAssociatedEmoji", self.vibe_prefix) {
+                emoji = Some(o);
+            } else if p == format!("{}creativeInsight", self.vibe_prefix) {
+                creative_insight = Some(o);
             }
         }
 
