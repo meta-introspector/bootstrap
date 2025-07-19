@@ -10,7 +10,6 @@ keywords = ["microkernel", "bootstrap", "content-addressable"]
 categories = ["system"]
 
 [dependencies]
-# Intentionally empty - zero dependencies for true bootstrap capability 
 rand = "0.8"
 chrono = { version = "0.4", features = ["serde"] }
 solfunmeme_clifford = { path = "../crates/solfunmeme_clifford" }
@@ -19,6 +18,7 @@ sophia_api = { path = "../vendor/sophia_rs/api" }
 sophia_inmem = { path = "../vendor/sophia_rs/inmem" }
 sophia_iri = { path = "../vendor/sophia_rs/iri" }
 sophia_turtle = { path = "../vendor/sophia_rs/turtle" }
+solfunmeme_rdf_utils = { path = "../crates/solfunmeme_rdf_utils"}
 
 [[bin]]
 name = "stage0"
@@ -42,4 +42,8 @@ path = "src/bin/simple_phase_demo.rs"
 
 [[bin]]
 name = "standalone_phase_demo"
-path = "src/bin/standalone_phase_demo.rs" 
+path = "src/bin/standalone_phase_demo.rs"
+
+[[bin]]
+name = "stage1_rdf"
+path = "src/bin/stage1_rdf.rs" 

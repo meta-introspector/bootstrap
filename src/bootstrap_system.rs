@@ -17,14 +17,14 @@ pub struct BootstrapSystem {
     /// This multivector evolves as the system progresses through its stages and operations.
     pub flow_multivector: SolMultivector,
     /// The loaded prime vibe ontology.
-    pub prime_vibe_ontology: PrimeVibeOntology,
+    pub prime_vibe_ontology: PrimeVibeOntology<'static>,
 }
 
 impl BootstrapSystem {
     /// Create a new bootstrap system
     pub fn new() -> Result<Self> {
         Ok(Self {
-            stages: super::stage_management::get_all_stages(&PrimeVibeOntology::new()?),
+            stages: super::stage_management::get_all_stages(&PrimeVibeOntology::new()?), // Pass a reference to the newly created ontology
             mathematical_foundation: "OEIS Sequences, Harmonic Lattice, Pharmonic Mapping".to_string(),
             architecture: "OSI Layer System with Nash Equilibrium".to_string(),
             flow_multivector: SolMultivector::default(), // Initialize with a default multivector

@@ -1,7 +1,10 @@
-use sophia_api::prelude::*;
-use sophia_api::term::SimpleTerm;
-use sophia_iri::Iri;
-use sophia_turtle::serializer::turtle::{TurtleSerializer, TurtleConfig};
+use crate::prime_vibe_ontology::{PrimeVibeOntology, PrimeVibeInfo};
+use crate::clifford::SolMultivector;
+use crate::godel;
+use crate::main01;
+use crate::BootstrapSystem;
+use solfunmeme_rdf_utils::rdf_graph::RdfGraph;
+
 use std::fs;
 use std::path::PathBuf;
 use std::io::Write;
@@ -117,59 +120,60 @@ fn emit_prime_vibe_rdf(system: &BootstrapSystem, stage: &StageInfo) -> anyhow::R
         .append(true)
         .open(&rdf_path)?;
 
-    let mut serializer = TurtleSerializer::new_stringifier();
+    let mut graph = RdfGraph::new();
 
-    let stage_iri = Iri::new_unchecked(format!("{}Stage{}", system.prime_vibe_ontology.vibe_prefix.as_str(), stage.number).as_str());
-    let prime_vibe_iri = Iri::new_unchecked(format!("{}PrimeVibe{}", system.prime_vibe_ontology.vibe_prefix.as_str(), stage.number).as_str());
-
-    let mut triples = Vec::new();
-    triples.push((
-        stage_iri.to_owned(),
-        Iri::new_unchecked("http://www.w3.org/1999/02/22-rdf-syntax-ns#type").to_owned(),
-        Iri::new_unchecked(format!("{}BootstrappingPhase", system.prime_vibe_ontology.vibe_prefix.as_str()).as_str()).to_owned(),
-    ));
-    triples.push((
-        stage_iri.to_owned(),
-        Iri::new_unchecked(format!("{}hasPrimeVibe", system.prime_vibe_ontology.vibe_prefix.as_str()).as_str()).to_owned(),
-        prime_vibe_iri.to_owned(),
-    ));
+    let stage_iri_str = format!("{}Stage{}", system.prime_vibe_ontology.vibe_prefix.as_str(), stage.number);
+    let prime_vibe_iri_str = format!("{}PrimeVibe{}", system.prime_vibe_ontology.vibe_prefix.as_str(), stage.number);
+    graph.add_triple(
+        &stage_iri_str,
+        "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+        &format!("{}BootstrappingPhase", system.prime_vibe_ontology.vibe_prefix.as_str()),
+    )?;
+    graph.add_triple(
+        &stage_iri_str,
+        &format!("{}hasPrimeVibe", system.prime_vibe_ontology.vibe_prefix.as_str()),
+        &prime_vibe_iri_str,
+    )?;
 
     if let Some(prime_vibe_info) = &stage.prime_vibe_info {
-        triples.push((
-            prime_vibe_iri.to_owned(),
-            Iri::new_unchecked("http://www.w3.org/1999/02/22-rdf-syntax-ns#type").to_owned(),
-            Iri::new_unchecked(format!("{}PrimeNumber", system.prime_vibe_ontology.vibe_prefix.as_str()).as_str()).to_owned(),
-        ));
-        triples.push((
-            prime_vibe_iri.to_owned(),
-            Iri::new_unchecked("http://www.w3.org/2000/01/rdf-schema#label").to_owned(),
-            SimpleTerm::Literal(prime_vibe_info.label.as_str().into()),
-        ));
+        graph.add_triple(
+            &prime_vibe_iri_str,
+            "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+            &format!("{}PrimeNumber", system.prime_vibe_ontology.vibe_prefix.as_str()),
+        )?;
+        graph.add_literal_triple(
+            &prime_vibe_iri_str,
+            "http://www.w3.org/2000/01/rdf-schema#label",
+            &prime_vibe_info.label,
+            "http://www.w3.org/2001/XMLSchema#string",
+        )?;
         if let Some(comment) = &prime_vibe_info.comment {
-            triples.push((
-                prime_vibe_iri.to_owned(),
-                Iri::new_unchecked("http://www.w3.org/2000/01/rdf-schema#comment").to_owned(),
-                SimpleTerm::Literal(comment.as_str().into()),
-            ));
+            graph.add_literal_triple(
+                &prime_vibe_iri_str,
+                "http://www.w3.org/2000/01/rdf-schema#comment",
+                comment,
+                "http://www.w3.org/2001/XMLSchema#string",
+            )?;
         }
         if let Some(emoji) = &prime_vibe_info.emoji {
-            triples.push((
-                prime_vibe_iri.to_owned(),
-                Iri::new_unchecked(format!("{}hasAssociatedEmoji", system.prime_vibe_ontology.vibe_prefix.as_str()).as_str()).to_owned(),
-                SimpleTerm::Literal(emoji.as_str().into()),
-            ));
+            graph.add_literal_triple(
+                &prime_vibe_iri_str,
+                &format!("{}hasAssociatedEmoji", system.prime_vibe_ontology.vibe_prefix.as_str()),
+                emoji,
+                "http://www.w3.org/2001/XMLSchema#string",
+            )?;
         }
         if let Some(insight) = &prime_vibe_info.creative_insight {
-            triples.push((
-                prime_vibe_iri.to_owned(),
-                Iri::new_unchecked(format!("{}creativeInsight", system.prime_vibe_ontology.vibe_prefix.as_str()).as_str()).to_owned(),
-                SimpleTerm::Literal(insight.as_str().into()),
-            ));
+            graph.add_literal_triple(
+                &prime_vibe_iri_str,
+                &format!("{}creativeInsight", system.prime_vibe_ontology.vibe_prefix.as_str()),
+                insight,
+                "http://www.w3.org/2001/XMLSchema#string",
+            )?;
         }
     }
 
-    serializer.serialize_triples(triples.into_iter().map(|(s, p, o)| Triple::new(s.into_term(), p.into_term(), o.into_term())))?;
-    file.write_all(serializer.to_string().as_bytes())?;
+    file.write_all(graph.serialize_to_turtle_string()?.as_bytes())?;
 
     Ok(())
 }
