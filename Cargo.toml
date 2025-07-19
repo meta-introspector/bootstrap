@@ -46,8 +46,4 @@ path = "src/bin/standalone_phase_demo.rs"
 
 [[bin]]
 name = "stage1_rdf"
-path = "src/bin/stage1_rdf.rs"
-
-[[bin]]
-name = "fix_rdf_literals"
-path = "src/bin/fix_rdf_literals.rs" 
+path = "src/bin/stage1_rdf.rs" 

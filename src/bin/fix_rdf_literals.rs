@@ -1,3 +1,8 @@
+//! This binary is a work in progress for automatically fixing RDF Turtle files.
+//! Currently, it performs an aggressive string-based escaping of double quotes,
+//! which can lead to over-escaping. It is intended for future development to
+//! correctly parse and re-serialize RDF literals.
+
 use anyhow::Result;
 use std::path::Path;
 use std::fs;
